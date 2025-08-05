@@ -90,7 +90,7 @@ This ensures they do not have to spend gas fees to submit snapshots on the Power
 To check if your node is running actively, navigate to https://devnet-mint.powerloom.dev. This dashboard shows both your minted slots and real-time node status, allowing you to monitor your snapshotter's performance.
     
 ### Where can I seek help if I encounter issues not covered in the troubleshooting section?
-Refer to the troubleshooting section of the documentation for common solutions or reach out to the PowerLoom team on [Discord](https://discord.com/invite/powerloom) for further assistance.
+Refer to the troubleshooting section of the documentation for common solutions or reach out to the Powerloom team on [Discord](https://discord.com/invite/powerloom) for further assistance.
     
 ### Is there a community forum or Discord channel for Powerloom developers?
 Yes, we have a Discord channel for Powerloom developers. Here’s the link, [Powerloom Discord](https://discord.com/invite/powerloom). 

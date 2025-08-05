@@ -52,7 +52,7 @@ Whether you are developing your own application or extending our existing use ca
      - `PROTOCOL_STATE_CONTRACT`: The contract address for the protocol state.
      - `RELAYER_HOST`: The host address for the relayer.
      - `SLACK_REPORTING_URL`: The URL for reporting to Slack.
-     - `POWERLOOM_REPORTING_URL`: The URL for reporting to PowerLoom.
+     - `POWERLOOM_REPORTING_URL`: The URL for reporting to Powerloom.
      - `WEB3_STORAGE_TOKEN`: The token for Web3.Storage. You can generate or retrieve this token from your [API tokens page](https://web3.storage/tokens/?create=true) after signing up for a free plan at web3.storage.
 
 3. **Running the Node** - Run  `./build.sh` (ideally in a `screen`) to start the Snapshotter Node
@@ -91,7 +91,7 @@ Extending existing use cases or building your own use cases requires a slightly 
         - `PROTOCOL_STATE_CONTRACT`: The contract address for the protocol state.
         - `RELAYER_HOST`: The host address for the relayer.
         - `NAMESPACE`: The unique key used to identify your project namespace around which all consensus activity takes place.
-        - `POWERLOOM_REPORTING_URL`: The URL for reporting to PowerLoom.
+        - `POWERLOOM_REPORTING_URL`: The URL for reporting to Powerloom.
         - `PROST_CHAIN_ID`: The chain ID for the PROST RPC service.
         - `IPFS_URL`: The URL for the IPFS (InterPlanetary File System) service in HTTP(s) (e.g. `https://ipfs.infura.io:5001`) multiaddr format (e.g. `/dns4/ipfs.infura.io/tcp/5001/https`)
         - `IPFS_API_KEY`: The API key for the IPFS service (if required).

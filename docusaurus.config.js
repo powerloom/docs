@@ -98,12 +98,6 @@ const config = {
       },
   
 
-      codeblock: {
-        showGithubLink: true,
-        githubLinkLabel: 'View on GitHub',
-        showRunmeLink: false,
-        runmeLinkLabel: 'Checkout via Runme'
-      },
       languageTabs: [
         {
           highlight: "bash",
@@ -180,7 +174,7 @@ const config = {
             href: 'https://careers.powerloom.io/'
           }
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Powerloom Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Powerloom Network (BVI) Ltd.`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -193,8 +187,18 @@ const config = {
   plugins: [
   ],
 
+  future: {
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true, // required
+    },
+    experimental_faster: {
+      ssgWorkerThreads: true,
+      rspackBundler: true,
+      rspackPersistentCache: true,
+    },
+  },
+
   themes: [
-    'docusaurus-theme-github-codeblock',
     'docusaurus-theme-search-typesense'
   ]
 };

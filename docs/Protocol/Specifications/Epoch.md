@@ -63,6 +63,6 @@ The Force Consensus service is an optional mechanism that can be run by anyone i
 
 The Force Consensus service operates slightly differently than the Epoch Generator and is heavily optimized to handle a large number of projects. The sequence diagram explaining the flow is given below.
 
-![Force consensus mechanism](https://raw.githubusercontent.com/PowerLoom/onchain-consensus/feat/force_consensus_only_relevant_projects/docs/images/force_consensus.png)
+![Force consensus mechanism](https://raw.githubusercontent.com/Powerloom/onchain-consensus/feat/force_consensus_only_relevant_projects/docs/images/force_consensus.png)
 
 - [Epoch Generator Source Code on Github](https://github.com/powerloom/onchain-consensus/blob/63d09aa9ab1d98a2fed55e05b7760c12692fea83/epoch_generator.py)

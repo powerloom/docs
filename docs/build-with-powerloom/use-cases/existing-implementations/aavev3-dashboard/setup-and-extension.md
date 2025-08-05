@@ -29,7 +29,7 @@ Prerequisite: Ensure that the minimum requirements are met by the system on whic
      - `PROST_CHAIN_ID`: The chain ID for the PROST RPC service.
    - Optionally, you may also set the following variables:
      around which all consensus activity takes place.
-     - `POWERLOOM_REPORTING_URL`: The URL for reporting to PowerLoom.
+     - `POWERLOOM_REPORTING_URL`: The URL for reporting to Powerloom.
      - `IPFS_URL`: The URL for the IPFS (InterPlanetary File System) service in HTTP(s) (e.g. `https://ipfs.infura.io:5001`) multiaddr format (e.g. `/dns/ipfs.infura.io/tcp/5001/https`)
      - `IPFS_API_KEY`: The API key for the IPFS service (if required).
      - `IPFS_API_SECRET`: The API secret for the IPFS service (if required).
@@ -43,7 +43,7 @@ Prerequisite: Ensure that the minimum requirements are met by the system on whic
     ```
 
 4. **Displaying the Dashboard**
-- Once all of the services are up and running, the front-end can be accessed via [Pooler Frontend](https://github.com/powerloom/pooler-frontend/tree/aave) to see an Aave V3 summary data dashboard similar to the [PowerLoom Aave V3 Dasboard](https://aave-v3.powerloom.io/).
+- Once all of the services are up and running, the front-end can be accessed via [Pooler Frontend](https://github.com/powerloom/pooler-frontend/tree/aave) to see an Aave V3 summary data dashboard similar to the [Powerloom Aave V3 Dasboard](https://aave-v3.powerloom.io/).
     - The front-end does not come packaged as part of the Aave deploy repository and will need to be run separately. The Front-end deployment instructions can be found [here](https://github.com/powerloom/pooler-frontend/tree/aave?tab=readme-ov-file#powerloom-pooler-product).
     - The dashboard's `Synced by` section displays the time of the last snapshot taken, indicating if your snapshotting is falling behind.
 
