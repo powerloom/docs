@@ -5,6 +5,10 @@ sidebar_position: 1
 
 # Sequencer
 
+:::info
+This page describes the Protocol v2 sequencer model. For the live DSV mainnet flow, including two-level validator aggregation and VPA-based submission, see [`Protocol Workflow`](/dsv-mainnet/protocol-workflow) and [`Roles and Topology`](/dsv-mainnet/roles-and-topology).
+:::
+
 :::warning
 The sequencer listening interfaces for specific data markets are listed in the following trusted sequencer JSON file hosted on the Powerloom Github repository:
 

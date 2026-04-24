@@ -109,4 +109,4 @@ A competitor can copy an API. Copying the economic coordination required to keep
 ## Related pages
 
 - [`Roles and Topology`](./roles-and-topology.md)
-- [`No Parallel Exists`](./no-parallel-exists.md)
+- [`Why DSV Exists`](./why-dsv-exists.md)

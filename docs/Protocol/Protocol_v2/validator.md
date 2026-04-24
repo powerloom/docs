@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Validator
 
+:::info
+This page describes the Protocol v2 validator flow. For the live DSV mainnet consensus path, see [`Protocol Workflow`](/dsv-mainnet/protocol-workflow), [`On-Chain Submission and Verification`](/dsv-mainnet/onchain-submission-and-verification), and [`Stability and Scale`](/dsv-mainnet/stability-and-scale).
+:::
+
 ## Overview
 
 ![Protocol V2 validator worklow](/images/validator-workflow.png)

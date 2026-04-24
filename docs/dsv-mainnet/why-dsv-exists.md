@@ -60,10 +60,21 @@ DSV is opinionated about the problem it is solving. It is built to support:
 - **verifiable finalization** through on-chain contract state, and
 - **data reuse** so later compute modules can build on prior finalized outputs.
 
-That is why the rest of this section goes deeper than a marketing overview. The moat is architectural: the network is only interesting if you can trace the full path from snapshot build to an independently verifiable finalized CID.
+## Where DSV sits relative to adjacent systems
+
+DSV is not trying to collapse every data category into one protocol.
+
+- **Compared with indexing networks**, DSV is oriented around finalized per-epoch outputs that can be verified back to contract state, rather than flexible historical query execution over an indexed schema.
+- **Compared with oracle feeds**, DSV is designed for broader data-market outputs and reusable snapshot datasets, not only narrow reference-feed delivery.
+- **Compared with centralized APIs**, DSV keeps the product surface simple to consume while preserving an independent provenance check through `ProtocolState.maxSnapshotsCid(...)`.
+
+This is the practical distinction that matters for Powerloom: DSV is a data-finalization system whose outputs can be consumed directly by products and agents without reducing trust to the operator serving the API.
+
+That is why the rest of this section goes deeper than a high-level overview. The architectural value only becomes clear when you can trace the full path from snapshot build to an independently verifiable finalized CID.
 
 ## Continue Reading
 
 - [`Roles and Topology`](./roles-and-topology.md)
 - [`Protocol Workflow`](./protocol-workflow.md)
 - [`On-Chain Submission and Verification`](./onchain-submission-and-verification.md)
+- [`Stability and Scale`](./stability-and-scale.md)

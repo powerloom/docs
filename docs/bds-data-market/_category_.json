@@ -1,0 +1,8 @@
+{
+  "label": "BDS Data Market",
+  "position": 1.6,
+  "link": {
+    "type": "generated-index",
+    "description": "What the BDS market serves, how the snapshotter full node resolves finalized data, and how consumers verify responses back to DSV finalization."
+  }
+}

@@ -4,6 +4,10 @@ sidebar_position: 0
 
 # Overview
 
+:::info
+This page documents the Protocol v2 upgrade path and its historical architecture framing. For the live decentralized sequencer-validator network, see [`DSV Mainnet`](/category/dsv-mainnet), especially [`Why DSV Exists`](/dsv-mainnet/why-dsv-exists) and [`Protocol Workflow`](/dsv-mainnet/protocol-workflow).
+:::
+
 
 ## Necessity of an upgrade
 

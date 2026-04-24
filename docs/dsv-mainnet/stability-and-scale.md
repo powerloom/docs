@@ -101,4 +101,4 @@ Until those dashboards are published, this page should remain limited to evidenc
 ## Related pages
 
 - [`On-Chain Submission and Verification`](./onchain-submission-and-verification.md)
-- [`No Parallel Exists`](./no-parallel-exists.md)
+- [`Why DSV Exists`](./why-dsv-exists.md)
