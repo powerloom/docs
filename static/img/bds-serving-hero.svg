@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1a2323"/>
+      <stop offset="1" stop-color="#1a2323" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="cyanFlow" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#31E7DC"/>
+      <stop offset="1" stop-color="#31E7DC" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="amberFlow" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#F5A623"/>
+      <stop offset="1" stop-color="#F5A623" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="violetFlow" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#8B7CF6"/>
+      <stop offset="1" stop-color="#8B7CF6" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="greenFlow" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#55E794"/>
+      <stop offset="1" stop-color="#55E794" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#31E7DC" flood-opacity="0.25"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowAmber" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#F5A623" flood-opacity="0.25"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowViolet" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#8B7CF6" flood-opacity="0.25"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowGreen" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feFlood flood-color="#55E794" flood-opacity="0.2"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dy="2"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#31E7DC" fill-opacity="0.6"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#F5A623" fill-opacity="0.6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bgGrad)" rx="12"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.04" stroke="#31E7DC" stroke-width="0.5">
+    <line x1="0" y1="50" x2="1200" y2="50"/><line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="150" x2="1200" y2="150"/><line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="250" x2="1200" y2="250"/><line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="350" x2="1200" y2="350"/>
+    <line x1="100" y1="0" x2="100" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/><line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="500" y1="0" x2="500" y2="400"/><line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="700" y1="0" x2="700" y2="400"/><line x1="800" y1="0" x2="800" y2="400"/>
+    <line x1="900" y1="0" x2="900" y2="400"/><line x1="1000" y1="0" x2="1000" y2="400"/>
+    <line x1="1100" y1="0" x2="1100" y2="400"/>
+  </g>
+
+  <!-- Layer dividers -->
+  <line x1="370" y1="40" x2="370" y2="360" stroke="#566D6D" stroke-width="1" stroke-dasharray="4,6" opacity="0.3"/>
+  <line x1="760" y1="40" x2="760" y2="360" stroke="#566D6D" stroke-width="1" stroke-dasharray="4,6" opacity="0.3"/>
+
+  <!-- Layer labels at top -->
+  <text x="190" y="42" text-anchor="middle" fill="#31E7DC" font-family="system-ui, sans-serif" font-size="11" opacity="0.45" letter-spacing="2">PROTOCOL</text>
+  <text x="565" y="42" text-anchor="middle" fill="#F5A623" font-family="system-ui, sans-serif" font-size="11" opacity="0.45" letter-spacing="2">RESOLVER</text>
+  <text x="980" y="42" text-anchor="middle" fill="#55E794" font-family="system-ui, sans-serif" font-size="11" opacity="0.45" letter-spacing="2">CONSUMERS</text>
+
+
+  <!-- ============================================================ -->
+  <!-- LEFT LAYER: DSV-finalized outputs                            -->
+  <!-- ============================================================ -->
+
+  <!-- ProtocolState on-chain contract -->
+  <g filter="url(#glowCyan)">
+    <rect x="80" y="90" width="110" height="55" rx="8" fill="#273131" stroke="#31E7DC" stroke-width="1.5"/>
+    <!-- Chain blocks -->
+    <rect x="94" y="102" width="14" height="14" rx="2" fill="none" stroke="#31E7DC" stroke-width="0.8" opacity="0.6"/>
+    <rect x="112" y="102" width="14" height="14" rx="2" fill="none" stroke="#31E7DC" stroke-width="0.8" opacity="0.6"/>
+    <rect x="130" y="102" width="14" height="14" rx="2" fill="none" stroke="#31E7DC" stroke-width="0.8" opacity="0.6"/>
+    <rect x="148" y="102" width="14" height="14" rx="2" fill="none" stroke="#31E7DC" stroke-width="0.8" opacity="0.6"/>
+    <!-- CID bar -->
+    <rect x="94" y="124" width="68" height="3" rx="1" fill="#31E7DC" opacity="0.4"/>
+    <rect x="94" y="130" width="50" height="3" rx="1" fill="#31E7DC" opacity="0.25"/>
+  </g>
+  <text x="135" y="162" text-anchor="middle" fill="#31E7DC" font-family="system-ui, sans-serif" font-size="10" opacity="0.6">ProtocolState</text>
+
+  <!-- IPFS content-addressed payloads -->
+  <g filter="url(#softShadow)">
+    <polygon points="135,195 155,210 155,235 135,250 115,235 115,210" fill="#273131" stroke="#8B7CF6" stroke-width="1.5"/>
+    <circle cx="135" cy="225" r="6" fill="none" stroke="#8B7CF6" stroke-width="1" opacity="0.6"/>
+    <circle cx="135" cy="225" r="2.5" fill="#8B7CF6" opacity="0.4"/>
+  </g>
+  <text x="135" y="268" text-anchor="middle" fill="#8B7CF6" font-family="system-ui, sans-serif" font-size="10" opacity="0.6">IPFS CIDs</text>
+
+  <!-- Finalized snapshots stack -->
+  <g filter="url(#softShadow)">
+    <rect x="210" y="95" width="120" height="45" rx="6" fill="#273131" stroke="#31E7DC" stroke-width="1"/>
+    <!-- Stacked snapshot rows -->
+    <rect x="222" y="106" width="40" height="3" rx="1" fill="#31E7DC" opacity="0.5"/>
+    <rect x="222" y="113" width="55" height="3" rx="1" fill="#31E7DC" opacity="0.35"/>
+    <rect x="222" y="120" width="35" height="3" rx="1" fill="#31E7DC" opacity="0.5"/>
+    <rect x="222" y="127" width="48" height="3" rx="1" fill="#31E7DC" opacity="0.35"/>
+    <!-- Epoch indicator -->
+    <rect x="285" y="106" width="32" height="22" rx="3" fill="none" stroke="#31E7DC" stroke-width="0.8" opacity="0.3"/>
+    <rect x="292" y="113" width="18" height="2" rx="1" fill="#31E7DC" opacity="0.25"/>
+    <rect x="292" y="119" width="18" height="2" rx="1" fill="#31E7DC" opacity="0.25"/>
+  </g>
+  <text x="270" y="155" text-anchor="middle" fill="#31E7DC" font-family="system-ui, sans-serif" font-size="10" opacity="0.6">Finalized</text>
+  <text x="270" y="166" text-anchor="middle" fill="#31E7DC" font-family="system-ui, sans-serif" font-size="10" opacity="0.6">Snapshots</text>
+
+  <!-- Connection lines from left layer to center -->
+  <g stroke="#F5A623" stroke-width="1.2" opacity="0.35">
+    <line x1="190" y1="117" x2="420" y2="175"/>
+    <line x1="155" y1="225" x2="420" y2="195"/>
+    <line x1="330" y1="117" x2="420" y2="185"/>
+  </g>
+
+
+  <!-- ============================================================ -->
+  <!-- CENTER LAYER: Full-node resolver                             -->
+  <!-- ============================================================ -->
+
+  <!-- Main resolver box — large, active-looking -->
+  <g filter="url(#glowAmber)">
+    <rect x="420" y="100" width="200" height="180" rx="10" fill="#273131" stroke="#F5A623" stroke-width="1.5"/>
+    <!-- Subtle inner border -->
+    <rect x="428" y="108" width="184" height="164" rx="7" fill="none" stroke="#F5A623" stroke-width="0.5" opacity="0.15"/>
+
+    <!-- Internal components arranged inside -->
+
+    <!-- ProtocolState reads -->
+    <rect x="440" y="118" width="72" height="30" rx="4" fill="#273131" stroke="#31E7DC" stroke-width="1" opacity="0.7"/>
+    <rect x="448" y="126" width="20" height="2.5" rx="1" fill="#31E7DC" opacity="0.4"/>
+    <rect x="448" y="132" width="32" height="2.5" rx="1" fill="#31E7DC" opacity="0.3"/>
+    <rect x="448" y="138" width="16" height="2.5" rx="1" fill="#31E7DC" opacity="0.4"/>
+    <text x="476" y="162" text-anchor="middle" fill="#31E7DC" font-family="system-ui, sans-serif" font-size="8" opacity="0.5">Chain reads</text>
+
+    <!-- Redis cache -->
+    <rect x="528" y="118" width="72" height="30" rx="4" fill="#273131" stroke="#F5A623" stroke-width="1" opacity="0.7"/>
+    <rect x="536" y="126" width="14" height="14" rx="2" fill="none" stroke="#F5A623" stroke-width="0.8" opacity="0.5"/>
+    <rect x="554" y="126" width="14" height="14" rx="2" fill="none" stroke="#F5A623" stroke-width="0.8" opacity="0.5"/>
+    <rect x="572" y="126" width="14" height="14" rx="2" fill="none" stroke="#F5A623" stroke-width="0.8" opacity="0.5"/>
+    <text x="564" y="162" text-anchor="middle" fill="#F5A623" font-family="system-ui, sans-serif" font-size="8" opacity="0.5">Redis cache</text>
+
+    <!-- IPFS retrieval -->
+    <rect x="440" y="175" width="72" height="30" rx="4" fill="#273131" stroke="#8B7CF6" stroke-width="1" opacity="0.7"/>
+    <circle cx="476" cy="190" r="7" fill="none" stroke="#8B7CF6" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="476" cy="190" r="3" fill="#8B7CF6" opacity="0.3"/>
+    <text x="476" y="218" text-anchor="middle" fill="#8B7CF6" font-family="system-ui, sans-serif" font-size="8" opacity="0.5">IPFS resolve</text>
+
+    <!-- Compute transform -->
+    <rect x="528" y="175" width="72" height="30" rx="4" fill="#273131" stroke="#55E794" stroke-width="1" opacity="0.7"/>
+    <!-- Gear-like icon -->
+    <circle cx="548" cy="190" r="5" fill="none" stroke="#55E794" stroke-width="0.8" opacity="0.6"/>
+    <rect x="558" y="186" width="32" height="2.5" rx="1" fill="#55E794" opacity="0.4"/>
+    <rect x="558" y="192" width="26" height="2.5" rx="1" fill="#55E794" opacity="0.3"/>
+    <text x="564" y="218" text-anchor="middle" fill="#55E794" font-family="system-ui, sans-serif" font-size="8" opacity="0.5">Compute</text>
+
+    <!-- Internal flow arrows -->
+    <g stroke="#566D6D" stroke-width="0.6" opacity="0.3">
+      <line x1="512" y1="133" x2="528" y2="133"/>
+      <line x1="512" y1="190" x2="528" y2="190"/>
+      <line x1="476" y1="148" x2="476" y2="175"/>
+      <line x1="564" y1="148" x2="564" y2="175"/>
+    </g>
+
+    <!-- Active processing indicator: small pulse dots -->
+    <circle cx="610" cy="140" r="2" fill="#F5A623" opacity="0.6"/>
+    <circle cx="610" cy="155" r="1.5" fill="#F5A623" opacity="0.4"/>
+    <circle cx="610" cy="168" r="2" fill="#F5A623" opacity="0.5"/>
+  </g>
+  <text x="520" y="300" text-anchor="middle" fill="#F5A623" font-family="system-ui, sans-serif" font-size="12" opacity="0.7">Full-Node Resolver</text>
+  <text x="520" y="315" text-anchor="middle" fill="#F5A623" font-family="system-ui, sans-serif" font-size="9" opacity="0.4">Service Layer</text>
+
+  <!-- Output flow lines from center to right -->
+  <g stroke="#55E794" stroke-width="1.2" opacity="0.4">
+    <line x1="620" y1="145" x2="780" y2="90"/>
+    <line x1="620" y1="165" x2="780" y2="155"/>
+    <line x1="620" y1="185" x2="780" y2="220"/>
+    <line x1="620" y1="200" x2="780" y2="285"/>
+    <line x1="620" y1="210" x2="780" y2="340"/>
+  </g>
+
+
+  <!-- ============================================================ -->
+  <!-- RIGHT LAYER: Consumption surfaces                            -->
+  <!-- ============================================================ -->
+
+  <!-- Consumer 1: Structured API -->
+  <g filter="url(#softShadow)">
+    <rect x="790" y="68" width="90" height="38" rx="6" fill="#273131" stroke="#55E794" stroke-width="1.2"/>
+    <!-- API response bars -->
+    <rect x="800" y="78" width="45" height="2.5" rx="1" fill="#55E794" opacity="0.5"/>
+    <rect x="800" y="84" width="60" height="2.5" rx="1" fill="#55E794" opacity="0.35"/>
+    <rect x="800" y="90" width="35" height="2.5" rx="1" fill="#55E794" opacity="0.5"/>
+    <!-- Bracket icon -->
+    <text x="868" y="92" fill="#55E794" font-family="monospace" font-size="14" opacity="0.35">{ }</text>
+  </g>
+  <text x="835" y="120" text-anchor="middle" fill="#55E794" font-family="system-ui, sans-serif" font-size="9" opacity="0.6">HTTP API</text>
+
+  <!-- Consumer 2: Agent tools / MCP -->
+  <g filter="url(#softShadow)">
+    <rect x="790" y="133" width="90" height="38" rx="6" fill="#273131" stroke="#8B7CF6" stroke-width="1.2"/>
+    <!-- Robot/agent icon: small circuit pattern -->
+    <circle cx="815" cy="152" r="6" fill="none" stroke="#8B7CF6" stroke-width="1" opacity="0.6"/>
+    <circle cx="815" cy="152" r="2" fill="#8B7CF6" opacity="0.4"/>
+    <line x1="821" y1="152" x2="835" y2="152" stroke="#8B7CF6" stroke-width="0.8" opacity="0.4"/>
+    <line x1="835" y1="148" x2="835" y2="156" stroke="#8B7CF6" stroke-width="0.8" opacity="0.4"/>
+    <rect x="840" y="146" width="28" height="2.5" rx="1" fill="#8B7CF6" opacity="0.4"/>
+    <rect x="840" y="152" width="20" height="2.5" rx="1" fill="#8B7CF6" opacity="0.3"/>
+    <rect x="840" y="158" width="28" height="2.5" rx="1" fill="#8B7CF6" opacity="0.4"/>
+  </g>
+  <text x="835" y="185" text-anchor="middle" fill="#8B7CF6" font-family="system-ui, sans-serif" font-size="9" opacity="0.6">Agent / MCP</text>
+
+  <!-- Consumer 3: Dashboards -->
+  <g filter="url(#softShadow)">
+    <rect x="790" y="200" width="90" height="38" rx="6" fill="#273131" stroke="#31E7DC" stroke-width="1.2"/>
+    <!-- Mini chart bars -->
+    <rect x="802" y="226" width="8" height="6" rx="1" fill="#31E7DC" opacity="0.4"/>
+    <rect x="814" y="222" width="8" height="10" rx="1" fill="#31E7DC" opacity="0.5"/>
+    <rect x="826" y="219" width="8" height="13" rx="1" fill="#31E7DC" opacity="0.6"/>
+    <rect x="838" y="215" width="8" height="17" rx="1" fill="#31E7DC" opacity="0.5"/>
+    <rect x="850" y="221" width="8" height="11" rx="1" fill="#31E7DC" opacity="0.4"/>
+    <rect x="862" y="224" width="8" height="8" rx="1" fill="#31E7DC" opacity="0.3"/>
+  </g>
+  <text x="835" y="250" text-anchor="middle" fill="#31E7DC" font-family="system-ui, sans-serif" font-size="9" opacity="0.6">Dashboards</text>
+
+  <!-- Consumer 4: Verification-aware apps -->
+  <g filter="url(#softShadow)">
+    <rect x="790" y="265" width="90" height="38" rx="6" fill="#273131" stroke="#F5A623" stroke-width="1.2"/>
+    <!-- Shield / verify icon -->
+    <path d="M815,278 L825,274 L835,278 L835,288 L825,293 L815,288 Z" fill="none" stroke="#F5A623" stroke-width="1" opacity="0.6"/>
+    <polyline points="820,284 824,288 832,280" fill="none" stroke="#F5A623" stroke-width="1.2" opacity="0.7"/>
+  </g>
+  <text x="835" y="316" text-anchor="middle" fill="#F5A623" font-family="system-ui, sans-serif" font-size="9" opacity="0.6">Verified Apps</text>
+
+  <!-- Consumer 5: Time-series / analytics -->
+  <g filter="url(#softShadow)">
+    <rect x="790" y="325" width="90" height="38" rx="6" fill="#273131" stroke="#55E794" stroke-width="1" opacity="0.7"/>
+    <!-- Time-series line -->
+    <polyline points="800,352 815,345 830,348 845,340 860,343 870,336" fill="none" stroke="#55E794" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="800" cy="352" r="1.5" fill="#55E794" opacity="0.5"/>
+    <circle cx="830" cy="348" r="1.5" fill="#55E794" opacity="0.5"/>
+    <circle cx="860" cy="343" r="1.5" fill="#55E794" opacity="0.5"/>
+  </g>
+  <text x="835" y="377" text-anchor="middle" fill="#55E794" font-family="system-ui, sans-serif" font-size="9" opacity="0.5">Analytics</text>
+
+  <!-- "One data market, many consumers" indicator -->
+  <!-- Fan-out visual: subtle diverging lines from resolver to consumers -->
+  <g opacity="0.06">
+    <polygon points="620,140 780,70 780,360" fill="#55E794"/>
+  </g>
+
+  <!-- "Verified" data flow label at bottom -->
+  <text x="520" y="370" text-anchor="middle" fill="#566D6D" font-family="system-ui, sans-serif" font-size="10" opacity="0.35">canonical CIDs → structured, verifiable responses</text>
+
+</svg>
