@@ -5,51 +5,72 @@ title: Why DSV Exists
 
 # Why DSV Exists
 
-Powerloom's first protocol iterations proved that high-frequency, consensus-backed data markets were possible, but they also made the scaling bottlenecks impossible to ignore.
+DSV is not the first scalability upgrade in Powerloom. It is the decentralization of the upgrade that came before it.
 
-The original architecture relied on direct submission flows that were workable at smaller scale and during earlier testnets. As the network matured, two problems became structural:
+The protocol evolved in three distinct steps:
 
-1. **Protocol-state bloat.** Base snapshot submissions for thousands of project IDs were being committed into protocol state even though those raw submissions only needed to exist until consensus was reached.
-2. **Relayer drop-offs at scale.** Snapshotters could sign their submissions correctly and still lose them in the delivery path once the system crossed sustained high-volume throughput.
+1. **Protocol v1** relied on direct snapshot-submission transactions against protocol state.
+2. **Protocol v2** replaced that with a centralized off-chain sequencer that batched submissions, uploaded batch payloads to IPFS, and anchored finalized results on-chain.
+3. **DSV** replaces that centralized sequencer model with a decentralized sequencer-validator network.
 
-## The scaling pressure DSV had to solve
+That distinction matters because the problem DSV solves is not the same problem Protocol v2 solved.
 
-The public `Protocol v2` overview already documents the two hard constraints that forced the architecture upgrade:
+## What Protocol v2 solved
+
+Protocol v2 was the major architectural break from the older testnet model.
+
+It replaced the expensive and operationally fragile pattern where every snapshot submission needed to become its own on-chain transaction. Instead, the protocol moved to:
+
+- an off-chain sequencer,
+- batch construction and IPFS upload,
+- on-chain anchoring of finalized batch outputs,
+- and validator attestation over those batch submissions.
+
+That was a substantial performance upgrade. It is the reason the protocol could move away from the earlier per-submission on-chain path and support much higher throughput.
+
+The public `Protocol v2` overview already documents the pressures that made that upgrade necessary:
 
 - Powerloom was operating at **more than 1 million snapshot submission transactions per day**.
-- At that scale, the relayer-driven flow saw **more than 5% of transactions dropped** in stressed periods.
+- At that scale, the older relayer-driven submission flow saw **more than 5% of transactions dropped** in stressed periods.
 
-Those numbers matter because Powerloom is not a low-frequency oracle network. The system exists to serve time-series data products where late or missing snapshots compound into worse downstream data.
+## Why Protocol v2 was not the end state
 
-If a market is tracking Ethereum mainnet block by block, every missing submission increases the risk that:
+Protocol v2 solved throughput, but it still concentrated sequencing responsibility into a centralized, monolithic service.
 
-- a batch finalizes late,
-- a composed dataset inherits stale inputs, or
-- consumers have to trust fallback infrastructure instead of protocol consensus.
+That created a different class of constraints:
 
-That is exactly the failure mode DSV is designed to remove.
+- the sequencer remained a single operational dependency,
+- the Powerloom Foundation remained responsible for running and maintaining that system,
+- and even one new data market could require non-trivial sequencing-side configuration and operational intervention.
+
+In other words, Protocol v2 improved performance, but it did not yet decentralize the responsibility for finalization.
+
+That is the gap DSV closes.
 
 ## What changed with DSV
 
-DSV replaces the single-path submission model to a sequencer with a network that separates **data propagation**, **batch consensus**, and **on-chain anchoring** into distinct stages:
+DSV keeps the core direction introduced by Protocol v2, but replaces the centralized sequencer model with a validator mesh that separates **data propagation**, **batch consensus**, and **on-chain anchoring** across multiple network participants:
 
 - Snapshotters continue building market-specific snapshots.
-- The local collector pushes those submissions into a libp2p mesh instead of only depending on direct relayer delivery.
+- The local collector pushes those submissions into a libp2p mesh instead of routing them into one centralized sequencer service.
 - Validator nodes collect, validate, deduplicate, and aggregate submissions off-chain.
 - Consensus output is uploaded to IPFS and only the final canonical references are anchored on-chain.
 
-This changes the cost profile of the protocol in a useful way: the chain stores the information needed to verify the result, while the high-volume intermediate traffic stays off-chain.
+The architectural objective is different from the one Protocol v2 served:
+
+- **Protocol v2** made high-throughput finalization operationally feasible.
+- **DSV** makes that finalization model decentralized, fault-tolerant, and less dependent on one Foundation-maintained service boundary.
 
 ## Why this is a continuation of Protocol v2
 
 DSV is not a separate protocol. It is the continuation of the same design direction introduced in [`Protocol v2`](/Protocol/Protocol_v2/overview.md):
 
 - batched submissions instead of per-snapshot chain writes,
-- explicit validator participation,
+- off-chain aggregation before on-chain anchoring,
 - IPFS-backed batch payloads, and
 - smart-contract state designed around finalized outputs rather than raw transport.
 
-If you have already read the older [`Protocol v2 overview`](/Protocol/Protocol_v2/overview.md), think of DSV mainnet as the production-grade version of that upgrade path: the same idea, but now expressed as a decentralized sequencer-validator network with live data markets.
+The key difference is organizational and architectural at the same time: where Protocol v2 depended on a centralized sequencer run as a monolithic service, DSV distributes sequencing, aggregation, and submission responsibility across a validator network.
 
 ## What DSV optimizes for
 

@@ -5,7 +5,11 @@ title: Protocol Workflow
 
 # Protocol Workflow
 
-This page traces one epoch from snapshot creation to a finalized on-chain CID. The important idea is that DSV reaches consensus in two stages:
+This page traces one epoch from snapshot creation to a finalized on-chain CID.
+
+Protocol v2 already introduced off-chain sequencing, batching, IPFS upload, and on-chain anchoring. DSV extends that architecture by replacing the centralized sequencer with a decentralized sequencer-validator network.
+
+The important idea is that DSV reaches consensus in two stages:
 
 - **Level 1**: each validator builds its own local finalized batch from the submissions it collected;
 - **Level 2**: validators compare those finalized batches and converge on a network-wide batch;
@@ -68,7 +72,9 @@ For the BDS mainnet flow documented internally, the submission window is typical
 
 ### 2. Snapshot propagation
 
-Snapshotters build project-specific snapshots for the active epoch. The local collector publishes those signed submissions into the libp2p mesh. This is where DSV diverges sharply from the older relayer-heavy model: transport happens through the P2P layer first, not by asking every snapshotter to individually land a chain transaction.
+Snapshotters build project-specific snapshots for the active epoch. The local collector publishes those signed submissions into the libp2p mesh.
+
+This is where DSV diverges from the Protocol v2 deployment model: transport no longer depends on routing all submissions into one centralized sequencer service operated as a monolithic control point.
 
 ### 3. Validation and deduplication
 
@@ -119,10 +125,10 @@ That final read path is what powers independent verification for BDS and any oth
 
 ## Why this workflow scales better
 
-DSV improves on the earlier model in three concrete ways:
+DSV improves on the Protocol v2 centralized sequencer model in three concrete ways:
 
 1. **It keeps intermediate transport off-chain.** Only the canonical outputs need to be anchored.
-2. **It narrows the on-chain write surface.** Validators submit one agreed batch instead of forcing chain writes for every raw submission.
+2. **It distributes sequencing responsibility.** Finalization no longer depends on one Foundation-operated sequencer boundary for every market.
 3. **It preserves auditability.** Consumers can still reconstruct trust by checking the final CID, contract state, and IPFS payload.
 
 ## Related pages

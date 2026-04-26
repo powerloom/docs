@@ -5,9 +5,11 @@ title: What BDS Is
 
 # What BDS Is
 
-Blockchain Data Services (BDS) is the first consumer-facing data market built on top of Powerloom's decentralized sequencer-validator network.
+Blockchain Data Services (BDS) is the first production data market to leverage Powerloom's decentralized sequencer-validator network.
 
-For the current mainnet deployment, BDS serves structured Uniswap V3 data from Ethereum mainnet through an HTTP API and agent-facing metered routes. The important distinction is that BDS is not a separate data source layered beside the protocol. It is a product surface over data that DSV finalizes.
+For the current mainnet deployment, BDS serves structured Uniswap V3 data from Ethereum mainnet through an HTTP API and agent-facing metered routes.
+
+The important distinction is that BDS should not be read as a thin dashboard backend. It is the public product surface for a live Powerloom data market: finalized outputs are produced by the protocol, and BDS makes them consumable by applications and agents.
 
 ## What the market serves today
 
@@ -45,6 +47,13 @@ Without that layer, consumers would have to:
 
 BDS keeps the verification path intact while removing that operational burden from the consumer.
 
+It also reflects a broader product shift for Powerloom. Instead of exposing only fixed dashboard-style surfaces, BDS turns finalized protocol data into a reusable market that can serve:
+
+- direct HTTP integrations,
+- agent frameworks,
+- MCP-backed toolchains,
+- and verification-aware applications that need structured DeFi data without depending on a proprietary indexer.
+
 ## Current market scope
 
 The current BDS deployment is intentionally opinionated.
@@ -55,6 +64,8 @@ The current BDS deployment is intentionally opinionated.
 - **Primary consumption path:** `/mpp/...` HTTP routes with Bearer-authenticated metering
 
 This should be read as the first live market, not the limit of the protocol. The broader Powerloom model is still market-oriented: BDS is one concrete market implementation over the DSV finalization layer.
+
+The current deployment starts with Uniswap V3, but the market model is not limited to static reference feeds. The protocol and serving model are designed so new data markets can be added without turning every new market into a one-off product stack.
 
 ## Response model
 
@@ -74,6 +85,13 @@ BDS turns DSV from protocol infrastructure into something directly usable by:
 - monitoring agents,
 - trading and alerting workflows,
 - and any application that needs structured, finalized market data without trusting a proprietary indexer.
+
+The value proposition is therefore not only "API access." It is:
+
+- dynamic market data,
+- structured responses derived from finalized snapshots,
+- independent verifiability,
+- and a serving surface that can scale from one query to large numbers of agent consumers.
 
 ## Related pages
 

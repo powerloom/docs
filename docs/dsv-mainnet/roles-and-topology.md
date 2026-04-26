@@ -5,7 +5,7 @@ title: Roles and Topology
 
 # Roles and Topology
 
-DSV mainnet is a multi-role network. The important thing to understand is that Powerloom no longer depends on a single component to move data from snapshot generation to finalization. Each role has a narrow job, and the pipeline works because those jobs compose cleanly.
+DSV mainnet is a multi-role network. The important thing to understand is that it replaces the centralized sequencer deployment model of Protocol v2 with a distributed sequencer-validator topology. Each role has a narrow job, and the pipeline works because those jobs compose cleanly.
 
 ## Core roles
 
