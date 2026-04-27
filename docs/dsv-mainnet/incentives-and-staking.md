@@ -110,3 +110,5 @@ A competitor can copy an API. Copying the economic coordination required to keep
 
 - [`Roles and Topology`](./roles-and-topology.md)
 - [`Why DSV Exists`](./why-dsv-exists.md)
+- [`What BDS Is`](/bds-data-market/what-bds-is) — the product surface where consumer payments originate
+- [`Agents & BDS — Overview`](/category/agents--bds) — the distribution and access layer that turns DSV finalization into agent-ready consumption

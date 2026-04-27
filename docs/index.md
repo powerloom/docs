@@ -9,6 +9,14 @@ By utilizing data compositions on smaller, consensus-reached data units, Powerlo
 
 ![Powerloom Workflow](/images/protocol_workflow.png)
 
+:::info
+**Three-layer read path for the current mainnet:**
+
+1. **[DSV Mainnet](/category/dsv-mainnet)** — the decentralized sequencer-validator network that finalizes all data, writes CIDs on-chain, and enforces economic accountability.
+2. **[BDS Data Market](/category/bds-data-market)** — the first production market built on DSV; a metered HTTP API serving structured Uniswap V3 data with embedded verification metadata.
+3. **[Agents & BDS](/category/agents--bds)** — how agents consume BDS data through metered access, API keys, the OpenClaw/ClawHub skill, or the headless `bds-agent-py` CLI.
+:::
+
 :::tip
 **Powerloom in a nutshell:** Powerloom is analogous to a decentralized library catalog for blockchain data.
 

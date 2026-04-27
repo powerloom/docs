@@ -101,3 +101,4 @@ The value proposition is therefore not only "API access." It is:
 - [`Snapshotter Full Node as Resolver`](./snapshotter-full-node-as-resolver.md)
 - [`Endpoint Catalog`](./endpoint-catalog.md)
 - [`Verification Pattern`](./verification-pattern.md)
+- [`Agents & BDS — Overview`](/category/agents--bds) — how agents consume BDS data through metered access, OpenClaw/MCP, or the headless CLI
