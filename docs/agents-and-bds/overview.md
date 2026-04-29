@@ -51,6 +51,8 @@ flowchart TD
 
 ### Path A — OpenClaw + `powerloom-bds-univ3` + hosted MCP server
 
+![ClawHub powerloom-bds-univ3 skill installation and pay-signup flow](/images/bds-agentic-workflow/clawhub-powerloom-bds-univ3-skill.png)
+
 An agent running in OpenClaw installs the published ClawHub skill and connects to the hosted MCP server at `https://bds-mcp.powerloom.io/sse`. The skill ships with three opinionated recipes (Whale Radar, Token-Flow, Autonomous DeFi Analyst). OpenClaw's TUI or web UI can assist through the setup steps, including API key acquisition.
 
 This path is optimized for fast time-to-first-alert: the agent uses MCP tools exposed by the hosted server rather than calling the BDS HTTP API directly.

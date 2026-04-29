@@ -18,6 +18,8 @@ Both paths use wallet-funded pay-signup — no manual browser step is required t
 
 ## Path A — OpenClaw one-shot
 
+![ClawHub powerloom-bds-univ3 skill installation and pay-signup flow](/images/bds-agentic-workflow/clawhub-powerloom-bds-univ3-skill.png)
+
 ### What you need
 
 - An OpenClaw environment

@@ -9,7 +9,7 @@ DSV is not the first scalability upgrade in Powerloom. It is the decentralizatio
 
 The protocol evolved in three distinct steps:
 
-![Protocol evolution from v1 direct submissions to Protocol v2 centralized batching to DSV decentralized validator mesh](/img/dsv-evolution-hero.svg)
+![Protocol evolution from v1 direct submissions to Protocol v2 centralized batching to DSV decentralized validator mesh](/images/bds-agentic-workflow/dsv-consensus-agg-evolution-web.png)
 
 1. **Protocol v1** relied on direct snapshot-submission transactions against protocol state.
 2. **Protocol v2** replaced that with a centralized off-chain sequencer that batched submissions, uploaded batch payloads to IPFS, and anchored finalized results on-chain.
