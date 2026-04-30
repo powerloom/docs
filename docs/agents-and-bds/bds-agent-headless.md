@@ -5,7 +5,7 @@ title: bds-agent-py
 
 # `bds-agent-py` — Headless Orchestration
 
-`bds-agent-py` is an agentic CLI for consuming BDS data without relying on a local MCP subprocess. It calls the BDS HTTP API directly, translates natural-language queries to YAML recipes, and supports wallet-funded automated signup and top-up.
+`bds-agent-py` is an agentic CLI for consuming BDS market data without relying on a local MCP subprocess. It calls the metered full-node resolver routes directly, translates natural-language queries to YAML recipes, and supports wallet-funded automated signup and top-up.
 
 **Repository:** [github.com/powerloom/bds-agent-py](https://github.com/powerloom/bds-agent-py)
 
@@ -90,7 +90,7 @@ After signup, run initial config to write BDS defaults to the active profile:
 bds-agent config init
 ```
 
-This sets `bds_base_url` (the BDS HTTP API origin), the endpoint catalog URL, and Powerloom chain verification defaults. It does not overwrite keys that are already set.
+This sets `bds_base_url` (the full-node resolver HTTP origin), the endpoint catalog URL, and Powerloom chain verification defaults. It does not overwrite keys that are already set.
 
 Inspect the active profile:
 
@@ -104,7 +104,7 @@ bds-agent config show
 
 ### `bds-agent query` — natural language to HTTP
 
-Translate a natural-language question into a BDS API call and return the result:
+Translate a natural-language question into a resolver route call and return the result:
 
 ```bash
 bds-agent query "What are the largest Uniswap V3 trades in the last epoch?"

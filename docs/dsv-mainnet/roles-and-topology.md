@@ -7,6 +7,12 @@ title: Roles and Topology
 
 DSV mainnet is a multi-role network. The important thing to understand is that it replaces the centralized sequencer deployment model of Protocol v2 with a distributed sequencer-validator topology. Each role has a narrow job, and the pipeline works because those jobs compose cleanly.
 
+Implementation references:
+
+- DSV validator network: [`powerloom/snapshot-sequencer-validator`](https://github.com/powerloom/snapshot-sequencer-validator)
+- Snapshotter lite node: [`powerloom/snapshotter-lite-v2`](https://github.com/powerloom/snapshotter-lite-v2)
+- Snapshotter full node / resolver: [`powerloom/snapshotter-core-edge`](https://github.com/powerloom/snapshotter-core-edge)
+
 ## Core roles
 
 | Role | What it does | Why it exists |

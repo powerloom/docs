@@ -14,6 +14,7 @@ The Powerloom BDS MCP server is a persistent HTTP service that exposes BDS data 
 | Property | Value |
 |----------|-------|
 | Default endpoint | `https://bds-mcp.powerloom.io/sse` |
+| Repository | [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server) |
 | Transport | MCP SSE (`GET /sse` + `POST /messages/`) |
 | Auth | `Authorization: Bearer <your Powerloom API key>` on every request |
 | Health check | `GET https://bds-mcp.powerloom.io/health` |

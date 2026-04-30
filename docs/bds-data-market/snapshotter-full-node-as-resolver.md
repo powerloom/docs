@@ -7,6 +7,8 @@ title: Snapshotter Full Node as Resolver
 
 The snapshotter full node is the serving layer for BDS. It does more than proxy IPFS content and more than mirror contract state. It resolves finalized protocol outputs into application-ready HTTP responses.
 
+**Implementation:** [`powerloom/snapshotter-core-edge`](https://github.com/powerloom/snapshotter-core-edge)
+
 ## What the resolver is doing
 
 At request time, the full node combines four inputs:
@@ -22,7 +24,7 @@ That is why BDS should not be understood as "cached IPFS." IPFS stores the final
 
 ```mermaid
 flowchart LR
-    C[Client or Agent] --> API["Snapshotter Full Node / Core API"]
+    C[Client or Agent] --> API["Snapshotter full-node resolver"]
     API --> R["Redis caches"]
     API --> PS["ProtocolState on Powerloom mainnet"]
     API --> IPFS["IPFS finalized payload"]
@@ -40,9 +42,9 @@ The resolver path exists because no single layer is enough by itself:
 - **ProtocolState** is the canonical source for finalized project CIDs and epochs.
 - **Redis** reduces repeated contract and payload lookups by caching finalized results and recently accessed data.
 - **IPFS** stores the actual finalized payload content.
-- **Core API handlers** turn that content into route-specific JSON responses.
+- **Route handlers** turn that content into route-specific JSON responses.
 
-The full node therefore acts as a resolver in the same sense that a name resolver maps a canonical identifier into a usable result. Here, the canonical identifier is a finalized CID for a market project and epoch.
+The full node acts as the market resolver: a request such as "give me the all-trades snapshot for this epoch" becomes a lookup for the correct project ID, finalized CID, cached payload, and response shape.
 
 ## What happens on a snapshot request
 

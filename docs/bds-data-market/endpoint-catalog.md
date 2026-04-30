@@ -5,9 +5,11 @@ title: Endpoint Catalog
 
 # Endpoint Catalog
 
-This page documents the current BDS Uniswap V3 market surface exposed through metered `/mpp/...` routes.
+This page documents the current Uniswap V3 route surface served by the snapshotter full-node resolver and exposed publicly through metered `/mpp/...` routes.
 
-The marketed product surface is the metered one. Some deployments may also expose equivalent free routes without the `/mpp` prefix, but public BDS integrations should treat `/mpp/...` as the canonical consumption path.
+The route handlers live in the snapshotter full-node resolver implementation: [`powerloom/snapshotter-core-edge`](https://github.com/powerloom/snapshotter-core-edge). The hosted MCP server and agent clients consume the same route catalog through [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server), [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3), and [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py).
+
+For public integrations, treat `/mpp/...` as the canonical consumption path. Some deployments may expose equivalent non-metered aliases without the `/mpp` prefix, but those are not the product surface for hosted BDS access.
 
 ## Route families
 
@@ -44,7 +46,7 @@ This is the primary consumption pattern for deterministic agent and application 
 
 ### Latest finalized read
 
-Use a route without the explicit epoch when you want the latest finalized result currently available on the serving node.
+Use a route without the explicit epoch when you want the latest finalized result currently available from the full-node resolver.
 
 Examples:
 
@@ -59,7 +61,7 @@ Use `/mpp/stream/allTrades` when you want a long-lived feed of finalized all-tra
 
 ## Authentication and metering
 
-In hosted BDS deployments, `/mpp/...` routes are protected and metered.
+In hosted BDS deployments, `/mpp/...` routes are protected and metered by [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering).
 
 The current product direction is:
 
@@ -71,7 +73,7 @@ For public consumers, the main practical rule is simple: if you are integrating 
 
 ## Scope note
 
-This catalog documents the current Uniswap V3 BDS market surface. As additional BDS markets are launched, this section should either grow market-specific catalogs or split them into separate per-market references.
+This catalog documents the current Uniswap V3 BDS market surface. As additional BDS markets launch, this section should either grow market-specific catalogs or split them into separate per-market references.
 
 ## Related pages
 

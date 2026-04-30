@@ -5,7 +5,9 @@ title: Metering & API Keys
 
 # Metering & API Keys
 
-BDS access is metered. Every `/mpp/...` call against the BDS HTTP API deducts credits from your balance. The API key you receive after signup is the Bearer token for both direct HTTP access and the hosted MCP server.
+Hosted access to the BDS market is metered. Every `/mpp/...` call against the full-node resolver deducts credits from your balance. The API key you receive after signup is the Bearer token for both direct HTTP access and the hosted MCP server.
+
+**Implementation:** [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering)
 
 ## Signup
 
@@ -86,15 +88,15 @@ The `powerloom-bds-univ3` skill also ships `node scripts/credits-topup.mjs` for 
 
 ## How credits are consumed
 
-Credits are deducted when the BDS Core API processes a metered `/mpp/...` request. This happens whether the request comes from:
+Credits are deducted when the full-node resolver processes a metered `/mpp/...` request. This happens whether the request comes from:
 
 - a direct HTTP call with `Authorization: Bearer`,
 - the hosted MCP server forwarding a tool call on your behalf, or
 - `bds-agent run` executing a YAML recipe.
 
-The hosted MCP server does not apply a separate charge layer. It forwards your Bearer token to the Core API, which applies the standard metering deduction. MCP tool access is gated by the same key and balance state.
+The hosted MCP server does not apply a separate charge layer. It forwards your Bearer token to the resolver, which applies the standard metering deduction. MCP tool access is gated by the same key and balance state.
 
-A balance at or below zero causes the Core API to return `402`. The hosted MCP server propagates this back to the MCP client. Scripts in `powerloom-bds-univ3` call `get_credit_balance` before each recipe run to surface this before it becomes a mid-run 402.
+A balance at or below zero causes the resolver to return `402`. The hosted MCP server propagates this back to the MCP client. Scripts in `powerloom-bds-univ3` call `get_credit_balance` before each recipe run to surface this before it becomes a mid-run 402.
 
 ## POWER token discount
 

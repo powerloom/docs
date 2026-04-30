@@ -14,16 +14,16 @@ The protocol uses incentives to answer four questions:
 3. what happens when participants behave honestly, and
 4. how value flows back from data consumers to the network.
 
-## POWER as the coordination asset
+## $POWER as the coordination asset
 
-POWER is the asset that coordinates participation across the network.
+$POWER is the asset that coordinates participation across the network.
 
 At a high level, it underpins:
 
-- **slot access** for snapshotter participation,
-- **validator participation** in DSV,
-- **reward distribution** for useful network work, and
-- **penalty surfaces** for provable misbehavior or non-performance when those rules are enforced by the market.
+- **Slot access** for snapshotter participation,
+- **Validator participation** in DSV,
+- **Reward distribution** for useful network work, and
+- **Penalty surfaces** for provable misbehavior or non-performance when those rules are enforced by the market.
 
 The important architectural point is that DSV consensus is not meant to run on goodwill alone. Operators are expected to have economic skin in the game.
 
@@ -31,10 +31,10 @@ The important architectural point is that DSV consensus is not meant to run on g
 
 Snapshotter economics are tied to slot-based participation:
 
-- nodes are assigned or operate through slots,
-- slots determine when a node is expected to submit,
-- rewards are linked to useful participation, and
-- poor or malicious behavior can reduce expected earnings and, where enforced, expose stake to slashing or other penalties.
+- Nodes are assigned or operate through slots,
+- Slots determine when a node is expected to submit,
+- Rewards are linked to useful participation, and
+- Poor or malicious behavior can reduce expected earnings and, where enforced, expose stake to slashing or other penalties.
 
 This matters because DSV assumes high-throughput, repeated submissions. Without economic discipline at the snapshotter edge, the network would be easy to spam and hard to keep deterministic.
 
@@ -42,19 +42,19 @@ This matters because DSV assumes high-throughput, repeated submissions. Without 
 
 Validators take on higher-value work than raw submission transport. They:
 
-- verify incoming submissions,
-- build and compare batches,
-- participate in network consensus, and
-- anchor the winning result on-chain when selected by VPA.
+- Verify incoming submissions,
+- Build and compare batches,
+- Participate in network consensus, and
+- Anchor the winning result on-chain when selected by VPA.
 
 That makes validators the final economic checkpoint before a CID becomes publicly verifiable state.
 
 Validator-side rewards are therefore aligned to:
 
-- staying online for epoch processing,
-- participating honestly in aggregation and attestation,
-- being ready to submit when their priority window opens, and
-- not causing consensus divergence or submission failures through negligence.
+- Staying online for epoch processing,
+- Participating honestly in aggregation and attestation,
+- Being ready to submit when their priority window opens, and
+- Not causing consensus divergence or submission failures through negligence.
 
 ## Slashing and accountability
 
@@ -62,9 +62,9 @@ Powerloom's economic model is designed around the idea that incorrect data shoul
 
 The exact market-level enforcement knobs can evolve, but the design intent is stable:
 
-- **incorrect submissions** should be challengeable or outvoted,
-- **dishonest validation** should not be cost-free,
-- **stake** should be the mechanism that turns protocol rules into economic consequences.
+- **Incorrect submissions** should be challengeable or outvoted,
+- **Dishonest validation** should not be cost-free,
+- **Stake** should be the mechanism that turns protocol rules into economic consequences.
 
 This is one of the reasons DSV is materially different from a centralized indexing backend. In a centralized system, correctness depends on operator reputation. In DSV, correctness is meant to depend on a mix of majority consensus and economically exposed participants.
 
@@ -74,9 +74,9 @@ Powerloom is not designed around one monolithic global dataset. It is a market s
 
 That means economic demand also matters:
 
-- signallers help express which data markets deserve network resources,
-- market demand influences where compute and validator attention should go,
-- new data markets can justify new operator participation and, in time, new reward flows.
+- Signallers help express which data markets deserve network resources,
+- Market demand influences where compute and validator attention should go,
+- New data markets can justify new operator participation and, in time, new reward flows.
 
 This is how the protocol connects infrastructure to product demand instead of treating the network as a static research network.
 
@@ -86,25 +86,26 @@ For end users, the visible part of this economic loop is straightforward: consum
 
 In the current BDS rollout, that shows up as:
 
-- hosted API access,
-- credit-based consumption for agent and application workloads, and
-- verification metadata that lets the consumer confirm the API response still maps back to DSV finalization.
+- Hosted API access,
+- Credit-based consumption for agent and application workloads, and
+- Verification metadata that lets the consumer confirm the API response still maps back to DSV finalization.
 
 That payment surface is strategically important. A decentralized data protocol becomes durable when consumer spend can support the operators who keep the market running.
 
-## Why staking matters to the moat
+## Why staking matters to the network
 
-The defensibility of DSV is not just "we have nodes."
+Nodes by themselves are not a moat. Anyone can run infrastructure. The harder thing to copy is a network where useful work, economic commitment, and verifiable output are tied together.
 
-The moat comes from combining:
+In DSV, stake gives weight to the jobs that matter:
 
-- distributed snapshot generation,
-- mesh-based transport,
-- two-level consensus,
-- on-chain verifiability, and
-- economically committed operators.
+- snapshotters earn from producing useful market data,
+- validators earn from keeping finalization live and honest,
+- signallers can direct attention toward markets that deserve resources,
+- consumers create demand by paying for verified data,
+- and every finalized CID remains checkable on-chain.
 
-A competitor can copy an API. Copying the economic coordination required to keep a high-frequency, consensus-backed network running is much harder.
+That is the loop that $POWER coordinates. The protocol is stronger when the operators who produce, move, validate, and prioritize data also have something at risk in the markets they serve.
+
 
 ## Related pages
 

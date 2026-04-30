@@ -7,7 +7,7 @@ title: Overview
 
 ![Agents & BDS Overview](/images/bds-agentic-workflow/bds-and-agents-hero.jpg)
 
-BDS exposes Powerloom's DSV-finalized market data through a metered HTTP API. This section covers how agents consume that data.
+Agents do not talk to DSV finalization directly. For the current BDS market, they consume finalized Uniswap V3 data through metered `/mpp/...` routes served by a snapshotter full-node resolver.
 
 There are two first-class consumption paths. Both use the same commercial substrate — metered `/mpp/...` routes, on-chain plan purchase, and a Bearer API key — but differ in how the agent is wired to the data.
 
@@ -35,8 +35,8 @@ flowchart TD
         bdsAgent["bds-agent-py\nquery / create / run\n(no MCP required)"]
     end
 
-    subgraph dataLayer [BDS Data Layer]
-        coreAPI["BDS Core API\n/mpp/... routes\ncredits deducted per call"]
+    subgraph dataLayer [BDS market consumption layer]
+        coreAPI["Snapshotter full-node resolver\n/mpp routes\ncredits deducted per call"]
         protState["ProtocolState\nPowerloom anchor chain\nmaxSnapshotsCid"]
         coreAPI -->|"verification object in every response\ncid + epochId + projectId"| protState
     end
@@ -55,13 +55,13 @@ flowchart TD
 
 An agent running in OpenClaw installs the published ClawHub skill and connects to the hosted MCP server at `https://bds-mcp.powerloom.io/sse`. The skill ships with three opinionated recipes (Whale Radar, Token-Flow, Autonomous DeFi Analyst). OpenClaw's TUI or web UI can assist through the setup steps, including API key acquisition.
 
-This path is optimized for fast time-to-first-alert: the agent uses MCP tools exposed by the hosted server rather than calling the BDS HTTP API directly.
+This path is optimized for fast time-to-first-alert: the agent uses MCP tools exposed by the hosted server rather than calling the resolver's HTTP routes directly.
 
 **Best fit:** OpenClaw users, ClawHub-distributed recipes, guided onboarding, agents that should compose BDS data with other ClawHub skills.
 
 ### Path B — `bds-agent-py` for headless orchestration
 
-`bds-agent-py` is an agentic CLI that does **not** require an MCP server. It translates natural-language queries to structured YAML recipes and executes them against the BDS HTTP API directly. It supports wallet-funded automated signup and top-up, making it suitable for agent sandboxes and external orchestration frameworks (LangGraph, CrewAI, and others) where spawning an MCP subprocess is impractical.
+`bds-agent-py` is an agentic CLI that does **not** require an MCP server. It translates natural-language queries to structured YAML recipes and executes them directly against the metered resolver routes. It supports wallet-funded automated signup and top-up, making it suitable for agent sandboxes and external orchestration frameworks (LangGraph, CrewAI, and others) where spawning an MCP subprocess is impractical.
 
 **Best fit:** headless agents, external orchestration, programmatic wallet-based signup, any environment where the MCP process model is not viable.
 
@@ -71,7 +71,19 @@ Regardless of path, every agent consumes the same underlying data:
 
 - `/mpp/...` routes are the metered consumption surface
 - credits are purchased on-chain and tracked per API key
-- every BDS response from a supported route includes a `verification` object the agent can use to confirm the returned payload maps to DSV-finalized state
+- every supported resolver response includes a `verification` object the agent can use to confirm the returned payload maps to DSV-finalized state
+
+The route surface is served by a snapshotter full node participating in the BDS market. Metering, MCP, OpenClaw, and `bds-agent-py` are access layers around that same underlying resolver path.
+
+## Implementation repositories
+
+| Layer | Repository |
+|-------|------------|
+| Snapshotter full-node resolver / hosted `/mpp` routes | [`powerloom/snapshotter-core-edge`](https://github.com/powerloom/snapshotter-core-edge) |
+| Metering and API keys | [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering) |
+| Hosted MCP server | [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server) |
+| OpenClaw skill and recipes | [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3) |
+| Headless CLI | [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py) |
 
 ## Read next
 

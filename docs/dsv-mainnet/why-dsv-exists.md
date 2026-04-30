@@ -7,6 +7,8 @@ title: Why DSV Exists
 
 DSV is not the first scalability upgrade in Powerloom. It is the decentralization of the upgrade that came before it.
 
+**Implementation:** [`powerloom/snapshot-sequencer-validator`](https://github.com/powerloom/snapshot-sequencer-validator)
+
 The protocol evolved in three distinct steps:
 
 ![Protocol evolution from v1 direct submissions to Protocol v2 centralized batching to DSV decentralized validator mesh](/images/bds-agentic-workflow/dsv-consensus-agg-evolution-web.png)
