@@ -5,7 +5,7 @@ title: What Is BDS?
 
 # What is BDS?
 
-![BDS consumption path from DSV-finalized data through a full-node resolver to multiple consumption surfaces](/images/bds-agentic-workflow/bds-resolver-use-cases-web.png)
+![BDS consumption path from DSV-finalized data through a full-node resolver to multiple consumption surfaces](/images/bds-agentic-workflow/bds-resolver-use-cases-web.jpg)
 
 Blockchain Data Services (BDS) is the first production data market to leverage Powerloom's decentralized sequencer-validator network.
 

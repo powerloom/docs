@@ -5,7 +5,7 @@ title: Overview
 
 # Agents & BDS — Overview
 
-![Agents & BDS Overview](/images/bds-agentic-workflow/bds-and-agents-hero.webp)
+![Agents & BDS Overview](/images/bds-agentic-workflow/bds-and-agents-hero.jpg)
 
 BDS exposes Powerloom's DSV-finalized market data through a metered HTTP API. This section covers how agents consume that data.
 
