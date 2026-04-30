@@ -30,7 +30,7 @@ Both paths use wallet-funded pay-signup — no manual browser step is required t
 
 ### Run the one-shot
 
-Paste the following as a single message to OpenClaw. It installs the skill, runs `scripts/signup-pay.mjs` to do a headless wallet-funded pay-signup, wires the resulting API key into OpenClaw config, and creates a Whale Radar cron job.
+[Paste the following](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/08-openclaw-one-shot.md) as a single message to OpenClaw. It installs the skill, runs `scripts/signup-pay.mjs` to do a headless wallet-funded pay-signup, wires the resulting API key into OpenClaw config, and creates a Whale Radar cron job.
 
 ```
 Install the skill "🦄 Powerloom Uniswap V3 timeseries data" (powerloom-bds-univ3) from ClawHub.
@@ -98,7 +98,11 @@ Submitted tx 0x4a3f...
 **Env vars wired into OpenClaw config** — all six are set under `skills.entries.powerloom-bds-univ3.env.*`:
 `EVM_PRIVATE_KEY`, `EVM_RPC_URL`, `EVM_CHAIN_ID`, `PLAN_ID`, `TOKEN_SYMBOL`, `POWERLOOM_API_KEY`.
 
+![OpenClaw automated agent setup](/images/bds-agentic-workflow/openclaw-automated-install.png)
+
 **Cron created** — `openclaw cron add` registers the Whale Radar cron. From that point, every 15 seconds the cron fires `node scripts/whale-cron.mjs`, which fetches a finalized all-trades snapshot via `bds_mpp_snapshot_allTrades`, filters swaps above the configured USD threshold, and dispatches alerts to Telegram.
+
+![OpenClaw whale cron setup completed](/images/bds-agentic-workflow/openclaw-cronjob-setup-complete.png)
 
 Each alert includes the `verification` block from `result.data.verification`:
 
@@ -111,6 +115,8 @@ Epoch: 24785719
    cid: bafkrei...
    project: allTradesSnapshot:0x26c4...
 ```
+
+![OpenClaw whale cron alert](/images/bds-agentic-workflow/openclaw-cronjob-whale-alert.png)
 
 ### Troubleshooting
 
