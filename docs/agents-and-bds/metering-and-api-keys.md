@@ -44,6 +44,27 @@ bds-agent credits balance
 
 The `bds-agent` CLI is a reference client for the same HTTP flow; both paths issue an identical `sk_live_...` key.
 
+### Pay-signup with OpenClaw
+
+If you use OpenClaw, you can use the OpenClaw skill to signup and topup credits.
+
+The first step is to install the skill from ClawHub, and is a subset of the [one-shot prompt](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/08-openclaw-one-shot.md) for installing the skill and running the pay-signup and cron setup.
+
+You can copy the same prompt from the skill page by selecting the "Copy Prompt" button on the skill page. with the option to `Install & Setup` instead of `Install Only`.
+
+![ClawHub powerloom-bds-univ3 skill installation and pay-signup flow](/images/bds-agentic-workflow/clawhub-skill-prompt.png)
+
+You will be prompted just once most likely to only provide the private key of the wallet you want to use for the pay-signup.
+
+:::tip
+* We recommend using burner wallets  for the pay-signup and topup to avoid any risk of losing funds.
+* It is always a good idea to setup a micro top-up and dispatcher service to fund and topup such wallets automatically.
+:::
+
+#### Successfully installed and setup
+
+![Successfully installed and setup](/images/bds-agentic-workflow/openclaw-automated-install.png)
+
 ## Plans and credit balance
 
 List available plans (no key required):
@@ -68,6 +89,13 @@ bds-agent credits balance
 ## Top-up
 
 Top-up adds credits to an existing key without creating a new account. It uses the same on-chain payment pattern as pay-signup.
+
+#### Top-up with OpenClaw
+
+If you use OpenClaw, you can use the OpenClaw skill to topup credits.
+
+
+![Topup with OpenClaw](/images/bds-agentic-workflow/openclaw-topup.png)
 
 **HTTP:**
 
