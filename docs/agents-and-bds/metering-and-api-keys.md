@@ -10,7 +10,7 @@ import LiveCreditPlans from '@site/src/components/LiveCreditPlans';
 Hosted access to the BDS market is metered. Every `/mpp/...` call against the full-node resolver deducts credits from your balance. The API key you receive after signup is the Bearer token for both direct HTTP access and the hosted MCP server.
 
 :::note
-Check the [Architecture](/docs/agents-and-bds/overview#architecture) page for a diagram of the metering service and API key flow.
+Check the [Architecture](/agents-and-bds/overview#architecture) page for a diagram of the metering service and API key flow.
 :::
 
 **Implementation:** [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering)
