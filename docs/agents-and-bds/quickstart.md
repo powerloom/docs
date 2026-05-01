@@ -18,11 +18,11 @@ Both paths use wallet-funded pay-signup — no manual browser step is required t
 
 ## Path A — OpenClaw one-shot
 
-![ClawHub powerloom-bds-univ3 skill installation and pay-signup flow](/images/bds-agentic-workflow/clawhub-powerloom-bds-univ3-skill.png)
+![ClawHub card for the Powerloom Uniswap V3 timeseries data skill](/images/bds-agentic-workflow/clawhub-powerloom-bds-univ3-skill.png)
 
 ### What you need
 
-- An OpenClaw environment
+- 🦞 An OpenClaw environment
 - `node` (v20+) available in the agent's shell
 - A funded EVM wallet: POWER (native, chain 7869) for the `launch_10_pl_power_cgt` plan
 - Your wallet's `EVM_PRIVATE_KEY`, `EVM_RPC_URL` (`https://rpc-v2.powerloom.network`), `EVM_CHAIN_ID` (`7869`)
