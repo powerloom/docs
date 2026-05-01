@@ -3,11 +3,40 @@ sidebar_position: 3
 title: Metering & API Keys
 ---
 
+import LiveCreditPlans from '@site/src/components/LiveCreditPlans';
+
 # Metering & API Keys
 
 Hosted access to the BDS market is metered. Every `/mpp/...` call against the full-node resolver deducts credits from your balance. The API key you receive after signup is the Bearer token for both direct HTTP access and the hosted MCP server.
 
+:::note
+Check the [Architecture](/docs/agents-and-bds/overview#architecture) page for a diagram of the metering service and API key flow.
+:::
+
 **Implementation:** [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering)
+
+## Plans and credit balance
+
+List available plans (no key required). The embed below fetches the live metering service response when this page loads, so it stays aligned with the deployed plan table.
+
+```bash
+curl -sS https://bds-metering.powerloom.io/credits/plans
+```
+
+<LiveCreditPlans />
+
+Check your balance:
+
+```bash
+GET https://bds-metering.powerloom.io/credits/balance
+Authorization: Bearer sk_live_...
+```
+
+Or via CLI:
+
+```bash
+bds-agent credits balance
+```
 
 ## Signup
 
@@ -65,26 +94,6 @@ You will be prompted just once most likely to only provide the private key of th
 
 ![Successfully installed and setup](/images/bds-agentic-workflow/openclaw-automated-install.png)
 
-## Plans and credit balance
-
-List available plans (no key required):
-
-```bash
-GET https://bds-metering.powerloom.io/credits/plans
-```
-
-Check your balance:
-
-```bash
-GET https://bds-metering.powerloom.io/credits/balance
-Authorization: Bearer sk_live_...
-```
-
-Or via CLI:
-
-```bash
-bds-agent credits balance
-```
 
 ## Top-up
 
