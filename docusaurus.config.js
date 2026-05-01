@@ -155,7 +155,7 @@ const config = {
           },
           {
             label: 'X(Twitter)',
-            href: 'https://x.com/Powerloom',
+            href: 'https://x.com/powerloom',
           },
           {
             label: 'Telegram',

@@ -81,9 +81,9 @@ The same full-node pattern supports:
 
 These higher-level routes are still rooted in finalized underlying snapshots. The serving layer is reusable because the resolver is reusable.
 
-## Relationship to the older Core API docs
+## Relationship to Core API
 
-Powerloom's Core API documentation already explains that a snapshotter node exposes API services over finalized protocol state. BDS is the specialized market-facing version of that idea for the live Uniswap V3 data market.
+Powerloom's Core API documentation explains how a snapshotter full node acts as the HTTP resolver for finalized protocol state. BDS is the specialized market-facing version of that pattern for the live Uniswap V3 data market.
 
 ## Related pages
 

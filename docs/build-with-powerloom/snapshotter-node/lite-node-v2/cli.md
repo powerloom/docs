@@ -93,10 +93,10 @@ If you prefer to run individual commands:
 
 ```bash
 # Configure credentials
-powerloom-snapshotter-cli configure --env mainnet --market uniswapv2
+powerloom-snapshotter-cli configure --env mainnet --market BDS_MAINNET_UNISWAPV3
 
 # Deploy snapshotter instances
-powerloom-snapshotter-cli deploy --env mainnet --market uniswapv2
+powerloom-snapshotter-cli deploy --env mainnet --market BDS_MAINNET_UNISWAPV3
 
 # Check status
 powerloom-snapshotter-cli status
@@ -157,12 +157,12 @@ powerloom-snapshotter> configure
 powerloom-snapshotter-cli configure
 
 # With all options specified
-powerloom-snapshotter-cli configure --env mainnet --market uniswapv2 --wallet 0x123...
+powerloom-snapshotter-cli configure --env mainnet --market BDS_MAINNET_UNISWAPV3 --wallet 0x123...
 ```
 
 **Options:**
-- `--env, -e`: Powerloom chain name (e.g., devnet, mainnet)
-- `--market, -m`: Data market name (e.g., uniswapv2, aavev3)
+- `--env, -e`: Powerloom chain name (for BDS Mainnet, use `mainnet`)
+- `--market, -m`: Data market name (for BDS Mainnet, use `BDS_MAINNET_UNISWAPV3`)
 - `--wallet, -w`: Wallet address holding the slots
 - `--signer, -s`: Signer account address
 - `--signer-key, -k`: Signer account private key
@@ -182,13 +182,13 @@ powerloom-snapshotter> deploy
 **Command line mode:**
 ```bash
 # Deploy all slots for a market
-powerloom-snapshotter-cli deploy --env mainnet --market uniswapv2
+powerloom-snapshotter-cli deploy --env mainnet --market BDS_MAINNET_UNISWAPV3
 
 # Deploy specific slots
-powerloom-snapshotter-cli deploy --env mainnet --market uniswapv2 --slot 123 --slot 456
+powerloom-snapshotter-cli deploy --env mainnet --market BDS_MAINNET_UNISWAPV3 --slot 123 --slot 456
 
-# Deploy multiple markets
-powerloom-snapshotter-cli deploy --env mainnet --market uniswapv2 --market aavev3
+# Deploy BDS Mainnet
+powerloom-snapshotter-cli deploy --env mainnet --market BDS_MAINNET_UNISWAPV3
 ```
 
 ### 📊 Show deployment status
@@ -248,7 +248,7 @@ Manage signer identities and other credentials configured against a specific env
 powerloom-snapshotter> identity list
 
 # Show details of a specific identity
-powerloom-snapshotter> identity show --env mainnet --market uniswapv2
+powerloom-snapshotter> identity show --env mainnet --market BDS_MAINNET_UNISWAPV3
 ```
 
 **Command line mode:**
@@ -257,7 +257,7 @@ powerloom-snapshotter> identity show --env mainnet --market uniswapv2
 powerloom-snapshotter-cli identity list
 
 # Show details of a specific identity
-powerloom-snapshotter-cli identity show --env mainnet --market uniswapv2
+powerloom-snapshotter-cli identity show --env mainnet --market BDS_MAINNET_UNISWAPV3
 ```
 
 ## 📝 Credentials Management: Internals
@@ -269,7 +269,7 @@ Configuration files are stored in `~/.powerloom-snapshotter-cli/envs/` with the 
 .env.{chain}.{market}.{source_chain}
 ```
 
-Example: `.env.mainnet.uniswapv2.eth_mainnet`
+Example: `.env.mainnet.bds_mainnet_uniswapv3.eth_mainnet`
 
 ### 🔐 Environment Variables
 
@@ -319,20 +319,19 @@ If you're currently running snapshotter nodes manually, here's how to migrate to
 
 1. **Stop and cleanup existing nodes**:
    ```bash
-   # In your existing setup
-   ./diagnose.sh -y
+   powerloom-snapshotter-cli diagnose --clean --force
    ```
 
 2. **Install the CLI** (see [Installation section](#installation) above)
 
 3. **Configure using the CLI**:
    ```bash
-   powerloom-snapshotter-cli configure --env mainnet --market uniswapv2
+   powerloom-snapshotter-cli configure --env mainnet --market BDS_MAINNET_UNISWAPV3
    ```
 
 4. **Deploy using the CLI**:
    ```bash
-   powerloom-snapshotter-cli deploy --env mainnet --market uniswapv2
+   powerloom-snapshotter-cli deploy --env mainnet --market BDS_MAINNET_UNISWAPV3
    ```
 
 The CLI will handle all your slots automatically and provide better management capabilities.
@@ -340,6 +339,6 @@ The CLI will handle all your slots automatically and provide better management c
 ## 🔗 Additional Resources
 
 - [GitHub Repository: Dive into the technical details, file issues, and contribute](https://github.com/powerloom/snapshotter-lite-multi-setup)
-- [Legacy Getting Started Guide: For single node setup](https://docs.powerloom.io/build-with-powerloom/snapshotter-node/lite-node-v2/getting-started)
+- [DSV Mainnet Snapshotter Lite V2 Setup](/build-with-powerloom/snapshotter-node/lite-node-v2/getting-started)
 - [Monitoring and Troubleshooting](/build-with-powerloom/snapshotter-node/lite-node-v2/monitoring)
 - [Discord Support: Join our community and get help](https://discord.gg/powerloom)

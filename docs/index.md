@@ -1,6 +1,100 @@
 ---
 sidebar_position: 0
 ---
+
+# Powerloom Docs
+
+Powerloom serves verified decentralized data to agents, applications, and operators.
+
+The current production path starts with **BDS**, a live Uniswap V3 data market on Ethereum mainnet. Snapshotter nodes produce market snapshots, the decentralized sequencer-validator network finalizes canonical CIDs, and a full-node resolver exposes the data through metered HTTP routes, OpenClaw/MCP tooling, and a headless agent CLI.
+
+::::info
+**Start with the current mainnet path:**
+
+1. **[Agents & BDS](/category/agents--bds)** — use verified BDS data from OpenClaw, hosted MCP, or `bds-agent-py`.
+2. **[BDS Data Market](/category/bds-data-market)** — understand the live Uniswap V3 market, resolver API, endpoint catalog, and verification model.
+3. **[DSV Mainnet](/category/dsv-mainnet)** — trace how the decentralized sequencer-validator network finalizes market data.
+::::
+
+## Verified Data for Agents
+
+BDS is built for direct consumption by agents. The data is not just an API response from a hosted service. Supported responses include a `verification` object containing the finalized CID, epoch, project ID, protocol state contract, and data market contract.
+
+Agents can verify provenance by checking:
+
+```solidity
+ProtocolState.maxSnapshotsCid(dataMarket, projectId, epochId)
+```
+
+That means alerts, reports, and automated workflows can carry a proof path back to DSV-finalized state instead of trusting the API operator.
+
+## Frictionless Onboarding
+
+There are two first-class ways to get started:
+
+- **OpenClaw + ClawHub:** install the published [`powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3) skill, connect to the hosted MCP server, and run recipes such as Whale Radar or Autonomous DeFi Analyst.
+- **Headless agent CLI:** use [`bds-agent-py`](https://github.com/powerloom/bds-agent-py) for programmatic signup, top-up, query generation, recipe execution, and verification without an MCP process.
+
+Both paths use the same substrate: wallet-funded signup, Bearer API keys, metered `/mpp/...` routes, and BDS responses with verification metadata.
+
+Start here: [Quickstart: first BDS agent](/agents-and-bds/quickstart).
+
+## What BDS Serves Today
+
+The current BDS mainnet market serves structured Uniswap V3 data from Ethereum mainnet through a snapshotter full-node resolver. The route surface includes:
+
+- per-epoch and latest finalized snapshots,
+- all-trades, base, and trades snapshots,
+- token and pool metadata,
+- token prices and trade volume views,
+- time-series routes,
+- daily-active summaries,
+- and SSE streaming for finalized all-trades data.
+
+For route details, see the [Endpoint Catalog](/bds-data-market/endpoint-catalog). For how the resolver fits into the protocol, see [Snapshotter Full Node as Resolver](/bds-data-market/snapshotter-full-node-as-resolver).
+
+## The Network Behind It
+
+BDS runs on DSV Mainnet, Powerloom's decentralized sequencer-validator network. DSV replaces the old centralized sequencer boundary with validator nodes that collect, validate, deduplicate, aggregate, upload consensus outputs to IPFS, and anchor canonical references on-chain.
+
+The first production operating window gives concrete signals:
+
+- **58 days** of BDS mainnet operation as of the latest published update,
+- **217,295** assigned epochs in the first 30-day measurement window,
+- **97.70%** completion across those epochs,
+- **89 seconds** median end-to-end latency from priority assignment to on-chain finalization,
+- **98.95%** aggregate completion across stable long-running validators,
+- about **3,000 eligible nodes** receiving rewards daily,
+- and sampled collector logs showing a healthy mesh with 5 submission-topic peers and 162 total connected peers.
+
+Read the full measurement page: [Stability and Scale](/dsv-mainnet/stability-and-scale).
+
+## Build and Operate
+
+Powerloom exposes different entry points depending on what you are trying to do:
+
+- **Consume verified data:** start with [Agents & BDS](/category/agents--bds).
+- **Understand the live data market:** read [What Is BDS?](/bds-data-market/what-bds-is).
+- **Verify provenance:** use [Verification in Agent Workflows](/agents-and-bds/verification-in-agents).
+- **Run a BDS snapshotter slot:** follow [Snapshotter Lite V2 Setup](/build-with-powerloom/snapshotter-node/lite-node-v2/getting-started).
+- **Operate resolver/full-node infrastructure:** review [Snapshotter Core Edge](/build-with-powerloom/snapshotter-node/full-node/getting-started).
+- **Understand DSV finalization:** begin with [Why DSV Exists](/dsv-mainnet/why-dsv-exists).
+
+## Repositories
+
+- Powerloom GitHub: [github.com/powerloom](https://github.com/powerloom)
+- Snapshotter full-node resolver: [`powerloom/snapshotter-core-edge`](https://github.com/powerloom/snapshotter-core-edge)
+- Snapshotter lite node: [`powerloom/snapshotter-lite-v2`](https://github.com/powerloom/snapshotter-lite-v2)
+- DSV validator network: [`powerloom/snapshot-sequencer-validator`](https://github.com/powerloom/snapshot-sequencer-validator)
+- OpenClaw skill: [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3)
+- Headless agent CLI: [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)
+
+## Community
+
+Stay updated with the Powerloom team and community on [Discord](https://discord.com/invite/powerloom), [X](https://x.com/powerloom), and [GitHub](https://github.com/powerloom).
+---
+sidebar_position: 0
+---
 # Introduction 
 
 Powerloom Protocol is a decentralized data protocol primarily designed to meet the growing data requirements of smart contract-based applications, including DeFi, games, and other user-centric platforms. It incentivizes participating peers to achieve consensus on state transitions and event emission observations across multiple smart contracts.
@@ -65,23 +159,19 @@ Watchmen are entities responsible for the accuracy of the data. They ensure that
 ---
 ## See Powerloom in Action :rocket:
 
-Discover the practical application of Powerloom through our various dashboard implementations. This latest release of Pooler is a powerhouse for Uniswap V2, Uniswap V3, and Aave V3 analytics, offering comprehensive data aggregations and flexibility to extend to more use cases. 
+The current mainnet access path begins with the [BDS Data Market](/category/bds-data-market), where DSV-finalized Uniswap V3 data is served through metered HTTP routes with verification metadata.
 
-[UniswapV2 Dashboard](https://uniswapv2.powerloom.io)
-[UniswapV3 Dashboard](https://uniswapv3.powerloom.io)
-[AaveV3 Dashboard](https://aave-v3.powerloom.io/)
+[Powerloom BDS Dashboard](https://bds.powerloom.io/)
 
 ---
 
 ## Building with Powerloom
 
-To begin using the Powerloom Protocol, you need to understand the workflow and architecture of the system. This involves familiarizing yourself with the different components and how they interact within the protocol.
-The best way to start is by exploring the [existing-implementations](/category/existing-implementations), understanding how they work, and how you can leverage them to [build your own use cases](/category/building-a-new-use-case).
+To begin using the Powerloom Protocol, start with the [DSV Mainnet](/category/dsv-mainnet) architecture, the [BDS Data Market](/category/bds-data-market), and the [Agents & BDS](/category/agents--bds) access guides.
 
-### Utilizing Existing Implementations to Build Your Data Application
+### Consuming Verified BDS Data
 
-The data generated by the Powerloom Protocol is decentralized and accessible to everyone, and it is not always easy to understand how to use it. 
-To make it easier for developers, each snapshotter node comes with a set of APIs that can be used to access the data. These are easy to use and can be employed to build data applications such as dashboards, bots, aggregators, and insights trackers.
+BDS is the first step in opening up Powerloom data access through stable, metered APIs and agent-friendly tooling. The data is produced by snapshotter nodes, finalized by DSV, and served by a snapshotter full-node resolver.
 
 ## Walkthrough
 

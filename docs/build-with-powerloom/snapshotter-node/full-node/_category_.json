@@ -3,6 +3,6 @@
     "position": 2,
     "link": {
       "type": "generated-index",
-      "description": "Snapshotter Full Node has significantly complex architecture and is designed to be run on a dedicated server. For building and snapshotter for complex use cases involving aggregation, it is recommended to use Full Node."
+      "description": "Snapshotter Core Edge is the full-node stack for distributed data-market and resolver-node operators."
     }
   }

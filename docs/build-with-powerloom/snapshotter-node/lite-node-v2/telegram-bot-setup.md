@@ -27,13 +27,14 @@ The PowerloomSnapshotterReportingService will <ins>never</ins> ask you for any p
 
     ![telegram-promp](/images/telegram-prompt.png)
 
-  - If you have a running node and would like to add the Telegram reporting feature, there are two options that you can use:
+  - If you have a running node and would like to add the Telegram reporting feature, re-run the snapshotter CLI configuration for the BDS Mainnet market:
 
-    **Option 1**: Update your `.env-mainnet-UNISWAPV2-ETH` or `.env-mainnet-AAVEV3-ETH` file with the generated `Chat ID` as seen in the image below. Once updated, run the `./build.sh` command again to restart the node.
+    ```bash
+    powerloom-snapshotter-cli configure --env mainnet --market BDS_MAINNET_UNISWAPV3
+    powerloom-snapshotter-cli deploy --env mainnet --market BDS_MAINNET_UNISWAPV3
+    ```
 
-      ![updated-env-screenshot](/images/TelegramBotSetup.png)
-
-    **Option 2**: Delete your `.env-mainnet-UNISWAPV2-ETH` or `.env-mainnet-AAVEV3-ETH` file, and then run the `./build.sh` command again to trigger a recreation of the data market specific `.env` file. This will remove all values from the initial setup, so ensure that you have these available.
+    Enter the `Chat ID` when prompted for the optional Telegram chat ID.
 
 ### To check if the Bot is successfully running, try these:
 

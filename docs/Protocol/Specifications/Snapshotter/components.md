@@ -113,4 +113,4 @@ In the end,
 
 Its API endpoints are used by a decoupled frontend adapter logic that ultimately support building of rich data products for smart contracts and other web3 based applications. 
 
-In our [`All about Data` section of docs](/build-with-powerloom/snapshotter-node/data), find out more about the way this API is used by a frontend adapter to serve the Uniswap V2, Uniswap V3, and Aave V3 dashboards.
+In the [`All about Data` section](/build-with-powerloom/snapshotter-node/data), learn how resolver APIs serve finalized data while preserving verification metadata for applications and agents.

@@ -35,5 +35,3 @@ Currently, Phase 2 is actively in progress and can be accessed at [Mercle](https
 ## Code and Documentation
 
 For developers interested in the technical aspects, the source code for Phase 2 is available on GitHub. For detailed insights into the mechanisms behind onchain activity tracking, please refer to the repository [here](https://github.com/powerloom/pooler/tree/zkevm_quests).
-
-> Additionally, you can explore our documentation on [onchain Activity Tracking](../build-with-powerloom/use-cases/existing-implementations/activity-tracking/) for further information on the technical implementation.

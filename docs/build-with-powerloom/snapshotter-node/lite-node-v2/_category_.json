@@ -3,6 +3,6 @@
     "position": 3,
     "link": {
       "type": "generated-index",
-      "description": "Lite Snapshotter Node has only a single dependency on a Python environment and hence has significantly lower resource requirements than the full Snapshotter Node. It is suitable for simpler use cases where no aggregation is required."
+      "description": "Lite Snapshotter Node has only a single dependency on a Python environment and hence has significantly lower resource requirements than the full Snapshotter Node. It is suitable for markets where no local aggregation is required."
     }
   }
