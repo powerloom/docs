@@ -100,6 +100,8 @@ The current mainnet access path begins with the [BDS Data Market](/category/bds-
 - **Use OpenClaw and hosted MCP:** follow [OpenClaw & Hosted MCP](/agents-and-bds/openclaw-and-mcp).
 - **Run a headless agent:** use [`bds-agent-py`](/agents-and-bds/bds-agent-headless).
 
+![BDS and protocol resolvers](/images/bds-agentic-workflow/bds-resolver-2d.png)
+
 ## Implementation Repositories
 
 - Powerloom GitHub: [github.com/powerloom](https://github.com/powerloom)
