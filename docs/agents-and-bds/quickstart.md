@@ -5,14 +5,19 @@ title: Quickstart
 
 # Quickstart: first BDS agent
 
-This quickstart covers both paths from zero to a running agent. Choose one:
+This quickstart covers both agent paths from zero to a running agent. Choose one:
 
-| Path | Best when |
-|------|-----------|
-| **A — OpenClaw one-shot** | You are in OpenClaw; the agent handles install, pay-signup, and cron setup from a single prompt |
-| **B — `bds-agent-py`** | You are running headless or in an external orchestration environment |
+| Path | Best when | Cost |
+|------|-----------|------|
+| **Free — Browser signup** | You want to explore the API without a wallet | **Free** (2 credits) |
+| **A — OpenClaw one-shot** | You are in OpenClaw; the agent handles install, pay-signup, and cron setup from a single prompt | 50 POWER |
+| **B — `bds-agent-py`** | You are running headless or in an external orchestration environment | 50 POWER |
 
-Both paths use wallet-funded pay-signup — no manual browser step is required to get started.
+:::tip Just want to try the API?
+Sign up at [bds-metering.powerloom.io/metering](https://bds-metering.powerloom.io/metering) — no wallet, no tokens. You get 2 free credits immediately and can start hitting metered BDS endpoints with your `sk_live_...` key. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for details.
+:::
+
+Paths A and B below use wallet-funded pay-signup for automated agent onboarding — no manual browser step required.
 
 ---
 
