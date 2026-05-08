@@ -3,7 +3,7 @@
 
 # Production
 /build
-
+/typesense/
 # Generated files
 .docusaurus
 .cache-loader

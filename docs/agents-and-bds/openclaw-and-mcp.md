@@ -52,7 +52,10 @@ clawhub install powerloom-bds-univ3
 
 When `POWERLOOM_API_KEY` is not set, OpenClaw surfaces the signup link and can guide through the metering signup and key configuration without manual steps. For copy-paste instructions ready for OpenClaw's one-shot setup flow, see `references/08-openclaw-one-shot.md` in the skill repository.
 
+
+:::tip
 Check the [Quickstart](./quickstart.md) page for a copy-paste prompt to install the skill, set up pay-signup, and configure the API key in OpenClaw.
+:::
 
 ### Shipped recipes
 

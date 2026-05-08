@@ -40,32 +40,17 @@ bds-agent credits balance
 
 ## Signup
 
-All signup paths lead to the same metering service at `https://bds-metering.powerloom.io`.
+All signup paths lead to the same metering service at `https://bds-metering.powerloom.io/metering`.
 
 ### Browser signup (free — 2 credits included)
 
-**Via CLI:**
-
-```bash
-bds-agent signup
-```
-
-This will initially ask you for your email and agent name, then ask you to head to [bds-metering.powerloom.io/metering](https://bds-metering.powerloom.io/metering) and fill up the device code as shown in the terminal.
-
-![Step 1: BDS agent signup initiate with CLI](/images/bds-agentic-workflow/bds-agent-cli/1-bds-agent-signup.png)
-![Step 2: Open turnstile verification in browser](/images/bds-agentic-workflow/bds-agent-cli/2-browser-verify-turnstile.png)
-
-
-Once you have completed the verification, return to the agent CLI. It would have confirmed the signup with the metering service and created a new profile with the API key saved to `~/.config/bds-agent/profiles/<profile>.json`.
-
-![Step 3: Enter user code and complete verification](/images/bds-agentic-workflow/bds-agent-cli/3-browser-verification-complete.png)
-![Step 4: Copy API key and save to profile](/images/bds-agentic-workflow/bds-agent-cli/4-agent-cli-signup-complete.png)
-
-
-**Every browser signup receives 2 free credits** — no wallet, no payment, no tokens required. This is enough to make API calls against the metered BDS endpoints and see verified responses with full provenance (`cid`, `epochId`, `projectId`).
-
 :::tip Free credits — no strings
 The 2 free credits work identically to paid credits. Same API, same verification objects, same key format. If you want to explore what BDS data looks like before committing any tokens, this is the fastest path.
+:::
+
+
+:::info
+For complete instructions, see the [Headless Agentic CLI for BDS](/agents-and-bds/bds-agent-headless#browser-signup-free-2-credits-included) page.
 :::
 
 ### Pay-signup (agent-first, no browser)
