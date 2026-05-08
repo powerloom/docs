@@ -11,7 +11,7 @@ This quickstart covers both agent paths from zero to a running agent. Choose one
 |------|-----------|------|
 | **Free — Browser signup** | You want to explore the API without a wallet | **Free** (2 credits) |
 | **A — OpenClaw one-shot** | You are in OpenClaw; the agent handles install, pay-signup, and cron setup from a single prompt | 50 POWER |
-| **B — `bds-agent-py`** | You are running headless or in an external orchestration environment | 50 POWER |
+| **B — `bds-agent`** | You are running headless or in an external orchestration environment | 50 POWER |
 
 :::tip Just want to try the API?
 Sign up at [bds-metering.powerloom.io/metering](https://bds-metering.powerloom.io/metering) — no wallet, no tokens. You get 2 free credits immediately and can start hitting metered BDS endpoints with your `sk_live_...` key. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for details.
@@ -136,27 +136,116 @@ Epoch: 24785719
 
 ---
 
-## Path B — `bds-agent-py`
+## Path B — `bds-agent`
+
+:::tip Full reference
+This is the abbreviated quickstart. For the complete operator guide — every command, every screenshot, environment variables, profile precedence, recipe schema, MCP stdio mode, troubleshooting — see [`Headless Agentic CLI for BDS`](./bds-agent-headless.md).
+:::
 
 ### What you need
 
-- Python 3.12+, `uv` installed
-- A clone of [github.com/powerloom/bds-agent-py](https://github.com/powerloom/bds-agent-py)
-- A funded EVM wallet on chain 7869
+- Python 3.12+ OR [`uv`](https://docs.astral.sh/uv/) installed
+- (Optional, for `signup-pay`) A funded EVM wallet on chain 7869
 
-### Install and configure
+### Install
 
 ```bash
-uv tool install .           # from a clone of bds-agent-py
-bds-agent credits plans     # browse available plans
+git clone https://github.com/powerloom/bds-agent-py.git
+cd bds-agent-py
+uv sync
+uv tool install .
 ```
 
-### Pay-signup
+`bds-agent` is now on your `PATH`. ([Install reference](./bds-agent-headless.md#install))
+
+### Sign up — start with the free 2 credits
 
 ```bash
-bds-agent credits setup-evm
+bds-agent signup
+```
+
+The CLI prompts for your email and agent name, then waits while you complete browser verification:
+
+```
+────────── BDS agent signup ──────────
+Email user@example.com  ·  Agent my-bds-agent
+
+╭── Verify your device ──────────────────────────────────╮
+│ Open this link in your browser                         │
+│                                                        │
+│ https://bds-metering.powerloom.io/verify?token=...     │
+│                                                        │
+│ Enter this code when the page asks                     │
+│ ╭──────────────╮                                       │
+│ │  ABCD-1234   │                                       │
+│ ╰──────────────╯                                       │
+╰── Complete verification in browser, then return here ──╯
+
+⣾ Waiting for you to finish in the browser… (Ctrl+C to cancel)
+```
+
+After verification, the `sk_live_...` API key is saved to `~/.config/bds-agent/profiles/<profile>.json` and **2 free credits are credited** to your balance — enough to start hitting the metered BDS endpoints. ([Browser signup reference](./bds-agent-headless.md#browser-signup-free--2-credits-included))
+
+### Configure BDS defaults
+
+```bash
+bds-agent config init       # writes bds_base_url, catalog URL, verification defaults
+bds-agent credits balance   # confirm key is live and balance is non-zero
+```
+
+`config init` output:
+
+```
+╭── ✓ Defaults applied ─────────────────────────────────────────────────────╮
+│  Profile  ~/.config/bds-agent/profiles/default.json                       │
+│                                                                            │
+│  Setting                           Value                                  │
+│  Snapshotter base URL              https://bds.powerloom.io/api           │
+│  Endpoints catalog (JSON)          https://raw.githubusercontent.com/...  │
+│  Powerloom chain JSON-RPC          https://rpc-v2.powerloom.network/      │
+│  ProtocolState contract            0x1d0e010Ff11b781CA1dE34BD25a0037...   │
+│  DataMarket contract               0x26c44e5CcEB7Fe69Cffc933838CF402...   │
+╰────────────────────────────────────────────────────────────────────────────╯
+```
+
+### Set up an LLM backend (for `query` and `create`)
+
+```bash
+bds-agent llm setup anthropic
+bds-agent llm use anthropic
+bds-agent llm ping
+```
+
+Supported backends: `anthropic`, `openai`, `ollama` (local), `local` (GGUF), `apfel` (Apple Intelligence). `bds-agent run` on existing recipes does **not** require an LLM. ([LLM backend reference](./bds-agent-headless.md#llm-backend-for-query-and-create))
+
+### Run a query or a recipe
+
+**Natural language query** (no MCP server needed):
+
+```bash
+bds-agent query "Top 5 Uniswap V3 swaps by USD volume in the last epoch" --execute
+```
+
+**Generate a YAML recipe from a description:**
+
+```bash
+bds-agent create "Alert when any single swap exceeds \$100k"
+```
+
+**Execute a pre-packaged recipe** — the repo ships `examples/dex-alerts.yaml`, which streams indexed DEX swaps and applies a `min_usd` and `volume_spike` rule:
+
+```bash
+bds-agent run examples/dex-alerts.yaml --profile default
+```
+
+Set `verify: true` in any recipe to enable on-chain CID verification per batch. ([Recipe reference](./bds-agent-headless.md#consuming-data-query-create-run))
+
+### Need more credits? Pay-signup with a funded wallet
+
+```bash
+bds-agent credits plans
+bds-agent credits setup-evm \
 # prompts for EVM_PRIVATE_KEY, EVM_RPC_URL, EVM_CHAIN_ID
-# writes ~/.config/bds-agent/profiles/<profile>.evm.env
 
 bds-agent signup-pay \
   --plan-id launch_10_pl_power_cgt \
@@ -181,78 +270,7 @@ tx 0x4a3f...  — claiming API key…
 ╰───────────────────────────────────────────────────────╯
 ```
 
-### Set BDS defaults and verify
-
-```bash
-bds-agent config init       # writes bds_base_url, catalog URL, verification defaults
-bds-agent credits balance   # confirm key is live and balance is non-zero
-```
-
-`config init` output:
-
-```
-╭── ✓ Defaults applied ─────────────────────────────────────────────────────╮
-│  Profile  ~/.config/bds-agent/profiles/default.json                       │
-│                                                                            │
-│  Setting                           Value                                  │
-│  Snapshotter base URL              https://bds.powerloom.io/api           │
-│  Endpoints catalog (JSON)          https://raw.githubusercontent.com/...  │
-│  Powerloom chain JSON-RPC          https://rpc-v2.powerloom.network/      │
-│  ProtocolState contract            0x1d0e010Ff11b781CA1dE34BD25a0037...   │
-│  DataMarket contract               0x26c44e5CcEB7Fe69Cffc933838CF402...   │
-╰────────────────────────────────────────────────────────────────────────────╯
-```
-
-### Run a query or a recipe
-
-**Natural language query** (no MCP server needed):
-
-```bash
-bds-agent query "Top 5 Uniswap V3 swaps by USD volume in the last epoch"
-```
-
-**Generate a YAML recipe from a description:**
-
-```bash
-bds-agent create "Alert when any single swap exceeds \$100k"
-```
-
-**Execute a recipe with on-chain verification:**
-
-```bash
-bds-agent run ./whale-alert.yaml    # verify: true in the YAML triggers maxSnapshotsCid check
-```
-
-### Device/browser signup (alternative to pay-signup)
-
-If you prefer not to use a wallet directly:
-
-```bash
-export BDS_AGENT_SIGNUP_URL=https://bds-metering.powerloom.io
-bds-agent signup
-```
-
-The CLI prints a browser URL and a user code, then waits:
-
-```
-────────── BDS agent signup ──────────
-Email user@example.com  ·  Agent my-bds-agent
-
-╭── Verify your device ──────────────────────────────────╮
-│ Open this link in your browser                         │
-│                                                        │
-│ https://bds-metering.powerloom.io/verify?token=...     │
-│                                                        │
-│ Enter this code when the page asks                     │
-│ ╭──────────────╮                                       │
-│ │  ABCD-1234   │                                       │
-│ ╰──────────────╯                                       │
-╰── Complete verification in browser, then return here ──╯
-
-⣾ Waiting for you to finish in the browser… (Ctrl+C to cancel)
-```
-
-After browser verification, the key is saved and the same `bds-agent config init` / `bds-agent credits balance` flow applies.
+The `launch_10_pl_power_cgt` plan costs 50 $POWER for 10 credits at the time of writing. Combined with the 2 bonus credits granted on signup, you'll see **12 credits** on your balance. ([Pay-signup reference](./bds-agent-headless.md#automated-pay-signup-no-browser-wallet-only))
 
 ---
 
