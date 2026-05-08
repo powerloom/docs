@@ -50,7 +50,7 @@ The 2 free credits work identically to paid credits. Same API, same verification
 
 
 :::info
-For complete instructions, see the [Headless Agentic CLI for BDS](/agents-and-bds/bds-agent-headless#browser-signup-free-2-credits-included) page.
+For complete instructions, see the [Headless Agentic CLI for BDS](/agents-and-bds/bds-agent-headless#browser-signup-free--2-credits-included) page.
 :::
 
 ### Pay-signup (agent-first, no browser)

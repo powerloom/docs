@@ -21,6 +21,8 @@ Paths A and B below use wallet-funded pay-signup for automated agent onboarding 
 
 ---
 
+![Agentic consumption diagram](/images/bds-agentic-workflow/bds-agentic-consumption.jpg)
+
 ## Path A — OpenClaw one-shot
 
 ![ClawHub card for the Powerloom Uniswap V3 timeseries data skill](/images/bds-agentic-workflow/clawhub-powerloom-bds-univ3-skill.png)

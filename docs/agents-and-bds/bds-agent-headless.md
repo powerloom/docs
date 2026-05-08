@@ -217,7 +217,7 @@ bds-agent credits balance
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-You can observe the credit balance has been decremented by the credit cost of the query. 1 credit = 720 epochs worth of data. Refer to the [Metering & API Keys](/agents-and-bds/metering-and-api-keys#credits) page for more details.
+You can observe the credit balance has been decremented by the credit cost of the query. 1 credit = 720 epochs worth of data. Refer to the [Metering & API Keys](/agents-and-bds/metering-and-api-keys#how-credits-are-consumed) page for more details.
 
 ### `bds-agent create` — natural language to YAML recipe
 
