@@ -78,6 +78,40 @@ bds-agent credits balance
 
 The `bds-agent` CLI is a reference client for the same HTTP flow; both paths issue an identical `sk_live_...` key.
 
+### Rotate a lost API key (pay-signup wallet)
+
+This only applies if you created your account with **pay-signup** (on-chain payment). The server stores your wallet as `payer_address` and never stores the raw API secret.
+
+**How the server knows it is you**
+
+1. You request a **challenge**: `POST /api-key/recover/challenge` with `{ "address": "0x..." }`. The server checks that a non-revoked API key exists for that `payer_address`.
+2. It returns a **single-use `nonce`**, an **exact `message` string** (includes your address, nonce, expiry, and terms URL), and persists that message server-side.
+3. You sign **`message`** with the **EIP-191** wallet flow (`personal_sign` / `signMessage`). A valid signature for that address is treated as proof of control of the pay-signup wallet.
+4. You submit **`POST /api-key/recover/verify`** with `{ "address", "nonce", "signature" }`. The service verifies the signature against the **stored** challenge text, then replaces `api_key_hash` with a new key and returns the new `sk_live_...` once. The previous key stops working immediately.
+
+Email/browser signup keys are **not** tied to `payer_address`; use normal signup support flows for those accounts.
+
+**OpenClaw and other MCP users**
+
+The hosted MCP server only accepts an existing Bearer key; it does not run the rotation HTTP flow for you. After you rotate, update `POWERLOOM_API_KEY` (or your client config) with the new `sk_live_...`.
+
+**Script (Node, metering repo)**
+
+From a checkout of [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering):
+
+```bash
+npm install
+METERING_BASE_URL=https://bds-metering.powerloom.io \
+WALLET_PRIVATE_KEY=0x... \
+npm run rotate-api-key
+```
+
+The script prints the new key on stdout. Use `--base-url=https://...` instead of `METERING_BASE_URL` if you prefer.
+
+**Agents**
+
+Any agent that already holds the pay-signup wallet can automate the same two POSTs plus `signMessage`; there is no separate MCP tool for rotation today.
+
 ### Pay-signup with OpenClaw
 
 If you use OpenClaw, you can use the OpenClaw skill to signup and topup credits.
