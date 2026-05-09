@@ -55,7 +55,7 @@ For complete instructions, see the [Headless Agentic CLI for BDS](/agents-and-bd
 
 **What you can do with 2 free credits:**
 
-- **Headless** — `bds-agent query`, `bds-agent run` against any pre-packaged recipe, or direct `curl` against `/mpp/...` routes. See [Quickstart Path B](/agents-and-bds/quickstart#path-b----bds-agent-cli).
+- **Headless** — `bds-agent query`, `bds-agent run` against any pre-packaged recipe, or direct `curl` against `/mpp/...` routes. See [Quickstart Path B](/agents-and-bds/quickstart#path-b---bds-agent-cli).
 - **OpenClaw, no wallet** — paste your `sk_live_...` into the [free-key one-shot prompt](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/09-openclaw-one-shot-free-key.md) and the agent installs the `powerloom-bds-univ3` skill, wires the key, and creates a Whale Radar cron with onchain verification in every alert. See [Quickstart Path A](/agents-and-bds/quickstart#path-a---openclaw-one-shot-free-key).
 - **Hosted MCP, any framework** — point Claude Code, Cursor, LangGraph, CrewAI, or any SSE-MCP-capable client at `https://bds-mcp.powerloom.io/sse` with `Authorization: Bearer sk_live_...`. See [OpenClaw & Hosted MCP](/agents-and-bds/openclaw-and-mcp).
 
