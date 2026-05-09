@@ -48,13 +48,19 @@ clawhub install powerloom-bds-univ3
 
 **Repository:** [github.com/powerloom/powerloom-bds-univ3](https://github.com/powerloom/powerloom-bds-univ3)
 
-### OpenClaw-assisted setup
+### OpenClaw-assisted setup — two one-shot prompts
 
-When `POWERLOOM_API_KEY` is not set, OpenClaw surfaces the signup link and can guide through the metering signup and key configuration without manual steps. For copy-paste instructions ready for OpenClaw's one-shot setup flow, see `references/08-openclaw-one-shot.md` in the skill repository.
+The skill ships two parallel one-shot prompts. Both gather inputs from you in chat upfront (API key + Telegram dispatch), then install the skill, wire env, and create a Whale Radar cron.
 
+| Variant | Use when | Reference |
+|---------|----------|-----------|
+| **Free-key cron** | You already have an `sk_live_...` from `bds-agent signup` (2 free credits, no wallet). | [`references/09-openclaw-one-shot-free-key.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/09-openclaw-one-shot-free-key.md) |
+| **Pay-signup + cron** | You want autonomous wallet-funded onboarding for a 10-credit plan (50 $POWER + 2 bonus = 12 total) in the same prompt. | [`references/08-openclaw-one-shot.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/08-openclaw-one-shot.md) |
+
+**Default to the free-key variant** unless you explicitly want the on-chain payment in the same prompt — the free path costs nothing, gets you to verified data immediately, and the same `sk_live_...` can be topped up later via [Top-up](./metering-and-api-keys.md#top-up).
 
 :::tip
-Check the [Quickstart](./quickstart.md) page for a copy-paste prompt to install the skill, set up pay-signup, and configure the API key in OpenClaw.
+The full inlined prompts and step-by-step walkthroughs live on the [Quickstart](./quickstart.md) page (Path A free-key + wallet-funded upgrade sub-section).
 :::
 
 ### Shipped recipes
@@ -72,18 +78,23 @@ For OpenClaw cron jobs, use **`whale-cron.mjs`** or **`whale-radar.mjs` / `token
 
 ### Required and optional environment variables
 
-Skill env vars use the **`POWERLOOM_`** prefix. Examples:
+Skill env vars use the **`POWERLOOM_`** prefix. Only **`POWERLOOM_API_KEY`** is mandatory at install time; everything else sits in `optional_env` in the skill's `SKILL.md` schema.
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `POWERLOOM_API_KEY` | Yes | `sk_live_...` from metering signup |
-| `POWERLOOM_MCP_URL` | No | Override MCP endpoint (default `https://bds-mcp.powerloom.io/sse`) |
-| `POWERLOOM_TELEGRAM_BOT_TOKEN` | No | Telegram dispatch |
-| `POWERLOOM_TELEGRAM_CHAT_ID` | No | Telegram target chat |
-| `POWERLOOM_DISCORD_WEBHOOK_URL` | No | Discord dispatch |
-| `POWERLOOM_BDS_MCP_CALL_TIMEOUT_MS` | No | Per-tool timeout in ms (default `60000`; raise e.g. to `120000` if large snapshots time out) |
+| Variable | When required | Purpose |
+|----------|---------------|---------|
+| `POWERLOOM_API_KEY` | **Always** — only mandatory env | `sk_live_...` from `bds-agent signup` (free path) or the `signup-pay.mjs` claim output (wallet path) |
+| `POWERLOOM_TELEGRAM_BOT_TOKEN` | Optional — Telegram dispatch | Set if you want alerts in Telegram (paired with chat id below) |
+| `POWERLOOM_TELEGRAM_CHAT_ID` | Optional — Telegram dispatch | Target chat for the bot |
+| `POWERLOOM_DISCORD_WEBHOOK_URL` | Optional — Discord dispatch | Webhook for Discord alerts |
+| `POWERLOOM_MCP_URL` | Optional — transport override | Defaults to `https://bds-mcp.powerloom.io/sse` |
+| `POWERLOOM_BDS_MCP_CALL_TIMEOUT_MS` | Optional — per-tool timeout in ms | Default `60000`; raise to `120000` if large snapshots time out under epoch backlog |
+| `POWERLOOM_EVM_PRIVATE_KEY` | Wallet-funded path only | Payer wallet (use a **burner**); read by `scripts/signup-pay.mjs` and `scripts/credits-topup.mjs` |
+| `POWERLOOM_EVM_RPC_URL` | Wallet-funded path only | JSON-RPC for the chain (e.g. `https://rpc-v2.powerloom.network`) |
+| `POWERLOOM_EVM_CHAIN_ID` | Wallet-funded path only | Must match the plan's `chain_id` (e.g. `7869` for POWER) |
+| `POWERLOOM_PLAN_ID` | Wallet-funded path only | e.g. `launch_10_pl_power_cgt` from `GET /credits/plans` |
+| `POWERLOOM_TOKEN_SYMBOL` | Wallet-funded path only | Must match plan's `token_symbol` (e.g. `POWER`) |
 
-Pay-signup hosts may also require `POWERLOOM_EVM_PRIVATE_KEY`, `POWERLOOM_EVM_RPC_URL`, `POWERLOOM_EVM_CHAIN_ID`, `POWERLOOM_PLAN_ID`, and `POWERLOOM_TOKEN_SYMBOL` — see the skill’s `SKILL.md` and [Metering & API Keys](./metering-and-api-keys.md).
+The free-key one-shot prompt skips every "Wallet-funded path only" var entirely — `whale-cron.mjs` reads only `POWERLOOM_API_KEY` (+ optional Telegram envs) at runtime. See the skill's [`SKILL.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/SKILL.md) and [Metering & API Keys](./metering-and-api-keys.md) for the authoritative list.
 
 ### Pre-flight credit check
 

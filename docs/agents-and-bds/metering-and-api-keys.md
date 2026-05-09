@@ -53,6 +53,14 @@ The 2 free credits work identically to paid credits. Same API, same verification
 For complete instructions, see the [Headless Agentic CLI for BDS](/agents-and-bds/bds-agent-headless#browser-signup-free--2-credits-included) page.
 :::
 
+**What you can do with 2 free credits:**
+
+- **Headless** — `bds-agent query`, `bds-agent run` against any pre-packaged recipe, or direct `curl` against `/mpp/...` routes. See [Quickstart Path B](/agents-and-bds/quickstart#path-b----bds-agent-cli).
+- **OpenClaw, no wallet** — paste your `sk_live_...` into the [free-key one-shot prompt](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/09-openclaw-one-shot-free-key.md) and the agent installs the `powerloom-bds-univ3` skill, wires the key, and creates a Whale Radar cron with onchain verification in every alert. See [Quickstart Path A](/agents-and-bds/quickstart#path-a---openclaw-one-shot-free-key).
+- **Hosted MCP, any framework** — point Claude Code, Cursor, LangGraph, CrewAI, or any SSE-MCP-capable client at `https://bds-mcp.powerloom.io/sse` with `Authorization: Bearer sk_live_...`. See [OpenClaw & Hosted MCP](/agents-and-bds/openclaw-and-mcp).
+
+The same `sk_live_...` works across all three surfaces. Top up with native $POWER (or any supported plan token) when the 2 credits run out — see [Top-up](#top-up) below; no re-onboarding required.
+
 ### Pay-signup (agent-first, no browser)
 
 For automated or headless signup, use the pay-signup API directly. This requires a funded EVM wallet.
@@ -114,7 +122,11 @@ Any agent that already holds the pay-signup wallet can automate the same two POS
 
 ### Pay-signup with OpenClaw
 
-If you use OpenClaw, you can use the OpenClaw skill to signup and topup credits.
+If you use OpenClaw and want autonomous wallet-funded onboarding (50 $POWER for the launch plan = 10 credits + 2 bonus = 12 total), the [`powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3) skill ships a one-shot prompt that installs the skill, runs `signup-pay.mjs` against your wallet, claims the API key, wires env, and creates a Whale Radar cron — all from a single message.
+
+:::tip No wallet yet? Start free.
+You don't need a wallet to use OpenClaw with this skill. Run [`bds-agent signup`](#browser-signup-free--2-credits-included) for a free `sk_live_...` (2 credits, browser device flow) and use the [free-key one-shot prompt](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/09-openclaw-one-shot-free-key.md) instead. Same skill, same cron, same verification — no on-chain payment.
+:::
 
 The first step is to install the skill from ClawHub, and is a subset of the [one-shot prompt](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/08-openclaw-one-shot.md) for installing the skill and running the pay-signup and cron setup.
 
