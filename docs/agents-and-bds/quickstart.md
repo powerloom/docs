@@ -112,6 +112,8 @@ Got it. Let me gather the required inputs first.
 
 You paste the key, then either both Telegram values or `skip`. The agent does not proceed past this gate until both inputs are resolved.
 
+![OpenClaw input-gathering response](/images/bds-agentic-workflow/openclaw-cronjob-setup-input-tg)
+
 **Step 2 — Skill install + env wiring.** Once inputs are in, the agent installs `powerloom-bds-univ3` from ClawHub, runs `npm install` in the skill directory, and wires the env under `skills.entries.powerloom-bds-univ3.env.*`:
 
 - `POWERLOOM_API_KEY` — your `sk_live_...`
@@ -119,6 +121,10 @@ You paste the key, then either both Telegram values or `skip`. The agent does no
 
 No wallet/plan envs are touched. `signup-pay.mjs` is not run.
 
+*When setup via the free-key flow:*
+![OpenClaw automated agent setup](/images/bds-agentic-workflow/openclaw-automated-install-existing-api-key.png)
+
+*When setup via the wallet-funded paid plan:*
 ![OpenClaw automated agent setup](/images/bds-agentic-workflow/openclaw-automated-install.png)
 
 **Step 3 — Cron created.** `openclaw cron add` registers the Whale Radar cron. From that point, every 15 seconds the cron fires `node scripts/whale-cron.mjs`, which fetches a finalized all-trades snapshot via `bds_mpp_snapshot_allTrades`, filters swaps above the configured USD threshold, and dispatches alerts (Telegram if envs are set, otherwise stdout — both include the verification block).

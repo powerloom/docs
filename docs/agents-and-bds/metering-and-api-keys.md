@@ -172,7 +172,7 @@ bds-agent credits setup-evm           # if not already saved
 bds-agent credits topup
 ```
 
-The `powerloom-bds-univ3` skill also ships `node scripts/credits-topup.mjs` for Node-only environments.
+The `powerloom-bds-univ3` skill also ships `node scripts/credits-topup.mjs` for Node-only environments — same explicit confirmation gate as `signup-pay.mjs` (`--dry-run`, `--yes`, or `POWERLOOM_CREDITS_TOPUP_CONFIRM=yes`).
 
 ## How credits are consumed
 
