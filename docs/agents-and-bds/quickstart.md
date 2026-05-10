@@ -112,7 +112,7 @@ Got it. Let me gather the required inputs first.
 
 You paste the key, then either both Telegram values or `skip`. The agent does not proceed past this gate until both inputs are resolved.
 
-![OpenClaw input-gathering response](/images/bds-agentic-workflow/openclaw-cronjob-setup-input-tg)
+![OpenClaw input-gathering response](/images/bds-agentic-workflow/openclaw-cronjob-setup-input-tg.png)
 
 **Step 2 — Skill install + env wiring.** Once inputs are in, the agent installs `powerloom-bds-univ3` from ClawHub, runs `npm install` in the skill directory, and wires the env under `skills.entries.powerloom-bds-univ3.env.*`:
 
