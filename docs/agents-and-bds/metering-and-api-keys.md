@@ -172,7 +172,7 @@ bds-agent credits setup-evm           # if not already saved
 bds-agent credits topup
 ```
 
-The `powerloom-bds-univ3` skill also ships `node scripts/credits-topup.mjs` for Node-only environments — same explicit confirmation gate as `signup-pay.mjs` (`--dry-run`, `--yes`, or `POWERLOOM_CREDITS_TOPUP_CONFIRM=yes`).
+The `powerloom-bds-univ3` skill also ships `node scripts/credits-topup.mjs` for Node-only environments — same gate as `signup-pay.mjs`: `--dry-run`, then **`--yes`** on the broadcast invocation (preferred over persisting confirmation env vars in OpenClaw); CI may use `POWERLOOM_CREDITS_TOPUP_CONFIRM=yes` once.
 
 ## How credits are consumed
 
