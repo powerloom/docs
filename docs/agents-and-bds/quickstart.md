@@ -28,7 +28,7 @@ If you prefer to skip the CLI entirely, you can get your free API key from the b
 
 **1. Enter your email and agent name** at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) and click **Continue**. The page generates a verification code and starts polling for completion.
 
-![Browser signup — verification code generated, waiting for Turnstile](/images/bds-agentic-workflow/browser-signup-verify-pending.png)
+![Browser signup — verification code generated, waiting for Turnstile](/images/bds-agentic-workflow/browser-signup-verify-pending.jpeg)
 
 **2. Complete Cloudflare Turnstile verification.** Click **Open verification page**, solve the Turnstile challenge, accept the Terms of Service, and click **Verify**.
 
