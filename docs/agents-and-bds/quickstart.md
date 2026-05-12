@@ -13,7 +13,7 @@ This quickstart covers both agent paths from zero to a running agent. Both start
 | **B — 🐍 `bds-agent` CLI** | You are running headless or in an external orchestration environment | **Free** (2 credits) → optional 50 $POWER upgrade for 10 more |
 
 :::tip Step 0 for **both** paths — get a free API key
-Run [`bds-agent signup`](./bds-agent-headless.md#browser-signup-free--2-credits-included) (browser device flow). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
+Run [`bds-agent signup`](./bds-agent-headless.md#browser-signup-free--2-credits-included) (browser device flow) **or** sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
 :::
 
 Both quickstart paths below default to the free-key flow. Wallet-funded pay-signup (50 $POWER → 10 credits + 2 bonus = 12 total) is surfaced as an explicit upgrade sub-section under each path — only required when the 2 free credits run out or you want the autonomous on-chain bootstrap.
@@ -21,6 +21,24 @@ Both quickstart paths below default to the free-key flow. Wallet-funded pay-sign
 ---
 
 ![Agentic consumption diagram](/images/bds-agentic-workflow/bds-agentic-consumption.jpg)
+
+### Browser signup (no CLI needed)
+
+If you prefer to skip the CLI entirely, you can get your free API key from the browser in three steps:
+
+**1. Enter your email and agent name** at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) and click **Continue**. The page generates a verification code and starts polling for completion.
+
+![Browser signup — verification code generated, waiting for Turnstile](/images/bds-agentic-workflow/browser-signup-verify-pending.png)
+
+**2. Complete Cloudflare Turnstile verification.** Click **Open verification page**, solve the Turnstile challenge, accept the Terms of Service, and click **Verify**.
+
+![Turnstile verification page — captcha passed, ready to verify](/images/bds-agentic-workflow/browser-signup-turnstile-verify.png)
+
+**3. Copy your API key.** The signup page detects verification and displays your `sk_live_...` key with your org ID and rate limits. Copy it now — the key is shown only once in this flow.
+
+![API key ready — copy and save](/images/bds-agentic-workflow/browser-signup-api-key-ready.png)
+
+Set `POWERLOOM_API_KEY` to this value in your shell, OpenClaw env, or MCP client config. The 2 free credits are already on your balance.
 
 ## Path A — 🦞 OpenClaw one-shot (free key)
 
