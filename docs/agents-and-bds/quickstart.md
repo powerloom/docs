@@ -165,7 +165,7 @@ Epoch: 24785719
 
 ### Need more credits? Wallet-funded upgrade
 
-The 2 free credits cover roughly 1440 epochs of metered data (1 credit ≈ 720 epochs). When you want a bigger plan, two upgrade paths:
+The 2 free credits cover roughly 14400 epochs of metered data (1 credit = 7200 epochs). When you want a bigger plan, two upgrade paths:
 
 **Option 1 — Top-up the same key.** Run `bds-agent credits topup` (or `node scripts/credits-topup.mjs` from the skill repo) against your existing `sk_live_...`. See [Top-up](./metering-and-api-keys.md#top-up).
 
