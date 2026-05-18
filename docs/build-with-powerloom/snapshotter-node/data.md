@@ -43,7 +43,7 @@ The canonical guide is [Verification in Agent Workflows](/agents-and-bds/verific
 
 - verifying a payload directly against `ProtocolState`,
 - using the MCP `verify_data_provenance` tool,
-- enabling `verify: true` in `bds-agent-py`,
+- enabling `verify: true` in `bds-agent`,
 - preserving provenance in alerts.
 
 ## Why This Matters

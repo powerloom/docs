@@ -82,4 +82,4 @@ verify: cast call 0x1d0e010Ff11b781CA1dE34BD25a0037203e25E2a \
 - [`Verification Pattern`](/bds-data-market/verification-pattern) — the JSON contract and Python/TypeScript examples
 - [`On-Chain Submission and Verification`](/dsv-mainnet/onchain-submission-and-verification) — the ProtocolState contract reference
 - [`OpenClaw & Hosted MCP`](./openclaw-and-mcp.md)
-- [`bds-agent-py`](./bds-agent-headless.md)
+- [`bds-agent` (headless CLI)](./bds-agent-headless.md)

@@ -45,4 +45,4 @@ Agents can then confirm the response with:
 ProtocolState.maxSnapshotsCid(dataMarket, projectId, epochId)
 ```
 
-See [Verification in Agent Workflows](/agents-and-bds/verification-in-agents) for the practical flow used by MCP tools, `bds-agent-py`, and downstream alerts.
+See [Verification in Agent Workflows](/agents-and-bds/verification-in-agents) for the practical flow used by MCP tools, `bds-agent`, and downstream alerts.

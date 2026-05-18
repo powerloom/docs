@@ -17,7 +17,7 @@ By composing smaller consensus-reached data units into queryable datasets, Power
 
 1. **[DSV Mainnet](/category/dsv-mainnet)** — the decentralized sequencer-validator network that finalizes data, writes CIDs on-chain, and adds economic accountability to the finalization layer.
 2. **[BDS Data Market](/category/bds-data-market)** — the first production data market on DSV, serving Uniswap V3 data from Ethereum mainnet through a snapshotter full-node resolver.
-3. **[Agents & BDS](/category/agents--bds)** — agent access through metered routes, API keys, the OpenClaw/ClawHub skill, hosted MCP, and the headless `bds-agent-py` CLI.
+3. **[Agents & BDS](/category/agents--bds)** — agent access through metered routes, API keys, the OpenClaw/ClawHub skill, hosted MCP, and the headless `bds-agent` CLI (`pip install bds-agent` or `uv tool install bds-agent`).
 :::
 
 :::tip
@@ -98,7 +98,7 @@ The current mainnet access path begins with the [BDS Data Market](/category/bds-
 - **Run a BDS snapshotter slot:** follow [Snapshotter Lite V2 Setup](/build-with-powerloom/snapshotter-node/lite-node-v2/getting-started).
 - **Operate resolver/full-node infrastructure:** review [Snapshotter Core Edge](/build-with-powerloom/snapshotter-node/full-node/getting-started).
 - **Use OpenClaw and hosted MCP:** follow [OpenClaw & Hosted MCP](/agents-and-bds/openclaw-and-mcp).
-- **Run a headless agent:** use [`bds-agent-py`](/agents-and-bds/bds-agent-headless).
+- **Run a headless agent:** `pip install bds-agent` or `uv tool install bds-agent`, then follow [`Headless CLI for BDS`](/agents-and-bds/bds-agent-headless).
 
 ![BDS and protocol resolvers](/images/bds-agentic-workflow/bds-resolver-2d.png)
 
@@ -109,7 +109,7 @@ The current mainnet access path begins with the [BDS Data Market](/category/bds-
 - Snapshotter lite node: [`powerloom/snapshotter-lite-v2`](https://github.com/powerloom/snapshotter-lite-v2)
 - DSV validator network: [`powerloom/snapshot-sequencer-validator`](https://github.com/powerloom/snapshot-sequencer-validator)
 - OpenClaw skill: [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3)
-- Headless agent CLI: [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)
+- Headless agent CLI: [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/) · [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)
 
 ## Walkthrough
 

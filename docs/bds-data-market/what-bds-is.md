@@ -18,7 +18,7 @@ Helpful glossary:
 - **BDS data market**: the live Uniswap V3 market on Powerloom, including snapshotter lite nodes, the full-node resolver, DSV validators, and on-chain market state.
 - **BDS API**: the HTTP surface currently served by a snapshotter full node participating in that market.
 - **Metered `/mpp/...` routes**: the hosted product surface for API-key-based usage, agents, and applications.
-- **Agent access layer**: OpenClaw, hosted MCP, and `bds-agent-py` integrations that consume the same metered routes.
+- **Agent access layer**: OpenClaw, hosted MCP, and the `bds-agent` CLI (`pip install bds-agent` or `uv tool install bds-agent`) that consume the same metered routes.
 
 > [!NOTE] Head over to the [Agents & BDS Overview](/agents-and-bds/overview) for a more detailed explanation of how agents consume BDS data through metered access, OpenClaw/MCP, or the headless CLI, and how the BDS API fits into the overall BDS data market.
 
@@ -90,7 +90,7 @@ The current deployment starts with Uniswap V3, but the market model is not limit
 | Metering, credits, API keys, pay-signup | [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering) |
 | Hosted MCP server | [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server) |
 | OpenClaw skill and recipes | [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3) |
-| Headless agent CLI | [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py) |
+| Headless agent CLI | [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/) · [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py) |
 
 ## Response model
 

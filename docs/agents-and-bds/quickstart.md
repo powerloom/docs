@@ -209,19 +209,22 @@ This is the abbreviated quickstart. For the complete operator guide — every co
 
 ### What you need
 
-- Python 3.12+ OR [`uv`](https://docs.astral.sh/uv/) installed
+- Python 3.12+ with **`pip`** or **[`uv`](https://docs.astral.sh/uv/)** (optional: a venv when using `pip`)
 - (Optional, for `signup-pay`) A funded EVM wallet on chain 7869
 
 ### Install
 
 ```bash
-git clone https://github.com/powerloom/bds-agent-py.git
-cd bds-agent-py
-uv sync
-uv tool install .
+pip install bds-agent
 ```
 
-`bds-agent` is now on your `PATH`. ([Install reference](./bds-agent-headless.md#install))
+Or from PyPI with uv (isolated tool env, like pipx):
+
+```bash
+uv tool install bds-agent
+```
+
+`bds-agent` should be on your `PATH` after install (for example `~/.local/bin`). ([Full install options](./bds-agent-headless.md#install) — `pip` / `uv tool install`, or clone + `uv tool install .` for contributors and bundled `examples/`.)
 
 ### Sign up — start with the free 2 credits
 
@@ -297,10 +300,11 @@ bds-agent query "Top 5 Uniswap V3 swaps by USD volume in the last epoch" --execu
 bds-agent create "Alert when any single swap exceeds \$100k"
 ```
 
-**Execute a pre-packaged recipe** — the repo ships `examples/dex-alerts.yaml`, which streams indexed DEX swaps and applies a `min_usd` and `volume_spike` rule:
+**Execute a pre-packaged recipe** — [`examples/dex-alerts.yaml`](https://github.com/powerloom/bds-agent-py/blob/main/examples/dex-alerts.yaml) streams indexed DEX swaps and applies `min_usd` and `volume_spike` rules. From a PyPI install, download it once then run:
 
 ```bash
-bds-agent run examples/dex-alerts.yaml --profile default
+curl -sLO https://raw.githubusercontent.com/powerloom/bds-agent-py/main/examples/dex-alerts.yaml
+bds-agent run dex-alerts.yaml --profile default
 ```
 
 Set `verify: true` in any recipe to enable on-chain CID verification per batch. ([Recipe reference](./bds-agent-headless.md#consuming-data-query-create-run))
@@ -343,5 +347,5 @@ The `launch_10_pl_power_cgt` plan costs 50 $POWER for 10 credits at the time of 
 
 - Understand the credit model: [`Metering & API Keys`](./metering-and-api-keys.md)
 - MCP tool reference and other recipes: [`OpenClaw & Hosted MCP`](./openclaw-and-mcp.md)
-- Headless YAML recipes and LLM backends: [`bds-agent-py`](./bds-agent-headless.md)
+- Headless YAML recipes and LLM backends: [`Headless CLI (`bds-agent`)`](./bds-agent-headless.md)
 - Verify a payload on-chain: [`Verification in Agent Workflows`](./verification-in-agents.md)

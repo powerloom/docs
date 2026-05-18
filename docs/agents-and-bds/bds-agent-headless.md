@@ -7,19 +7,34 @@ title: Headless Agentic CLI for BDS
 
 `bds-agent` is an agentic CLI for consuming BDS market data without relying on a local MCP subprocess. It calls the metered full-node resolver routes directly, translates natural-language queries to YAML recipes, and supports wallet-funded automated signup and top-up.
 
-Its implementation is available at [github.com/powerloom/bds-agent-py](https://github.com/powerloom/bds-agent-py).
+Its implementation is available at [github.com/powerloom/bds-agent-py](https://github.com/powerloom/bds-agent-py). The published package on PyPI is [`bds-agent`](https://pypi.org/project/bds-agent/).
 
 ---
 
 ## Install
 
+**Preferred — PyPI**
+
+With **`pip`** (use a virtual environment when your system Python is managed — for example `python -m venv .venv && source .venv/bin/activate` before install):
+
 ```bash
-# clone the repository
+pip install bds-agent
+```
+
+Or with **[`uv`](https://docs.astral.sh/uv/)** — installs from PyPI into an isolated tool environment (similar to **pipx**) and places `bds-agent` on your `PATH` (often `~/.local/bin`):
+
+```bash
+uv tool install bds-agent
+```
+
+After an upgrade, refresh with `uv tool install --force bds-agent` if the CLI version looks stale. Confirm either install with `bds-agent --help`.
+
+**From source (contributing, or when you need the bundled `examples/` tree)**
+
+```bash
 git clone https://github.com/powerloom/bds-agent-py.git
 cd bds-agent-py
-# install the dependencies
 uv sync
-# install the CLI
 uv tool install .
 ```
 
@@ -113,7 +128,7 @@ After signup, run initial config to write BDS defaults to the active profile:
 bds-agent config init
 ```
 
-This sets `bds_base_url` (the full-node resolver HTTP origin), the endpoint catalog URL, and Powerloom chain verification defaults. It does not overwrite keys that are already set.
+This sets `bds_base_url` (the full-node resolver HTTP origin), the endpoint catalog URL (resolved from the BDS market’s [`endpoints.json` in snapshotter-computes](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json)), and Powerloom chain verification defaults. It does not overwrite keys that are already set.
 
 ![Example of config init](/images/bds-agentic-workflow/bds-agent-cli/automated/bds-agent-config-init.png)
 
@@ -235,9 +250,16 @@ bds-agent run gen-yaml/large-swap-alerts.yaml --profile bds-test11
 
 ![Example of run](/images/bds-agentic-workflow/bds-agent-cli/automated/bds-agent-run.png)
 
-### Executing pre-packaged recipes with the repo
+### Executing pre-packaged recipes
 
-The `bds-agent-py` repository comes with a few pre-packaged recipes in the `examples` directory. You can run them with the `bds-agent run` command.
+The [`bds-agent-py` repository](https://github.com/powerloom/bds-agent-py) ships sample recipes under `examples/`. If you installed from PyPI only, fetch an example file instead of cloning:
+
+```bash
+curl -sLO https://raw.githubusercontent.com/powerloom/bds-agent-py/main/examples/dex-alerts.yaml
+bds-agent run dex-alerts.yaml --profile bds-test11
+```
+
+From a source checkout:
 
 ```bash
 cd bds-agent-py

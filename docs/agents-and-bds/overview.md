@@ -31,8 +31,8 @@ flowchart TD
         clawSkill -->|"Authorization: Bearer"| hostedMCP
     end
 
-    subgraph pathB ["Path B — bds-agent-py"]
-        bdsAgent["bds-agent-py\nquery / create / run\n(no MCP required)"]
+    subgraph pathB ["Path B — bds-agent CLI"]
+        bdsAgent["bds-agent\n(query / create / run\n· pip / uv tool)"]
     end
 
     subgraph dataLayer [BDS market consumption layer]
@@ -59,9 +59,9 @@ This path is optimized for fast time-to-first-alert: the agent uses MCP tools ex
 
 **Best fit:** OpenClaw users, ClawHub-distributed recipes, guided onboarding, agents that should compose BDS data with other ClawHub skills.
 
-### Path B — `bds-agent-py` for headless orchestration
+### Path B — `bds-agent` CLI for headless orchestration
 
-`bds-agent-py` is an agentic CLI that does **not** require an MCP server. It translates natural-language queries to structured YAML recipes and executes them directly against the metered resolver routes. It supports wallet-funded automated signup and top-up, making it suitable for agent sandboxes and external orchestration frameworks (LangGraph, CrewAI, and others) where spawning an MCP subprocess is impractical.
+The **`bds-agent`** CLI (install: **`pip install bds-agent`** or **`uv tool install bds-agent`**, package [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/), source [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)) does **not** require an MCP server. It translates natural-language queries to structured YAML recipes and executes them directly against the metered resolver routes. It supports wallet-funded automated signup and top-up, making it suitable for agent sandboxes and external orchestration frameworks (LangGraph, CrewAI, and others) where spawning an MCP subprocess is impractical.
 
 **Best fit:** headless agents, external orchestration, programmatic wallet-based signup, any environment where the MCP process model is not viable.
 
@@ -73,7 +73,7 @@ Regardless of path, every agent consumes the same underlying data:
 - credits are purchased on-chain and tracked per API key
 - every supported resolver response includes a `verification` object the agent can use to confirm the returned payload maps to DSV-finalized state
 
-The route surface is served by a snapshotter full node participating in the BDS market. Metering, MCP, OpenClaw, and `bds-agent-py` are access layers around that same underlying resolver path.
+The route surface is served by a snapshotter full node participating in the BDS market. Metering, MCP, OpenClaw, and `bds-agent` are access layers around that same underlying resolver path.
 
 ## Implementation repositories
 
@@ -83,7 +83,7 @@ The route surface is served by a snapshotter full node participating in the BDS 
 | Metering and API keys | [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering) |
 | Hosted MCP server | [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server) |
 | OpenClaw skill and recipes | [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3) |
-| Headless CLI | [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py) |
+| Headless CLI | [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/) · [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py) |
 
 ## Read next
 
@@ -92,7 +92,7 @@ The route surface is served by a snapshotter full node participating in the BDS 
 | Get running in ~10 minutes | [`Quickstart`](./quickstart.md) |
 | Understand plans, keys, and credits | [`Metering & API Keys`](./metering-and-api-keys.md) |
 | Set up on OpenClaw via ClawHub | [`OpenClaw & Hosted MCP`](./openclaw-and-mcp.md) |
-| Run a headless agent without MCP | [`bds-agent-py`](./bds-agent-headless.md) |
+| Run a headless agent without MCP | [`Headless CLI (`bds-agent`)`](./bds-agent-headless.md) |
 | Verify data provenance inside an agent | [`Verification in Agent Workflows`](./verification-in-agents.md) |
 
 ## Agent-readable skill files
@@ -102,9 +102,9 @@ Both paths ship a `SKILL.md` that any LLM-driven agent or orchestrator can fetch
 | Path | Skill file | Fetch |
 |------|-----------|-------|
 | OpenClaw + ClawHub | [`powerloom-bds-univ3/SKILL.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/SKILL.md) | `curl -sL https://raw.githubusercontent.com/powerloom/powerloom-bds-univ3/main/SKILL.md` |
-| `bds-agent-py` | [`bds-agent-py/SKILL.md`](https://github.com/powerloom/bds-agent-py/blob/main/SKILL.md) | `curl -sL https://raw.githubusercontent.com/powerloom/bds-agent-py/main/SKILL.md` |
+| `bds-agent` (repo: `bds-agent-py`) | [`bds-agent-py/SKILL.md`](https://github.com/powerloom/bds-agent-py/blob/main/SKILL.md) | `curl -sL https://raw.githubusercontent.com/powerloom/bds-agent-py/main/SKILL.md` |
 
-The `bds-agent-py` skill is framework-neutral: it covers the metering HTTP surface, CLI commands, env vars, and common mistakes for any orchestrator, not just OpenClaw.
+The **`bds-agent`** skill file (shipped from the `bds-agent-py` repo) is framework-neutral: it covers the metering HTTP surface, CLI commands, env vars, and common mistakes for any orchestrator, not just OpenClaw.
 
 ## Background
 
