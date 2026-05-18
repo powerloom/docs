@@ -57,6 +57,8 @@ The skill ships two parallel one-shot prompts. Both gather inputs from you in ch
 | **Free-key cron** | You already have an `sk_live_...` from `bds-agent signup` (2 free credits, no wallet). | [`references/09-openclaw-one-shot-free-key.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/09-openclaw-one-shot-free-key.md) |
 | **Pay-signup + cron** | You want autonomous wallet-funded onboarding for a 10-credit plan (50 $POWER + 2 bonus = 12 total) in the same prompt. | [`references/08-openclaw-one-shot.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/references/08-openclaw-one-shot.md) |
 
+**Video (free-key path):** [Setup Openclaw with free BDS API key](https://www.youtube.com/watch?v=FxQ96bgoi5s) · [BDS & Agents playlist](https://www.youtube.com/playlist?list=PLbymeirG9WMz3j7IRgrvZ9IW04e4hIgHK)
+
 **Default to the free-key variant** unless you explicitly want the on-chain payment in the same prompt — the free path costs nothing, gets you to verified data immediately, and the same `sk_live_...` can be topped up later via [Top-up](./metering-and-api-keys.md#top-up).
 
 :::tip

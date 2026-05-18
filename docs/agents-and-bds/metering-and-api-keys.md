@@ -50,6 +50,8 @@ The 2 free credits work identically to paid credits. Same API, same verification
 
 You can sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) — no CLI required. Enter your email and agent name, complete Cloudflare Turnstile verification, and your API key is displayed immediately.
 
+**Video walkthrough:** [Free API key for BDS: Browser Signup](https://www.youtube.com/watch?v=5J_xlRfb418) · [BDS & Agents playlist](https://www.youtube.com/playlist?list=PLbymeirG9WMz3j7IRgrvZ9IW04e4hIgHK)
+
 ![Browser signup — enter email and agent name, then open verification](/images/bds-agentic-workflow/browser-signup-verify-pending.jpeg)
 
 ![Turnstile verification — solve the challenge and accept Terms of Service](/images/bds-agentic-workflow/browser-signup-turnstile-verify.png)

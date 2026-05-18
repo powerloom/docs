@@ -11,6 +11,15 @@ Agents do not talk to DSV finalization directly. For the current BDS market, the
 
 There are two first-class consumption paths. Both use the same commercial substrate — metered `/mpp/...` routes, on-chain plan purchase, and a Bearer API key — but differ in how the agent is wired to the data.
 
+## Video walkthroughs
+
+Step-by-step clips for the **free API key** path are in the **[BDS & Agents](https://www.youtube.com/playlist?list=PLbymeirG9WMz3j7IRgrvZ9IW04e4hIgHK)** playlist on YouTube:
+
+| Video | Covers |
+|-------|--------|
+| [Free API key for BDS: Browser Signup](https://www.youtube.com/watch?v=5J_xlRfb418) | Sign up at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) — email, Turnstile, copy `sk_live_...` (2 free credits). |
+| [Setup Openclaw with free BDS API key](https://www.youtube.com/watch?v=FxQ96bgoi5s) | OpenClaw one-shot with `powerloom-bds-univ3` and an existing free key (Whale Radar cron). |
+
 ## Architecture
 
 ```mermaid

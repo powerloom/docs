@@ -40,7 +40,15 @@ If you prefer to skip the CLI entirely, you can get your free API key from the b
 
 Set `POWERLOOM_API_KEY` to this value in your shell, OpenClaw env, or MCP client config. The 2 free credits are already on your balance.
 
+:::tip Video — browser signup
+Walkthrough: **[Free API key for BDS: Browser Signup](https://www.youtube.com/watch?v=5J_xlRfb418)** ([BDS & Agents playlist](https://www.youtube.com/playlist?list=PLbymeirG9WMz3j7IRgrvZ9IW04e4hIgHK)).
+:::
+
 ## Path A — 🦞 OpenClaw one-shot (free key)
+
+:::tip Video — OpenClaw + free key
+Walkthrough: **[Setup Openclaw with free BDS API key](https://www.youtube.com/watch?v=FxQ96bgoi5s)** ([BDS & Agents playlist](https://www.youtube.com/playlist?list=PLbymeirG9WMz3j7IRgrvZ9IW04e4hIgHK)).
+:::
 
 ![ClawHub card for the Powerloom Uniswap V3 timeseries data skill](/images/bds-agentic-workflow/clawhub-powerloom-bds-univ3-skill.png)
 
