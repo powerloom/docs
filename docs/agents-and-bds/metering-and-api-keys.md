@@ -61,7 +61,7 @@ You can sign up directly in the browser at [`bds-metering.powerloom.io/metering`
 Alternatively, use the CLI: `bds-agent signup` runs the same device flow from the terminal.
 
 :::info
-For complete CLI instructions, see the [Headless Agentic CLI for BDS](/agents-and-bds/bds-agent-headless#browser-signup-free--2-credits-included) page.
+For complete CLI instructions, see the [Headless Agentic CLI for BDS](/agents-and-bds/bds-agent-headless#cli-signup-free--2-credits-included) page.
 :::
 
 **What you can do with 2 free credits:**

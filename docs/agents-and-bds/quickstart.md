@@ -13,7 +13,7 @@ This quickstart covers both agent paths from zero to a running agent. Both start
 | **B — 🐍 `bds-agent` CLI** | You are running headless or in an external orchestration environment | **Free** (2 credits) → optional 50 $POWER upgrade for 10 more |
 
 :::tip Step 0 for **both** paths — get a free API key
-Run [`bds-agent signup`](./bds-agent-headless.md#browser-signup-free--2-credits-included) (browser device flow) **or** sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
+Run [`bds-agent signup`](./bds-agent-headless.md#cli-signup-free--2-credits-included) (browser device flow) **or** sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
 :::
 
 Both quickstart paths below default to the free-key flow. Wallet-funded pay-signup (50 $POWER → 10 credits + 2 bonus = 12 total) is surfaced as an explicit upgrade sub-section under each path — only required when the 2 free credits run out or you want the autonomous on-chain bootstrap.
@@ -260,7 +260,7 @@ Email user@example.com  ·  Agent my-bds-agent
 ⣾ Waiting for you to finish in the browser… (Ctrl+C to cancel)
 ```
 
-After verification, the `sk_live_...` API key is saved to `~/.config/bds-agent/profiles/<profile>.json` and **2 free credits are credited** to your balance — enough to start hitting the metered BDS endpoints. ([Browser signup reference](./bds-agent-headless.md#browser-signup-free--2-credits-included))
+After verification, the `sk_live_...` API key is saved to `~/.config/bds-agent/profiles/<profile>.json` and **2 free credits are credited** to your balance — enough to start hitting the metered BDS endpoints. ([CLI signup reference](./bds-agent-headless.md#cli-signup-free--2-credits-included))
 
 ### Configure BDS defaults
 
