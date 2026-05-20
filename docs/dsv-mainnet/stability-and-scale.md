@@ -5,98 +5,139 @@ title: Stability and Scale
 
 # Stability and Scale
 
-This page presents operational signals from the live BDS mainnet market. All figures are derived from on-chain events, copied epoch tallies, or direct measurement of the production network.
+This page presents operational signals from the live BDS mainnet market. Figures are derived from on-chain events on Powerloom L2 (chain 7869) unless noted otherwise.
 
-## Network at a Glance
-
-The BDS mainnet market has been running on Ethereum mainnet for **58 days** (as of this writing). The measurement window below covers the **first 30 days** of production operation.
-
-![DSV Network Health Timeline](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_network_health_timeline.png)
-
-*Figure 1: Daily batch submission completion rate over the first 30 days of production. The network maintained 97.70% completion across 217,295 total epochs.*
-
-### Key Production Metrics
-
-| Metric | Value | Source |
-|--------|-------|--------|
-| Total epochs assigned | 217,295 | On-chain priority assignments (Day 1-30) |
-| Epochs with submissions | 212,297 | Snapshot batch submitted events |
-| Completion rate | **97.70%** | Derived from above |
-| Missed epochs | 4,998 | Gaps in submission coverage |
-| Median end-to-end latency | **89 seconds** | Priority assignment to on-chain finalization |
-| Mean latency | 88 seconds | Same measurement window |
-| P95 latency | 138 seconds | Tail latency measurement |
-| Full steady-state days | 26 of 30 | Days at 7,200 epoch cadence |
-
-The 2.3% gap in coverage clustered around brief restart windows rather than being evenly distributed. Once a validator commits to submitting a batch, it completes 99.01% of the time.
+**Reproducibility:** Committed analysis artifacts and reproduction commands are in the [`dsv-validator-activity` reports tree](https://github.com/powerloom/dsv-validator-activity/tree/main/reports) (`days-1-30/`, `days-31-60/`, `combined-days-1-60/summary.json`). Raw log exports are not committed; rerun the scripts with an archive RPC to verify.
 
 ---
 
-## Validator Performance
+## Network at a Glance (60 protocol days)
 
-Six validator nodes maintained 22 or more consecutive days of operation during the measurement window.
+BDS mainnet has operated through **60 protocol days** of DSV validator activity (two consecutive 30-day windows). Combined on-chain epoch coverage:
+
+| Metric | Days 1–30 | Days 31–60 | Combined 1–60 |
+|--------|----------:|----------:|----------------:|
+| Epochs assigned | 217,295 | 215,226 | **432,521** |
+| Epochs with submissions | 212,297 | 210,430 | **422,727** |
+| Completion rate | 97.70% | 97.77% | **97.74%** |
+| Missed epochs | 4,998 (2.30%) | 4,796 (2.23%) | 9,794 (2.26%) |
+| Median latency | 89s | 97s | — |
+| P95 latency | 138s | 155s | — |
+
+The second window matched the first on coverage (slightly fewer missed epochs) with **higher end-to-end latency** (median +8s, P95 +17s). Both windows show the same pattern: once a validator submits, batch completion stays above 99%.
+
+![DSV Network Health Timeline — Days 1–30](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_network_health_timeline.png)
+
+*Figure 1: Daily batch submission completion rate, protocol days 1–30 (217,295 epochs assigned).*
+
+![DSV Network Health Timeline — Days 31–60](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_network_health_timeline_days_31_60.png)
+
+*Figure 2: Daily batch submission completion rate, protocol days 31–60 (215,226 epochs assigned). 28 of 30 days at full 7,200-epoch cadence; days 49–50 were shorter L2 windows.*
+
+---
+
+## First 30 days (baseline window)
+
+Detailed figures for protocol days 1–30 (historical baseline for comparisons and charts):
+
+| Metric | Value |
+|--------|------:|
+| Total epochs assigned | 217,295 |
+| Epochs with submissions | 212,297 |
+| Completion rate | **97.70%** |
+| Median end-to-end latency | **89 seconds** |
+| P95 latency | 138 seconds |
+| Full steady-state days (7,200 priorities/day) | 26 of 30 |
+
+The 2.3% coverage gap clustered around brief restart windows rather than uniform random loss.
+
+### Validator performance (days 1–30)
+
+Six validator nodes maintained 22+ consecutive active days:
+
+| Node | Active Days | Completion Rate | Total Submitted |
+|------|-------------|-----------------|----------------:|
+| Node 1 | 30/30 | 99.87% | 29,670 |
+| Node 5 | 30/30 | 99.90% | 49,717 |
+| Node 4 | 29/30 | 99.20% | 27,252 |
+| Node 3 | 28/30 | 97.42% | 33,827 |
+| Node 10 | 26/30 | 98.01% | 27,690 |
+| Node 11 | 22/30 | 98.79% | 25,319 |
+
+Three additional transient nodes participated during operator testing and rotation.
 
 ![Validator Network Constellation](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_validator_constellation.png)
 
-*Figure 2: Validator node constellation showing completion rates and active days. Node size indicates total submissions; color indicates reliability tier.*
+*Figure 3: Validator constellation (days 1–30 window).*
 
-### Stable Validators (22+ days active)
+---
+
+## Days 31–60
+
+The second production month is shown in **Figure 2** above. Daily completion held in the same band as days 1–30; batch-level completion (submit → on-chain complete) averaged **99.10%** across the window.
+
+| Metric | Value |
+|--------|------:|
+| Epochs assigned | 215,226 |
+| Epochs with submissions | 210,430 |
+| Completion rate | **97.77%** |
+| Median latency | **97 seconds** |
+| P95 latency | 155 seconds |
+| Days at 7,200 priorities/day | 28 of 30 |
+| Batch submit → complete (log totals) | 208,550 / 210,437 (**99.10%**) |
+
+**Cadence exceptions:** days 49 (6,490) and 50 (7,136) priorities — shorter L2 day windows, same class of anomaly as day 1 / day 14 in the first window.
+
+### Validator performance (days 31–60)
+
+Fleet consolidated to five nodes at full-month uptime plus one transient:
 
 | Node | Active Days | Completion Rate | Total Submitted |
-|------|-------------|-----------------|-----------------|
-| Node 1 | 30/30 (100%) | 99.87% | 29,670 |
-| Node 5 | 30/30 (100%) | 99.90% | 49,717 |
-| Node 4 | 29/30 (96.7%) | 99.20% | 27,252 |
-| Node 3 | 28/30 (93.3%) | 97.42% | 33,827 |
-| Node 10 | 26/30 (86.7%) | 98.01% | 27,690 |
-| Node 11 | 22/30 (73.3%) | 98.79% | 25,319 |
+|------|-------------|-----------------|----------------:|
+| Node 5 | 30/30 | 99.99% | 70,070 |
+| Node 4 | 30/30 | 99.49% | 45,434 |
+| Node 1 | 30/30 | 99.92% | 39,829 |
+| Node 3 | 30/30 | 97.57% | 30,472 |
+| Node 11 | 28/30 | 96.27% | 23,411 |
+| Node 9 | 2/30 | 99.92% | 1,221 |
 
-*Three additional transient nodes participated for shorter periods during operator testing and rotation.*
-
-Across the six stable long-running nodes, the aggregate completion rate was **98.95% over 193,475 total submissions**.
+Node 5 carried the largest submission share in this window (+41% vs its days 1–30 total). Nodes 2, 7, and 10 did not appear in the 31–60 summary (rotation / decommission).
 
 ---
 
 ## Submission Latency
 
-Latency is measured from priority assignment (validator selected for epoch) to on-chain finalization (batch submission confirmed).
+Latency is measured from priority assignment (`PrioritiesAssigned`) to on-chain batch submission (`SnapshotBatchSubmitted`).
 
 ![Batch Submission Latency](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_latency_heatmap.png)
 
-*Figure 3: Latency distribution by hour of day. The density plot shows 212,297 submissions with median 89s, mean 88s, and P95 138s.*
+*Figure 4: Latency distribution (days 1–30 chart). Median 89s → 97s in days 31–60; P95 138s → 155s.*
 
-The heatmap reveals consistent latency patterns across all hours, with no significant degradation during any specific time window. This indicates stable validator infrastructure and reliable RPC connectivity throughout the measurement period.
+Patterns remain consistent across hours of day in the first window; the second window shows a modest shift toward higher absolute latency without a coverage regression.
 
 ---
 
 ## Epoch Coverage Pattern
 
-The coverage matrix shows submission activity across all epochs in the 30-day window.
-
 ![Epoch Coverage Matrix](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_epoch_coverage_matrix.png)
 
-*Figure 4: Day-by-epoch-block coverage matrix. Bright green indicates high submission counts; dark cells indicate gaps. The matrix shows sustained coverage with isolated gaps clustering around operational transitions.*
-
-The matrix demonstrates that gaps were not random failures but clustered around specific operational events (node restarts, configuration updates). The network recovered full coverage within hours of any interruption.
+*Figure 5: Coverage matrix (days 1–30). Gaps cluster at operational transitions, not random scatter.*
 
 ---
 
 ## Snapshotter Participation
 
-A separate measurement of 1,811 epochs (April 17–24) shows the snapshotter layer participation:
+Separate measurement of 1,811 epochs (April 17–24) — snapshotter / slot layer (not validator export):
 
 | Metric | Value |
 |--------|-------|
 | Unique eligible nodes per day | 2,970 – 3,047 |
 | Median eligible nodes per epoch | 305 |
 | Active validators per epoch | 3–5 (median 4) |
-| Minimum validators observed | 3 (every measured epoch) |
 
 ![Snapshotter Slot Activity](/images/bds-agentic-workflow/dsv-mainnet-operations/dsv_slot_distribution_radial.png)
 
-*Figure 5: Radial distribution of slot activity from sampled epochs. The visualization shows 3,078 total slots with activity levels categorized by submission count.*
-
-The slot distribution shows broad participation across the slot ID space (0–8191), with no concentration that would indicate centralization or collusion patterns.
+*Figure 6: Slot activity sample (3,078 slots).*
 
 ---
 
@@ -104,43 +145,17 @@ The slot distribution shows broad participation across the slot ID space (0–81
 
 ### Continuous cadence under pressure
 
-BDS mainnet processes one-block epochs on Ethereum mainnet. This creates continuous pressure on transport, aggregation, and finalization rather than allowing activity to concentrate into infrequent batch windows. The 97.70% completion rate across 217K epochs demonstrates sustained operation under this pressure.
-
-### Observable mesh health
-
-The published local-collector setup includes explicit health states:
-
-- `healthy` when both discovery and submission topics have at least 2 peers
-- `degraded` when one side falls below threshold
-- `pruned` when one side has 0 peers
-
-These definitions make mesh health observable rather than assumed. The live measurements show 5 healthy submission-topic peers and 162 total connected peers in sampled collector logs.
+BDS mainnet processes block-aligned epochs on Ethereum mainnet. **432k+ assigned epochs** over 60 protocol days with **97.7%** submission coverage shows sustained operation under continuous pressure.
 
 ### Measurable validator participation
 
-The network shows:
+- **Five stable validators** at full-month uptime in days 31–60
+- **~3,000 eligible snapshotter nodes** per day (separate tally sample)
+- **99%+ batch completion** once a validator commits to submit
 
-- **3 to 5 validators** present per tallied epoch
-- **~3,000 eligible nodes** receiving rewards daily
-- **98.95% aggregate completion** across stable validators
-- **99.01% completion rate** once submission commitment is made
+### Observable mesh health
 
-This provides concrete evidence of multi-validator participation at production scale.
-
----
-
-## Competitive Position
-
-Many data products can show a dashboard. The DSV network can show:
-
-- Published epoch workflow with timing guarantees
-- Market-scoped on-chain finalization
-- Public verification calls for exact finalized CIDs
-- Operator-visible mesh health thresholds
-- Validator-priority-controlled settlement
-- 58 days of sustained production history
-
-That combination is what makes DSV interesting as a production system rather than a theoretical architecture.
+Local-collector health states (`healthy` / `degraded` / `pruned`) and peer counts remain part of the operational story; see deployment docs for collector configuration.
 
 ---
 
@@ -153,12 +168,17 @@ That combination is what makes DSV interesting as a production system rather tha
 
 ## Methodology and Reproducibility
 
-All figures are derived from:
+1. **On-chain export** — `export_validator_activity.py` with archive `POWERLOOM_RPC_URL` (Powerloom L2)
+2. **Epoch participation** — `analyze_epoch_participation.py` → `participation_summary.json`
+3. **Per-node reliability** — `analyze_validator_reliability.py` → `reliability_summary.json`
+4. **Window comparison** — `compare_windows.py` between output directories
+5. **Charts** — `generate_visualizations.py` → `reports/charts/` (e.g. `dsv_network_health_timeline_days_31_60.png`)
 
-1. **On-chain events** on Powerloom mainnet (chain 7869)
-2. **Copied epoch tallies** from `snapshot-activity-tracker-updater` (1,811 epochs)
-3. **Validator activity analysis** from `dsv-validator-activity` scripts (30-day window)
+**Committed artifacts:** [github.com/powerloom/dsv-validator-activity/reports](https://github.com/powerloom/dsv-validator-activity/tree/main/reports) — includes `days-31-60/network_health_daily.csv` and chart PNGs under `reports/charts/`.
 
-Contract addresses and full methodology: [github.com/powerloom/curated-datamarkets](https://github.com/powerloom/curated-datamarkets)
+**Contracts (BDS mainnet):**
 
-Last updated: 2026-04-30
+- ProtocolState: `0x1d0e010Ff11b781CA1dE34BD25a0037203e25E2a`
+- DataMarket: `0x26c44e5CcEB7Fe69Cffc933838CF40286b2dc01a`
+
+Last updated: 2026-05-19
