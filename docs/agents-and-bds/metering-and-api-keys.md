@@ -48,11 +48,13 @@ All signup paths lead to the same metering service at `https://bds-metering.powe
 The 2 free credits work identically to paid credits. Same API, same verification objects, same key format. If you want to explore what BDS data looks like before committing any tokens, this is the fastest path.
 :::
 
-You can sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) — no CLI required. Enter your email and agent name, complete Cloudflare Turnstile verification, and your API key is displayed immediately.
+You can sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) — no CLI required. The signup page features a dark-themed interface with Powerloom branding, a hero section highlighting three value cards — **Verifiable**, **Agent-ready**, and **POWER or USDC** — and a subtitle describing verifiable on-chain Uniswap V3 data for agents. Enter your email and agent name on the **SIGN UP** tab, complete Cloudflare Turnstile verification, and your API key is displayed immediately.
 
 **Video walkthrough:** [Free API key for BDS: Browser Signup](https://www.youtube.com/watch?v=5J_xlRfb418) · [BDS & Agents playlist](https://www.youtube.com/playlist?list=PLbymeirG9WMz3j7IRgrvZ9IW04e4hIgHK)
 
-![Browser signup — enter email and agent name, then open verification](/images/bds-agentic-workflow/browser-signup-verify-pending.jpeg)
+![Powerloom signup page — dark theme with hero cards for Verifiable, Agent-ready, and POWER or USDC; SIGN UP tab with EMAIL and AGENT NAME fields](/images/bds-agentic-workflow/metering-signup-page.png)
+
+![Browser signup — enter email and agent name, then complete verification](/images/bds-agentic-workflow/browser-signup-verify-pending.png)
 
 ![Turnstile verification — solve the challenge and accept Terms of Service](/images/bds-agentic-workflow/browser-signup-turnstile-verify.png)
 
@@ -196,6 +198,45 @@ Credits are deducted when the full-node resolver processes a metered `/mpp/...` 
 The hosted MCP server does not apply a separate charge layer. It forwards your Bearer token to the resolver, which applies the standard metering deduction. MCP tool access is gated by the same key and balance state.
 
 A balance at or below zero causes the resolver to return `402`. The hosted MCP server propagates this back to the MCP client. Scripts in `powerloom-bds-univ3` call `get_credit_balance` before each recipe run to surface this before it becomes a mid-run 402.
+
+## Usage and account dashboard
+
+Inspect credit usage per API key:
+
+```bash
+curl -sS "https://bds-metering.powerloom.io/credits/usage/summary?days=30" \
+  -H "Authorization: Bearer sk_live_..."
+```
+
+The response includes daily totals and a **`by_endpoint`** breakdown (calls and credits per BDS route template).
+
+Or via CLI:
+
+```bash
+bds-agent credits usage
+bds-agent credits usage summary --days 30
+```
+
+**Browser dashboard:** navigate to the **USAGE** tab at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering), paste your API key (stored in sessionStorage only), and view balance, usage-by-day, top endpoints, and recent activity. See the [Usage Dashboard](#usage-dashboard) section below for a full walkthrough with screenshots.
+
+## Usage Dashboard
+
+The **USAGE** tab at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) provides a browser-based dashboard for monitoring credit consumption in real time. You unlock the dashboard by pasting your `sk_live_...` API key into the prompt — the key is stored in **sessionStorage only** (never persisted to disk or sent to a third party).
+
+![Usage dashboard — balance, credits used, rate limits, usage by day, top endpoints, and recent activity](/images/bds-agentic-workflow/metering-dashboard-usage.png)
+
+The dashboard displays the following cards and tables:
+
+| Card / Table | Details |
+|---|---|
+| **Balance** | Current remaining credits (e.g. 16.4599 credits). |
+| **Credits Used (Lifetime)** | Total credits consumed since account creation (e.g. 5.5401). |
+| **Rate Limits** | Per-minute and per-day request caps (e.g. 240/min · 1,500,000/day). |
+| **Usage by day (last 30 days)** | Table with columns **DAY** · **CALLS** · **CREDITS USED** — daily aggregate of metered requests. |
+| **Top endpoints** | Table with columns **ROUTE** · **METHOD** · **CALLS** · **CREDITS** — ranked by credit consumption. Common routes include `/mpp/tokenPrices/all/{token_address}/{block_number}`, `/mpp/stream/allTrades`, and `/mpp/dailyActivePools`. |
+| **Recent activity** | Table with columns **TIME** · **TYPE** · **ROUTE** · **SOURCE** · **AMOUNT** — individual metering events with timestamps and sources (e.g. `cli`). |
+
+The dashboard also provides **Refresh** and **Sign out** buttons. Signing out clears the API key from sessionStorage.
 
 ## POWER token discount
 

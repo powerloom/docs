@@ -9,7 +9,7 @@ title: Overview
 
 Agents do not talk to DSV finalization directly. For the current BDS market, they consume finalized Uniswap V3 data through metered `/mpp/...` routes served by a snapshotter full-node resolver.
 
-There are two first-class consumption paths. Both use the same commercial substrate — metered `/mpp/...` routes, on-chain plan purchase, and a Bearer API key — but differ in how the agent is wired to the data.
+There are three first-class consumption paths. All three use the same commercial substrate — metered `/mpp/...` routes, on-chain plan purchase, and a Bearer API key — but differ in how the agent is wired to the data.
 
 ## Video walkthroughs
 
@@ -44,6 +44,12 @@ flowchart TD
         bdsAgent["bds-agent\n(query / create / run\n· pip / uv tool)"]
     end
 
+    subgraph pathC ["Path C — Aeon (GitHub Actions)"]
+        aeonFork["Aeon fork\n(GitHub repo)"]
+        aeonSkills["aeon-skills\n(prefetch + notify)"]
+        aeonFork -->|"GitHub Actions cron"| aeonSkills
+    end
+
     subgraph dataLayer [BDS market consumption layer]
         coreAPI["Snapshotter full-node resolver\n/mpp routes\ncredits deducted per call"]
         protState["ProtocolState\nPowerloom anchor chain\nmaxSnapshotsCid"]
@@ -52,11 +58,13 @@ flowchart TD
 
     apiKey -->|"POWERLOOM_API_KEY"| clawSkill
     apiKey -->|"profile / env"| bdsAgent
+    apiKey -->|"POWERLOOM_API_KEY"| aeonFork
     hostedMCP -->|"Bearer forwarded to upstream"| coreAPI
     bdsAgent -->|"Authorization: Bearer"| coreAPI
+    aeonSkills -->|"Authorization: Bearer"| coreAPI
 ```
 
-## Two paths
+## Three paths
 
 ### Path A — OpenClaw + `powerloom-bds-univ3` + hosted MCP server
 
@@ -73,6 +81,14 @@ This path is optimized for fast time-to-first-alert: the agent uses MCP tools ex
 The **`bds-agent`** CLI (install: **`pip install bds-agent`** or **`uv tool install bds-agent`**, package [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/), source [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)) does **not** require an MCP server. It translates natural-language queries to structured YAML recipes and executes them directly against the metered resolver routes. It supports wallet-funded automated signup and top-up, making it suitable for agent sandboxes and external orchestration frameworks (LangGraph, CrewAI, and others) where spawning an MCP subprocess is impractical.
 
 **Best fit:** headless agents, external orchestration, programmatic wallet-based signup, any environment where the MCP process model is not viable.
+
+### Path C — Aeon fork (GitHub Actions) + `aeon-skills`
+
+The **Aeon** path ([`powerloom/aeon-skills`](https://github.com/powerloom/aeon-skills)) runs entirely inside GitHub Actions — no MCP server and no VPS required. A Python-based prefetch step owns BDS fetch and epoch cursor management; the LLM only dispatches pre-built alerts through `./notify` to Telegram, Discord, or Slack.
+
+To get started, fork the Aeon repository, set your `POWERLOOM_API_KEY` and notification secrets as GitHub repository variables, and enable the scheduled GitHub Actions workflow. The workflow runs on cron, fetches the latest data via the metered `/mpp/...` routes, and pushes alerts to your configured channels.
+
+**Best fit:** users who fork Aeon and want scheduled whale alerts via Telegram/Discord/Slack without managing a VPS.
 
 ## Shared substrate
 
@@ -93,6 +109,7 @@ The route surface is served by a snapshotter full node participating in the BDS 
 | Hosted MCP server | [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server) |
 | OpenClaw skill and recipes | [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3) |
 | Headless CLI | [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/) · [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py) |
+| Aeon skill package | [`powerloom/aeon-skills`](https://github.com/powerloom/aeon-skills) |
 
 ## Read next
 
@@ -102,16 +119,18 @@ The route surface is served by a snapshotter full node participating in the BDS 
 | Understand plans, keys, and credits | [`Metering & API Keys`](./metering-and-api-keys.md) |
 | Set up on OpenClaw via ClawHub | [`OpenClaw & Hosted MCP`](./openclaw-and-mcp.md) |
 | Run a headless agent without MCP | [`Headless CLI (`bds-agent`)`](./bds-agent-headless.md) |
+| Set up Aeon scheduled alerts (GitHub Actions) | [`Aeon Whale Radar`](./aeon-whale-radar.md) |
 | Verify data provenance inside an agent | [`Verification in Agent Workflows`](./verification-in-agents.md) |
 
 ## Agent-readable skill files
 
-Both paths ship a `SKILL.md` that any LLM-driven agent or orchestrator can fetch at session start to learn the full command surface, metering HTTP flow, and common mistakes — without reading lengthier documentation.
+All three paths ship a `SKILL.md` that any LLM-driven agent or orchestrator can fetch at session start to learn the full command surface, metering HTTP flow, and common mistakes — without reading lengthier documentation.
 
 | Path | Skill file | Fetch |
 |------|-----------|-------|
 | OpenClaw + ClawHub | [`powerloom-bds-univ3/SKILL.md`](https://github.com/powerloom/powerloom-bds-univ3/blob/main/SKILL.md) | `curl -sL https://raw.githubusercontent.com/powerloom/powerloom-bds-univ3/main/SKILL.md` |
 | `bds-agent` (repo: `bds-agent-py`) | [`bds-agent-py/SKILL.md`](https://github.com/powerloom/bds-agent-py/blob/main/SKILL.md) | `curl -sL https://raw.githubusercontent.com/powerloom/bds-agent-py/main/SKILL.md` |
+| Aeon (repo: `aeon-skills`) | [`aeon-skills/SKILL.md`](https://github.com/powerloom/aeon-skills/blob/main/SKILL.md) | `curl -sL https://raw.githubusercontent.com/powerloom/aeon-skills/main/SKILL.md` |
 
 The **`bds-agent`** skill file (shipped from the `bds-agent-py` repo) is framework-neutral: it covers the metering HTTP surface, CLI commands, env vars, and common mistakes for any orchestrator, not just OpenClaw.
 

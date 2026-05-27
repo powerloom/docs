@@ -11,6 +11,7 @@ This quickstart covers both agent paths from zero to a running agent. Both start
 |------|-----------|------|
 | **A — 🦞 OpenClaw one-shot** | You are in OpenClaw; the agent gathers inputs in chat and creates a Whale Radar cron from a single prompt | **Free** (2 credits) → optional 50 $POWER upgrade for 10 more |
 | **B — 🐍 `bds-agent` CLI** | You are running headless or in an external orchestration environment | **Free** (2 credits) → optional 50 $POWER upgrade for 10 more |
+| **C — 🌟 Aeon (GitHub Actions)** | You fork [Aeon](https://github.com/aaronjmars/aeon) and want scheduled whale alerts via Telegram/Discord/Slack without a VPS | **Free** (2 credits) → metered BDS usage per epoch fetched |
 
 :::tip Step 0 for **both** paths — get a free API key
 Run [`bds-agent signup`](./bds-agent-headless.md#cli-signup-free--2-credits-included) (browser device flow) **or** sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
@@ -28,7 +29,7 @@ If you prefer to skip the CLI entirely, you can get your free API key from the b
 
 **1. Enter your email and agent name** at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) and click **Continue**. The page generates a verification code and starts polling for completion.
 
-![Browser signup — verification code generated, waiting for Turnstile](/images/bds-agentic-workflow/browser-signup-verify-pending.jpeg)
+![Browser signup — verification code generated, waiting for Turnstile](/images/bds-agentic-workflow/browser-signup-verify-pending.png)
 
 **2. Complete Cloudflare Turnstile verification.** Click **Open verification page**, solve the Turnstile challenge, accept the Terms of Service, and click **Verify**.
 
@@ -351,9 +352,39 @@ The `launch_10_pl_power_cgt` plan costs 50 $POWER for 10 credits at the time of 
 
 ---
 
+## Path C — ⚡ Aeon fork (GitHub Actions)
+
+Run verified whale radar on a schedule using [Aeon](https://github.com/aaronjmars/aeon) + the [aeon-skills](https://github.com/powerloom/aeon-skills) package. Python prefetch owns BDS fetch and epoch cursor; the LLM only dispatches pre-built alerts via `./notify`. No VPS, no MCP server, no cron server.
+
+**Full setup guide:** [`Aeon Whale Radar (GitHub Actions)`](./aeon-whale-radar.md)
+
+### What you need
+
+- A GitHub account
+- `sk_live_...` from Step 0 above (2 free credits)
+- At least one notify channel (Telegram bot token + chat ID, Discord webhook, or Slack webhook)
+
+### Quick summary
+
+1. **Fork** [Aeon](https://github.com/aaronjmars/aeon) and enable Actions in fork Settings
+2. **Install** the skill: `git clone https://github.com/powerloom/aeon-skills.git` then run `install-into-aeon.sh` against your fork
+3. **Enable** in `aeon.yml`: add `powerloom-bds: { enabled: true, schedule: "*/5 * * * *" }` under `skills:`
+4. **Set secrets** in fork Settings: `BDS_API_KEY` (required), `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` (for TG alerts), or `DISCORD_WEBHOOK_URL` (for Discord)
+5. **Commit and push**, then verify in Actions tab
+
+First healthy run shows `Fetched N snapshot(s)` with `trades > 0`. Subsequent runs catch up block-by-block (max 100 per run).
+
+:::tip
+Each step has screenshots and detailed explanations in the [full setup guide](./aeon-whale-radar.md). Start there if this is your first time setting up Aeon.
+:::
+
+
+---
+
 ## Next steps
 
 - Understand the credit model: [`Metering & API Keys`](./metering-and-api-keys.md)
 - MCP tool reference and other recipes: [`OpenClaw & Hosted MCP`](./openclaw-and-mcp.md)
+- Aeon whale radar (GitHub Actions): [`Aeon Whale Radar`](./aeon-whale-radar.md)
 - Headless YAML recipes and LLM backends: [`Headless CLI (`bds-agent`)`](./bds-agent-headless.md)
 - Verify a payload on-chain: [`Verification in Agent Workflows`](./verification-in-agents.md)
