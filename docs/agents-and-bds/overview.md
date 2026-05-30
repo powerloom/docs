@@ -80,6 +80,8 @@ This path is optimized for fast time-to-first-alert: the agent uses MCP tools ex
 
 The **`bds-agent`** CLI (install: **`pip install bds-agent`** or **`uv tool install bds-agent`**, package [`bds-agent` on PyPI](https://pypi.org/project/bds-agent/), source [`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)) does **not** require an MCP server. It translates natural-language queries to structured YAML recipes and executes them directly against the metered resolver routes. It supports wallet-funded automated signup and top-up, making it suitable for agent sandboxes and external orchestration frameworks (LangGraph, CrewAI, and others) where spawning an MCP subprocess is impractical.
 
+Beyond **`run`** / **`query`**, the CLI includes a **Pulse** trader (`trade run` — stream confluence, multi-pool) and **Threshold Guard** (`guard run` — one pool, percent take-profit/stop-loss, optional idle exit in USDC for composed agent loops). See [`Headless CLI`](./bds-agent-headless.md#threshold-guard-bds-agent-guard).
+
 **Best fit:** headless agents, external orchestration, programmatic wallet-based signup, any environment where the MCP process model is not viable.
 
 ### Path C — Aeon fork (GitHub Actions) + `aeon-skills`

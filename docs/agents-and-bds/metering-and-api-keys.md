@@ -199,6 +199,32 @@ The hosted MCP server does not apply a separate charge layer. It forwards your B
 
 A balance at or below zero causes the resolver to return `402`. The hosted MCP server propagates this back to the MCP client. Scripts in `powerloom-bds-univ3` call `get_credit_balance` before each recipe run to surface this before it becomes a mid-run 402.
 
+### Debit formula
+
+Pricing is **not** one flat rate for every `/mpp/` route.
+
+1. **Catalog** — [`snapshotter-computes` `api/endpoints.json`](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json) lists every metered `/mpp/...` route with a **`credit_weight`** (catalog `version` 2+). That file is the product definition for per-route cost multipliers.
+2. **Core API** — Before serving the request, the resolver matches your path to a catalog template and sends `route_template` + `credit_weight` to the metering service (`POST /internal/billing/deduct`). Optional header `X-BDS-Client-Source` (`cli`, `mcp`, `direct`) is stored for usage reports only.
+3. **Metering service** — Applies env base rates only; it does **not** choose per-route weights:
+   - **`/mpp/stream/...`** → flat **`CREDIT_PER_STREAM_SESSION`** per connection (SSE; `credit_weight` is ignored).
+   - **All other metered GETs** → **`CREDIT_PER_EPOCH × credit_weight`** (default weight **1** if the catalog match is missing).
+
+The default **`CREDIT_PER_EPOCH`** on the metering deployment is **`10/7200`** credits per request at weight **1** (roughly **1 credit ≈ 720** epoch-scoped GETs at that default). Top-up **plans** (`GET /credits/plans`) sell credit bundles; they are separate from per-route weights.
+
+**Example weights** (see the live catalog for the full table):
+
+| Route pattern | `credit_weight` | Debit (at default `CREDIT_PER_EPOCH`) |
+|---------------|-----------------|--------------------------------------|
+| `/mpp/snapshot/...`, `/mpp/dailyActivePools`, … | 1 | 1× base |
+| `/mpp/ethPrice` | 5 | 5× base |
+| `/mpp/ethPrice/{block_number}` | 10 | 10× base |
+| `/mpp/token/price/...` (latest) | 5 | 5× base |
+| `/mpp/token/price/.../{block_number}` | 10 | 10× base |
+| `/mpp/tokenPrices/all/...` | 10 | 10× base (USD Price Feed) |
+| `/mpp/stream/allTrades` | — | flat stream session rate |
+
+There is **no** separate SKU for “running Pulse” or “using the agent CLI” — premium usage shows up as higher-weight routes (especially **`/mpp/tokenPrices/all/...`**) plus stream debits. Monitor spend with **`bds-agent credits usage by-endpoint`** or the [Usage Dashboard](#usage-dashboard) **Top endpoints** table.
+
 ## Usage and account dashboard
 
 Inspect credit usage per API key:

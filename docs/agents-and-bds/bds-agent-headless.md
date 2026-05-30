@@ -218,7 +218,7 @@ bds-agent credits balance
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-You can observe the credit balance has been decremented by the credit cost of the query. 1 credit = 7200 epochs worth of data. Refer to the [Metering & API Keys](/agents-and-bds/metering-and-api-keys#how-credits-are-consumed) page for more details.
+You can observe the credit balance has been decremented by the cost of that request (depends on the route’s **`credit_weight`** in the BDS endpoint catalog × the deployment’s **`CREDIT_PER_EPOCH`** base, or a flat stream rate for `/mpp/stream/...`). Refer to [Metering & API Keys — How credits are consumed](/agents-and-bds/metering-and-api-keys#how-credits-are-consumed) for the formula and premium-route table.
 
 ### `bds-agent create` — natural language to YAML recipe
 
@@ -308,6 +308,38 @@ The key difference from the hosted server:
 
 For laptop use in Cursor or Claude Code, the stdio path is adequate. For agents running in remote environments or frameworks that cannot spawn child processes, use the hosted server.
 
+## Threshold Guard (`bds-agent guard`)
+
+Bracket trading on **one** USDC-quoted Uniswap V3 pool using BDS **spot USD** prices (`GET /mpp/token/price/{token}/{pool}`). Complements the **Pulse** trader (`bds-agent trade run`), which uses the live trade stream and multi-pool confluence. Guard is for a single pool with percent take-profit / stop-loss and optional dip re-entry.
+
+**Setup:** same profile API key and swap wallet as Pulse — `bds-agent trade setup-evm --profile NAME` writes `profiles/<NAME>.trade.env`.
+
+### Spot mode (default)
+
+| Flag | Default | Role |
+|------|---------|------|
+| `--enter` | on | Swap `--size` USDC → base at BDS spot on start |
+| `--take-profit-pct` | `0.03` | Exit when price rises +X% above entry |
+| `--stop-loss-pct` | off | Optional exit when price falls −X% below entry |
+| `--reentry-retrace-pct` | `0.5` | After exit, re-buy on cross **down** through a level below the exit |
+| `--reserve-max-minutes` | `0` | Stop the guard process in USDC if no dip re-entry within N minutes (`0` = poll forever) |
+| `--pool` / `--token` | — | Pool and base token (pool saved to `.guard.json`) |
+
+```bash
+bds-agent trade setup-evm --profile myguard
+bds-agent guard run --profile myguard \
+  --pool 0xE0554a476A092703abdB3Ef35c80e0D76d32939F \
+  --token 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 \
+  --size 5 --take-profit-pct 0.003 --stop-loss-pct 0.002 \
+  --reentry-retrace-pct 0.5 --reserve-max-minutes 30 --poll 5
+```
+
+Actions are **edge-triggered** (fire on crosses between polls, not every tick while price sits in a band). After take-profit you hold **USDC** (`reserve`); re-entry waits for a dip through `reentry_below`. If price only trends higher, use **`--reserve-max-minutes`** so the CLI exits cleanly and sets `guard_exit_reason=reserve_idle_timeout` in `.guard.json` for an outer orchestrator to start the next leg.
+
+**Status and P/L:** `bds-agent guard status` reads bracket state (`.guard.json`). Fills are mirrored into the same profile’s trade log — use `bds-agent trade status`, `history`, and `pnl`.
+
+**Explicit USD bands:** pass both `--threshold-high` and `--threshold-low` instead of percent flags. See the full CLI reference in [`bds-agent-py` — `docs/GUARD.md`](https://github.com/powerloom/bds-agent-py/blob/main/docs/GUARD.md) and the orchestrator index in [`SKILL.md`](https://github.com/powerloom/bds-agent-py/blob/main/SKILL.md).
+
 ## SKILL.md — framework-neutral orchestration directives
 
 `bds-agent` ships a `SKILL.md` at the repository root. It is a single self-contained file that any orchestrator, autonomous agent, or IDE can fetch at session start to learn the full CLI surface, metering HTTP flow, environment variables, and common mistakes — without reading the full `USER_GUIDE.md`.
@@ -320,7 +352,7 @@ curl -sL https://raw.githubusercontent.com/powerloom/bds-agent-py/main/SKILL.md
 
 - Session bootstrap (install, version check)
 - Metering HTTP as the primary surface: `GET /credits/plans` → pay-signup → `GET /credits/balance` → `POST /credits/topup`
-- Full CLI command table with one-line purpose per command
+- Full CLI command table with one-line purpose per command (including **Threshold Guard** and **Pulse trader**)
 - Environment variables and profile precedence (short form; `USER_GUIDE.md` has full tables)
 - Key distinction to avoid broken setups: the metering origin (`BDS_AGENT_SIGNUP_URL`, default `https://bds-metering.powerloom.io`) is **not** the same as the BDS data origin (`BDS_BASE_URL`, e.g. `https://bds.powerloom.io/api`)
 - Hosted MCP context: `bds-agent mcp` is **stdio only**; the hosted SSE server at `https://bds-mcp.powerloom.io/sse` is a separate service
