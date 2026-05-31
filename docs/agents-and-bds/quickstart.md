@@ -14,7 +14,7 @@ This quickstart covers both agent paths from zero to a running agent. Both start
 | **C — 🌟 Aeon (GitHub Actions)** | You fork [Aeon](https://github.com/aaronjmars/aeon) and want scheduled whale alerts via Telegram/Discord/Slack without a VPS | **Free** (2 credits) → metered BDS usage per epoch fetched |
 
 :::tip Step 0 for **both** paths — get a free API key
-Run [`bds-agent signup`](./bds-agent-headless.md#cli-signup-free--2-credits-included) (browser device flow) **or** sign up directly in the browser at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
+Run [`bds-agent signup`](./bds-agent-headless.md#cli-signup-free--2-credits-included) (browser device flow) **or** sign up directly in the browser at [bds-metering.powerloom.io/metering](https://bds-metering.powerloom.io/metering). No wallet, no tokens, 2 free credits credited immediately. The same `sk_live_...` key works against the OpenClaw skill, the bds-agent CLI, and the hosted MCP server. See [Metering & API Keys](./metering-and-api-keys.md#browser-signup-free--2-credits-included) for the full HTTP/CLI reference.
 :::
 
 Both quickstart paths below default to the free-key flow. Wallet-funded pay-signup (50 $POWER → 10 credits + 2 bonus = 12 total) is surfaced as an explicit upgrade sub-section under each path — only required when the 2 free credits run out or you want the autonomous on-chain bootstrap.

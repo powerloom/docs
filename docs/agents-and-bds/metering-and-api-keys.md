@@ -243,11 +243,11 @@ bds-agent credits usage
 bds-agent credits usage summary --days 30
 ```
 
-**Browser dashboard:** navigate to the **USAGE** tab at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering), paste your API key (stored in sessionStorage only), and view balance, usage-by-day, top endpoints, and recent activity. See the [Usage Dashboard](#usage-dashboard) section below for a full walkthrough with screenshots.
+**Browser dashboard:** navigate to the **USAGE** tab at [bds-metering.powerloom.io/metering/account](https://bds-metering.powerloom.io/metering/account), paste your API key (stored in sessionStorage only), and view balance, usage-by-day, top endpoints, and recent activity. See the [Usage Dashboard](#usage-dashboard) section below for a full walkthrough with screenshots.
 
 ## Usage Dashboard
 
-The **USAGE** tab at [`bds-metering.powerloom.io/metering`](https://bds-metering.powerloom.io/metering) provides a browser-based dashboard for monitoring credit consumption in real time. You unlock the dashboard by pasting your `sk_live_...` API key into the prompt — the key is stored in **sessionStorage only** (never persisted to disk or sent to a third party).
+The **USAGE** tab at [bds-metering.powerloom.io/metering/account](https://bds-metering.powerloom.io/metering/account) provides a browser-based dashboard for monitoring credit consumption in real time. You unlock the dashboard by pasting your `sk_live_...` API key into the prompt — the key is stored in **sessionStorage only** (never persisted to disk or sent to a third party).
 
 ![Usage dashboard — balance, credits used, rate limits, usage by day, top endpoints, and recent activity](/images/bds-agentic-workflow/metering-dashboard-usage.png)
 
