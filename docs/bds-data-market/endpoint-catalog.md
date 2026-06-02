@@ -3,6 +3,8 @@ sidebar_position: 3
 title: Endpoint Catalog
 ---
 
+import LiveTimeseriesMultiplier from '@site/src/components/LiveTimeseriesMultiplier';
+
 # Endpoint Catalog
 
 This page documents the current Uniswap V3 route surface served by the snapshotter full-node resolver and exposed publicly through metered `/mpp/...` routes.
@@ -29,6 +31,47 @@ For public integrations, treat `/mpp/...` as the canonical consumption path. Som
 | Pool trades window | `/mpp/poolTrades/...` | Windowed trade retrieval for a pool |
 | Time series | `/mpp/timeSeries/...` | Derived time-series views |
 | Daily active | `/mpp/dailyActiveTokens`, `/mpp/dailyActivePools` | Daily activity summaries |
+
+## Credit weights
+
+Metered routes are **not** billed at one flat rate. Each entry in [`api/endpoints.json`](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json) carries a **`credit_weight`** multiplier, and the resolver (core-edge full node) debits **`CREDIT_PER_EPOCH × credit_weight`** per request before serving it. SSE streams bill a flat session rate (`CREDIT_PER_STREAM_SESSION`; weight ignored), and an unmatched route defaults to weight **1**. See [Metering & API Keys → Debit formula](/agents-and-bds/metering-and-api-keys#debit-formula) for base rates and worked examples.
+
+The weights below mirror catalog **version 2** for the BDS Uniswap V3 market; `api/endpoints.json` is the single source of truth — verify against the live file before relying on a value.
+
+| Metered route | `credit_weight` |
+|---------------|-----------------|
+| `/mpp/pool/{pool_address}/metadata` | 1 |
+| `/mpp/token/{token_address}/pools` | 1 |
+| `/mpp/ethPrice` | 5 |
+| `/mpp/ethPrice/{block_number}` | 10 |
+| `/mpp/token/price/{token_address}/{pool_address}` | 5 |
+| `/mpp/token/price/{token_address}/{pool_address}/{block_number}` | 10 |
+| `/mpp/snapshot/base_all_pools/{token_address}` | 1 |
+| `/mpp/snapshot/base/{pool_address}` | 1 |
+| `/mpp/snapshot/base/{pool_address}/{block_number}` | 1 |
+| `/mpp/snapshot/trades/{pool_address}` | 1 |
+| `/mpp/snapshot/trades/{pool_address}/{block_number}` | 1 |
+| `/mpp/snapshot/allTrades` | 1 |
+| `/mpp/snapshot/allTrades/{block_number}` | 1 |
+| `/mpp/stream/allTrades` | flat stream session rate |
+| `/mpp/tokenPrices/all/{token_address}` | 10 |
+| `/mpp/tokenPrices/all/{token_address}/{block_number}` | 10 |
+| `/mpp/tradeVolumeAllPools/{token_address}/{time_interval}` | 1 |
+| `/mpp/tradeVolume/{pool_address}/{time_interval}` | 1 |
+| `/mpp/poolTrades/{pool_address}/{start_timestamp}/{end_timestamp}` | 1 |
+| `/mpp/timeSeries/{token_address}/{pool_address}/{time_interval}/{step_seconds}` | 5 × lookback multiplier (see below) |
+| `/mpp/dailyActiveTokens` | 1 |
+| `/mpp/dailyActivePools` | 1 |
+
+### Time series lookback multiplier
+
+`/mpp/timeSeries/...` is the one route whose cost is **not** captured by the static `credit_weight` alone. On top of its base weight of **5**, the resolver applies a **lookback multiplier** determined by the `time_interval` parameter (how far back the window reaches). Effective debit = **`CREDIT_PER_EPOCH × 5 × multiplier`**. This reflects the number of historical snapshots the resolver must walk to serve the window; for real-time use, per-block `/mpp/token/price/.../{block_number}` is cheaper and more precise.
+
+The tiers are defined in the catalog (`billing_modifier` on the time series route) and load live below:
+
+<LiveTimeseriesMultiplier />
+
+So `/mpp/timeSeries/.../3600/144` (1-hour lookback) costs 5 × 4 = **20×** the base epoch rate; a 24-hour window costs **640×**. The multiplier is keyed off `time_interval` (the lookback seconds), not `step_seconds`.
 
 ## Core consumption patterns
 

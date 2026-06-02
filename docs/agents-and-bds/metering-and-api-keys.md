@@ -4,6 +4,7 @@ title: Metering & API Keys
 ---
 
 import LiveCreditPlans from '@site/src/components/LiveCreditPlans';
+import LiveTimeseriesMultiplier from '@site/src/components/LiveTimeseriesMultiplier';
 
 # Metering & API Keys
 
@@ -207,6 +208,7 @@ Pricing is **not** one flat rate for every `/mpp/` route.
 2. **Core API** — Before serving the request, the resolver matches your path to a catalog template and sends `route_template` + `credit_weight` to the metering service (`POST /internal/billing/deduct`). Optional header `X-BDS-Client-Source` (`cli`, `mcp`, `direct`) is stored for usage reports only.
 3. **Metering service** — Applies env base rates only; it does **not** choose per-route weights:
    - **`/mpp/stream/...`** → flat **`CREDIT_PER_STREAM_SESSION`** per connection (SSE; `credit_weight` is ignored).
+   - **`/mpp/timeSeries/...`** → **`CREDIT_PER_EPOCH × credit_weight × lookback_multiplier`**. The base `credit_weight` is **5**; the resolver adds a **lookback multiplier** (sent as `history_multiplier`) based on the `time_interval` window — see the [Time series lookback multiplier](#time-series-lookback-multiplier) table below.
    - **All other metered GETs** → **`CREDIT_PER_EPOCH × credit_weight`** (default weight **1** if the catalog match is missing).
 
 The default **`CREDIT_PER_EPOCH`** on the metering deployment is **`10/7200`** credits per request at weight **1** (roughly **1 credit ≈ 720** epoch-scoped GETs at that default). Top-up **plans** (`GET /credits/plans`) sell credit bundles; they are separate from per-route weights.
@@ -220,10 +222,21 @@ The default **`CREDIT_PER_EPOCH`** on the metering deployment is **`10/7200`** c
 | `/mpp/ethPrice/{block_number}` | 10 | 10× base |
 | `/mpp/token/price/...` (latest) | 5 | 5× base |
 | `/mpp/token/price/.../{block_number}` | 10 | 10× base |
+| `/mpp/timeSeries/...` | 5 × lookback | 5× base × lookback multiplier (see below) |
 | `/mpp/tokenPrices/all/...` | 10 | 10× base (USD Price Feed) |
 | `/mpp/stream/allTrades` | — | flat stream session rate |
 
 There is **no** separate SKU for “running Pulse” or “using the agent CLI” — premium usage shows up as higher-weight routes (especially **`/mpp/tokenPrices/all/...`**) plus stream debits. Monitor spend with **`bds-agent credits usage by-endpoint`** or the [Usage Dashboard](#usage-dashboard) **Top endpoints** table.
+
+### Time series lookback multiplier
+
+`/mpp/timeSeries/...` is the one metered route whose cost depends on a **query parameter**, not just the static catalog weight. On top of its base `credit_weight` of **5**, the resolver applies a **lookback multiplier** keyed off the `time_interval` value (how far back the window reaches), so the debit is **`CREDIT_PER_EPOCH × 5 × multiplier`**. This reflects how many historical snapshots the resolver walks to serve the window — for real-time pricing, per-block `/mpp/token/price/.../{block_number}` is cheaper and more precise.
+
+The tiers below load live from the resolver endpoint catalog (`billing_modifier` on the time series route), so they always reflect the deployed policy:
+
+<LiveTimeseriesMultiplier />
+
+For example, `/mpp/timeSeries/.../3600/144` (1-hour lookback) costs 5 × 4 = **20×** the base epoch rate; a 24-hour window costs **640×**. The multiplier keys off `time_interval`, not `step_seconds`.
 
 ## Usage and account dashboard
 
