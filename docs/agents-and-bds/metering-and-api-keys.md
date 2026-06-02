@@ -4,7 +4,6 @@ title: Metering & API Keys
 ---
 
 import LiveCreditPlans from '@site/src/components/LiveCreditPlans';
-import LiveTimeseriesMultiplier from '@site/src/components/LiveTimeseriesMultiplier';
 
 # Metering & API Keys
 
@@ -200,43 +199,24 @@ The hosted MCP server does not apply a separate charge layer. It forwards your B
 
 A balance at or below zero causes the resolver to return `402`. The hosted MCP server propagates this back to the MCP client. Scripts in `powerloom-bds-univ3` call `get_credit_balance` before each recipe run to surface this before it becomes a mid-run 402.
 
-### Debit formula
+### How much each call costs
 
-Pricing is **not** one flat rate for every `/mpp/` route.
+Pricing is **not** one flat rate for every `/mpp/` route. Your balance is debited when the resolver accepts a metered request. Per-route **`credit_weight`**, stream session rates, and time-series lookback tiers all come from one place:
 
-1. **Catalog** — [`snapshotter-computes` `api/endpoints.json`](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json) lists every metered `/mpp/...` route with a **`credit_weight`** (catalog `version` 2+). That file is the product definition for per-route cost multipliers.
-2. **Core API** — Before serving the request, the resolver matches your path to a catalog template and sends `route_template` + `credit_weight` to the metering service (`POST /internal/billing/deduct`). Optional header `X-BDS-Client-Source` (`cli`, `mcp`, `direct`) is stored for usage reports only.
-3. **Metering service** — Applies env base rates only; it does **not** choose per-route weights:
-   - **`/mpp/stream/...`** → flat **`CREDIT_PER_STREAM_SESSION`** per connection (SSE; `credit_weight` is ignored).
-   - **`/mpp/timeSeries/...`** → **`CREDIT_PER_EPOCH × credit_weight × lookback_multiplier`**. The base `credit_weight` is **5**; the resolver adds a **lookback multiplier** (sent as `history_multiplier`) based on the `time_interval` window — see the [Time series lookback multiplier](#time-series-lookback-multiplier) table below.
-   - **All other metered GETs** → **`CREDIT_PER_EPOCH × credit_weight`** (default weight **1** if the catalog match is missing).
+**→ [Endpoint Catalog — Credit weights](/bds-data-market/endpoint-catalog#credit-weights)** (live table from [`api/endpoints.json`](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json))
 
-The default **`CREDIT_PER_EPOCH`** on the metering deployment is **`10/7200`** credits per request at weight **1** (roughly **1 credit ≈ 720** epoch-scoped GETs at that default). Top-up **plans** (`GET /credits/plans`) sell credit bundles; they are separate from per-route weights.
+**Credit plan (summary):**
 
-**Example weights** (see the live catalog for the full table):
+- **Typical GET (weight 1):** **1/7200** of a credit per request — about **7200** such calls per **1** credit.
+- **Heavier routes:** multiply that base by the route’s catalog weight (e.g. weight **10** → **10/7200** credits per call).
+- **SSE stream** (`/mpp/stream/allTrades`): **0.01** credits **per connection** when the stream opens (not per event on the wire).
+- **Time series** (`/mpp/timeSeries/...`): weight **5** × a **lookback multiplier** by window — see [Endpoint Catalog → Time series lookback](/bds-data-market/endpoint-catalog#time-series-lookback-multiplier).
 
-| Route pattern | `credit_weight` | Debit (at default `CREDIT_PER_EPOCH`) |
-|---------------|-----------------|--------------------------------------|
-| `/mpp/snapshot/...`, `/mpp/dailyActivePools`, … | 1 | 1× base |
-| `/mpp/ethPrice` | 5 | 5× base |
-| `/mpp/ethPrice/{block_number}` | 10 | 10× base |
-| `/mpp/token/price/...` (latest) | 5 | 5× base |
-| `/mpp/token/price/.../{block_number}` | 10 | 10× base |
-| `/mpp/timeSeries/...` | 5 × lookback | 5× base × lookback multiplier (see below) |
-| `/mpp/tokenPrices/all/...` | 10 | 10× base (USD Price Feed) |
-| `/mpp/stream/allTrades` | — | flat stream session rate |
+**Pulse trader (`bds-agent trade run`):** **`GET /mpp/stream/allTrades`** for the session, plus **`GET /mpp/tokenPrices/...`** each epoch with default `--price-source usd`. No separate Pulse or CLI fee — only catalog-priced routes.
 
-There is **no** separate SKU for “running Pulse” or “using the agent CLI” — premium usage shows up as higher-weight routes (especially **`/mpp/tokenPrices/all/...`**) plus stream debits. Monitor spend with **`bds-agent credits usage by-endpoint`** or the [Usage Dashboard](#usage-dashboard) **Top endpoints** table.
+**YAML / MCP agents:** many recipes use **`bds_stream`** → the same stream endpoint; you pay the session rate above, not per SSE message.
 
-### Time series lookback multiplier
-
-`/mpp/timeSeries/...` is the one metered route whose cost depends on a **query parameter**, not just the static catalog weight. On top of its base `credit_weight` of **5**, the resolver applies a **lookback multiplier** keyed off the `time_interval` value (how far back the window reaches), so the debit is **`CREDIT_PER_EPOCH × 5 × multiplier`**. This reflects how many historical snapshots the resolver walks to serve the window — for real-time pricing, per-block `/mpp/token/price/.../{block_number}` is cheaper and more precise.
-
-The tiers below load live from the resolver endpoint catalog (`billing_modifier` on the time series route), so they always reflect the deployed policy:
-
-<LiveTimeseriesMultiplier />
-
-For example, `/mpp/timeSeries/.../3600/144` (1-hour lookback) costs 5 × 4 = **20×** the base epoch rate; a 24-hour window costs **640×**. The multiplier keys off `time_interval`, not `step_seconds`.
+Monitor spend with **`bds-agent credits usage by-endpoint`** or the [Usage Dashboard](#usage-dashboard) **Top endpoints** table. [Plans](#plans-and-credit-balance) above are how you buy more credits.
 
 ## Usage and account dashboard
 
