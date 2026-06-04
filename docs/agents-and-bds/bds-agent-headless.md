@@ -308,9 +308,114 @@ The key difference from the hosted server:
 
 For laptop use in Cursor or Claude Code, the stdio path is adequate. For agents running in remote environments or frameworks that cannot spawn child processes, use the hosted server.
 
+## Pulse trader (`bds-agent trade`)
+
+**Pulse** is a self-contained momentum trader: it subscribes to the BDS **`/mpp/stream/allTrades`** SSE feed, scores each epoch with **price + volume + flow** confluence, and (when not in dry-run) swaps on **Ethereum mainnet** via Uniswap V3 SwapRouter. Production setups use **`--multi-pool`** and the **USD Price Feed** (`--price-source usd`, default) so alt USDC pairs are not drowned out by flat trade-implied prices on WETH/USDC.
+
+**Prerequisites:** same as the rest of this guide — profile with `api_key`, `bds-agent config init`, and credits. Trading uses a **separate** wallet from billing.
+
+| File (profile `pulse`) | Purpose |
+|------------------------|---------|
+| `profiles/pulse.json` | API key, `bds_base_url`, catalog URLs |
+| `profiles/pulse.evm.env` | **Billing** — `signup-pay`, on-chain credit top-up |
+| `profiles/pulse.trade.env` | **Trading** — swaps only (`trade setup-evm`) |
+| `profiles/pulse.trader.json` | Open positions (one LONG per pool) |
+| `profiles/pulse.trades.jsonl` | Trade log |
+
+Use the same `--profile` on every command. **Do not** swap from the billing wallet.
+
+### Quick start (dry-run → live)
+
+```bash
+# After signup + config init (sections above)
+bds-agent trade setup-evm --profile pulse
+
+# Phase 1 — paper trades, no on-chain swaps
+bds-agent trade run --profile pulse --dry-run --multi-pool --verbose
+
+# Phase 2 — live (fund trading wallet: USDC for size + ETH for gas)
+bds-agent trade run --profile pulse --multi-pool --price-source usd --size 25
+```
+
+Fund **`profiles/<name>.trade.env`** only. First live swap per token may need a one-time ERC-20 **approve** before the router swap.
+
+### Multi-pool mode (`--multi-pool`)
+
+Each BDS epoch (~12s on ETH mainnet):
+
+1. Ingest per-pool trades from the shared `allTrades` stream  
+2. Run Pulse on each watchlist pool (USD window when `--price-source usd`)  
+3. Open up to **`--max-open-positions`** concurrent LONGs (default **5** with `--multi-pool`, **1** without) — **one position per pool**  
+4. **Live:** USDC ↔ base token on each selected pool (not WETH-only)
+
+Watchlist comes from **`GET /mpp/dailyActivePools`** (default top **40** pools, 5m interval) and refreshes about every **30 epochs**.
+
+```bash
+bds-agent trade run --profile pulse --dry-run --multi-pool --verbose \
+  --active-pool-limit 40 --active-interval 300 --price-source usd --max-open-positions 5
+```
+
+### Entry signal defaults
+
+| Flag | Default | Meaning |
+|------|---------|---------|
+| `--price-source` | `usd` | `usd` = `/mpp/tokenPrices/...` per epoch; `trades` = swap-implied only |
+| `--price-move` | `0.15` | Min price change % in the lookback window |
+| `--volume-burst` | `2.0` | Short-window volume vs trailing baseline |
+| `--flow-imbalance` | `30` | Directional flow as % of volume |
+| `--window-minutes` | `5` | Signal lookback |
+| `--size` | (required live) | USDC notional per entry |
+| `--slippage` | `0.01` | Uniswap `amountOutMinimum` floor (no silent relax to zero) |
+| `--max-open-positions` | auto | `0` = 5 with `--multi-pool`, else 1 |
+| `--daily-loss-limit` | `50` | Block new entries if today realized P/L ≤ −$50 (UTC) |
+| `--reentry-cooldown-minutes` | `0` | Optional: block all new entries N minutes after a **live** exit |
+| `--signal-cooldown-minutes` | `0` | Optional: per-pool spacing after a LONG fires |
+
+**Dry-run → live:** paper positions do not block live startup; starting **live** clears paper state. Use **`--verbose`** during validation — one heartbeat line per epoch (gates, `px=`, burst, imbalance, position state).
+
+### Exit strategies (defaults on)
+
+Disable any rule with `--no-exit-*`. First match wins: **stop-loss → take-profit → trailing-stop → time-based → signal-reversal**.
+
+| Flag | Default | Role |
+|------|---------|------|
+| `--exit-stop-loss-pct` | `2.0` | Cut if price falls X% below entry |
+| `--exit-take-profit-pct` | `1.0` | Take if price rises X% above entry |
+| `--exit-trailing-pct` | `2.0` | Exit X% below peak since entry |
+| `--exit-hold-minutes` | `10` | Max hold time |
+| `--exit-signal-reversal` | on | Exit on Pulse SHORT on the entry pool |
+
+### Metering (Pulse)
+
+| Route | When |
+|-------|------|
+| `/mpp/stream/allTrades` | Once per `trade run` session (per SSE connection) |
+| `/mpp/tokenPrices/...` | Each epoch per watched token when `--price-source usd` |
+| `/mpp/dailyActivePools` | Watchlist refresh (~every 30 epochs) |
+
+There is **no** separate “Pulse fee” — only catalog-priced BDS routes. See [Metering & API Keys → How much each call costs](./metering-and-api-keys.md#how-much-each-call-costs). On **HTTP 402** (credits exhausted), USD fetches fail fast with a top-up hint; the trader stops rather than using stale prices.
+
+```bash
+bds-agent credits balance
+bds-agent credits usage by-endpoint --days 7 --limit 50
+```
+
+### Ops commands
+
+```bash
+bds-agent trade setup-evm --profile pulse
+bds-agent trade status --profile pulse
+bds-agent trade history --profile pulse
+bds-agent trade pnl --profile pulse
+bds-agent trade exit --profile pulse              # all open
+bds-agent trade exit --profile pulse --pool 0x…   # one pool
+```
+
+**Full CLI reference** (verbose heartbeat legend, risk controls, guard composition): [`bds-agent-py` — `docs/TRADE.md`](https://github.com/powerloom/bds-agent-py/blob/main/docs/TRADE.md).
+
 ## Threshold Guard (`bds-agent guard`)
 
-Bracket trading on **one** USDC-quoted Uniswap V3 pool using BDS **spot USD** prices (`GET /mpp/token/price/{token}/{pool}`). Complements the **Pulse** trader (`bds-agent trade run`), which uses the live trade stream and multi-pool confluence. Guard is for a single pool with percent take-profit / stop-loss and optional dip re-entry.
+Bracket trading on **one** USDC-quoted Uniswap V3 pool using BDS **spot USD** prices (`GET /mpp/token/price/{token}/{pool}`). Complements **Pulse** above: Guard is single-pool percent brackets and optional dip re-entry; Pulse is stream confluence across many pools.
 
 **Setup:** same profile API key and swap wallet as Pulse — `bds-agent trade setup-evm --profile NAME` writes `profiles/<NAME>.trade.env`.
 
