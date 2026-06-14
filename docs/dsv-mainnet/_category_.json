@@ -1,0 +1,8 @@
+{
+  "label": "DSV Mainnet",
+  "position": 1.5,
+  "link": {
+    "type": "generated-index",
+    "description": "Architecture, consensus flow, on-chain verification, and operational characteristics of the live Powerloom decentralized sequencer-validator network."
+  }
+}

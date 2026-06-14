@@ -1,0 +1,118 @@
+.wrapper {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0 1.5rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.header p {
+  margin: 0.25rem 0 0;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.curlBlock {
+  margin: 0 0 1rem;
+  white-space: pre-wrap;
+}
+
+.status,
+.error {
+  margin: 0;
+}
+
+.error {
+  border-left: 3px solid var(--ifm-color-danger);
+  padding-left: 0.75rem;
+  color: var(--ifm-color-danger-dark);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.9rem;
+}
+
+.meta span {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.planGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.planCard {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  padding: 0.85rem;
+  background: var(--ifm-background-color);
+}
+
+.planTitle {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.planMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.planMeta span {
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-200);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.planDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+}
+
+.planDetails div {
+  min-width: 0;
+}
+
+.planDetails dt {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.78rem;
+  margin-bottom: 0.15rem;
+}
+
+.planDetails dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.recipient {
+  margin-top: 1rem;
+  overflow-wrap: anywhere;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.9rem;
+}

@@ -130,4 +130,4 @@ event SnapshotFinalized(uint256 indexed epochId, uint256 epochEnd, string projec
 ## See Also
 ---
 
-* [Build with Powerloom – All about data](/build-with-powerloom/snapshotter-node/data.md#verifying-data)
+* [Build with Powerloom – All about data](/build-with-powerloom/snapshotter-node/data.md)

@@ -39,6 +39,10 @@ const config = {
     locales: ['en'],
   },
 
+  markdown: {
+    mermaid: true,
+  },
+
   presets: [
     [
       'classic',
@@ -151,7 +155,7 @@ const config = {
           },
           {
             label: 'X(Twitter)',
-            href: 'https://x.com/Powerloom',
+            href: 'https://x.com/powerloom',
           },
           {
             label: 'Telegram',
@@ -199,6 +203,7 @@ const config = {
   },
 
   themes: [
+    '@docusaurus/theme-mermaid',
     'docusaurus-theme-search-typesense'
   ]
 };

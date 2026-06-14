@@ -11,18 +11,15 @@ The data sources defined by a market can be static or dynamic, depending on the 
 
 ## Static Data Sources
 
-Our implementation of a data market serves datasets to render live Uniswap V2, Uniswap V3, and Aave V3 dashboards. Further details about the data source configurations and snapshot schemas can be found in the following sections of our documentation:
+Static data sources are useful when a market tracks a known set of contracts. In the current BDS market, snapshotter nodes track active Uniswap V3 pools on Ethereum mainnet and submit market-specific snapshots for DSV finalization.
 
-* [Building with Powerloom -- Uniswap V2 and V3 Dashboards](/build-with-powerloom/use-cases/existing-implementations/uniswap-dashboard/)
-* [Building with Powerloom -- Aave V3 Dashboard](/build-with-powerloom/use-cases/existing-implementations/aavev3-dashboard/)
-
-Continuing with the Uniswap V2 example, you can explore the data sources list defined as part of the Uniswap v2 specific configuration in the [`snapshotter-configs`](https://github.com/powerloom/snapshotter-configs/blob/fcf9b852bac9694258d7afcd8beeaa4cf961c65f/projects.example.json#L1-L11) repository.
+You can explore an older static configuration example in the [`snapshotter-configs`](https://github.com/powerloom/snapshotter-configs/blob/fcf9b852bac9694258d7afcd8beeaa4cf961c65f/projects.example.json#L1-L11) repository.
 
 ```json reference
 https://github.com/powerloom/snapshotter-configs/blob/fcf9b852bac9694258d7afcd8beeaa4cf961c65f/projects.example.json#L1-L11
 ```
 
-The `projects` field in the above configuration snippet represents the Uniswap v2 pair contract addresses that are tracked, and snapshots are generated for these contracts. To further understand how snapshots on these contracts are tracked, refer to the section on [Project Types and IDs](#project-types-and-ids).
+The `projects` field in the above configuration snippet represents contract addresses that are tracked, and snapshots are generated for those contracts. To further understand how snapshots on these contracts are tracked, refer to the section on [Project Types and IDs](#project-types-and-ids).
 
 ## Dynamic Data Sources
 

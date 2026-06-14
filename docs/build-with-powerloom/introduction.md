@@ -11,10 +11,6 @@ The overall architecture of the Powerloom protocol is illustrated below:
 
 One of the most crucial components of the Powerloom protocol is the Snapshotter peer. A Snapshotter is a node responsible for reading data from various blockchains and sending it to the Powerloom consensus protocol for validation. Anyone can run a Snapshotter node and join the Powerloom network.
 
-Building a new use case can often be tricky because more documentation and examples are needed. This section will provide a comprehensive walkthrough on building a new use case on top of the Powerloom Protocol.
-
-We aim to build a community-owned repository of a broad use case implementation with anyone who can contribute. It needs a couple of `.env` variables linking to the repository with use case and configuration files.
-
-We aim to build a marketplace where anyone can deploy their use case and start creating value.
+Powerloom's current data access direction starts with the BDS data market: verified, DSV-finalized Uniswap V3 data served through metered HTTP routes and agent-friendly access layers.
 
 Let's dive into the Snapshotter node and see how it all works!

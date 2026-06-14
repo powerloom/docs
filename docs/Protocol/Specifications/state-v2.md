@@ -4,6 +4,10 @@ sidebar_position: 1
 
 # Protocol State: V2
 
+:::info
+This page documents the Protocol v2 state model. For the live DSV mainnet submission and verification path, see [`On-Chain Submission and Verification`](/dsv-mainnet/onchain-submission-and-verification) and [`Why DSV Exists`](/dsv-mainnet/why-dsv-exists).
+:::
+
 ## Overview: Smart Contract Architecture
 
 The smart contracts that maintain the state of the protocol V2 interact are arranged as depicted in the diagram that follows.

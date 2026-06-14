@@ -5,7 +5,7 @@ sidebar_position: 1
 # Architecture
 The Snapshotter Peer is designed with a modular and highly configurable architecture, allowing for easy customization and seamless integration with a diverse set of data markets.
 
-![Submodule architecture of the Snapshotter](/images/submodule_architecture.png)
+![Modular architecture of the Snapshotter](/images/submodule_architecture.png)
 
 ## Snapshotter Core
 
@@ -13,15 +13,15 @@ This foundational component defines all the essential interfaces and handles a w
 
 ## Data Market Specifics
 
-Use case-specific logic for generating snapshots and other configurations are available as [Git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), which can be pulled in as desired. Currently, you can find diverse use cases that serve customized datapoints and track activity across multiple data source chains like Ethereum Mainnet, Polygon zkEVM, Polygon PoS, etc.
+Market-specific logic for generating snapshots and related configuration is pulled in by the node's build and run scripts at runtime. Lite and full-node deployments use this mechanism to bind the node to the compute and config modules required by a given data market.
 
 * DEXs like Uniswap v2, Quickswap
 * Bridges like bungee.exchange, Owlto finance
 * Lending markets like Aave and Compound 
 
-The architecture has been designed to facilitate the seamless interchange of configuration and modules. Adapting the system to different use cases is as straightforward as changing a Git branch.
+The architecture has been designed to facilitate the seamless interchange of configuration and modules. Adapting the system to different markets is handled by selecting the compute and config repositories, branches, and commits that the setup scripts pull during deployment.
 
-You can observe the corresponding branches within [snapshotter-configs](https://github.com/powerloom/snapshotter-configs/) and [snapshotter-computes](https://github.com/powerloom/snapshotter-computes/) repos:
+You can observe market-specific modules in the [snapshotter-configs](https://github.com/powerloom/snapshotter-configs/) and [snapshotter-computes](https://github.com/powerloom/snapshotter-computes/) repos:
 
 #### Snapshotter Computes
 * `eth_uniswapv2`: Pooler implementation for the Uniswap v2 dashboard
@@ -41,14 +41,14 @@ You can observe the corresponding branches within [snapshotter-configs](https://
 
 ### Configuration Files
 
-Configuration files, located in the `/config` directory and linked to [snapshotter-configs](https://github.com/powerloom/snapshotter-configs/) repo, play a pivotal role in defining project types, specifying paths for individual compute modules, and managing various project-related settings.
+Configuration files are pulled from [snapshotter-configs](https://github.com/powerloom/snapshotter-configs/) into the node's `/config` directory during setup. They define project types, specify paths for individual compute modules, and manage data-market settings.
 
 ### Compute Modules
 
-The heart of the system resides in the `snapshotter/modules` directory, linked to [snapshotter-computes](https://github.com/powerloom/snapshotter-computes/), where the actual computation logic for each project type is defined. These modules drive the snapshot generation process for specific project types.
+The computation logic is pulled from [snapshotter-computes](https://github.com/powerloom/snapshotter-computes/) into the node runtime during setup. These modules drive snapshot generation for specific project types and markets.
 
-## Building Your Own Use Case
-Working on a new use case is as simple as writing a new compute module and adding a new configuration file. Instructions to get started in `build-dev.sh` mode are available in the [Deploy repo](https://github.com/powerloom/deploy/tree/devnet).
+## Building Your Own Data Market
+Working on a new data market starts with writing a compute module and adding the corresponding configuration.
 
 # Useful Links
 

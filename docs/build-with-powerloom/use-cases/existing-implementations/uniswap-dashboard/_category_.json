@@ -1,8 +1,0 @@
-{
-    "label": "Uniswap Dashboard",
-    "position": 0,
-    "link": {
-      "type": "generated-index",
-      "description": "UniswapV2 and UniswapV3 Dashboard Implementation using Powerloom protocol"
-    }
-  }

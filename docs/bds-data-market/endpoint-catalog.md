@@ -1,0 +1,103 @@
+---
+sidebar_position: 3
+title: Endpoint Catalog
+---
+
+import LiveTimeseriesMultiplier from '@site/src/components/LiveTimeseriesMultiplier';
+import LiveMeteredRoutesTable from '@site/src/components/LiveMeteredRoutesTable';
+
+# Endpoint Catalog
+
+This page documents the current Uniswap V3 route surface served by the snapshotter full-node resolver and exposed publicly through metered `/mpp/...` routes.
+
+The **machine-readable** endpoint catalog (paths, HTTP methods, parameters, metering flags) for this BDS market is maintained in the compute package repo as [`api/endpoints.json`](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json) on branch [`bds_eth_uniswapv3_core`](https://github.com/powerloom/snapshotter-computes/tree/bds_eth_uniswapv3_core) in [`powerloom/snapshotter-computes`](https://github.com/powerloom/snapshotter-computes). That file is the single catalog source for the full-node resolver, [`powerloom/bds-mcp-server`](https://github.com/powerloom/bds-mcp-server), [`powerloom/powerloom-bds-univ3`](https://github.com/powerloom/powerloom-bds-univ3), and the headless [`bds-agent`](https://pypi.org/project/bds-agent/) CLI ([`powerloom/bds-agent-py`](https://github.com/powerloom/bds-agent-py)). Route handlers are implemented in the snapshotter full-node stack ([`powerloom/snapshotter-core-edge`](https://github.com/powerloom/snapshotter-core-edge) and related deployments).
+
+For public integrations, treat `/mpp/...` as the canonical consumption path. Some deployments may expose equivalent non-metered aliases without the `/mpp` prefix, but those are not the product surface for hosted BDS access.
+
+## Route families
+
+| Area | Metered route family | Purpose |
+|------|----------------------|---------|
+| Pool metadata | `/mpp/pool/{pool_address}/metadata` | Pool configuration and descriptive metadata |
+| Token pools | `/mpp/token/{token_address}/pools` | Pools associated with a token |
+| ETH price | `/mpp/ethPrice`, `/mpp/ethPrice/{block_number}` | ETH reference price snapshots |
+| Token price in pool | `/mpp/token/price/{token}/{pool}`, `/mpp/token/price/{token}/{pool}/{block_number}` | Pool-scoped token pricing |
+| Base all pools | `/mpp/snapshot/base_all_pools/{token_address}` | Base snapshot view across pools for a token |
+| Base snapshot | `/mpp/snapshot/base/{pool_address}`, `/mpp/snapshot/base/{pool_address}/{block_number}` | Pool state snapshot |
+| Trades snapshot | `/mpp/snapshot/trades/{pool_address}`, `/mpp/snapshot/trades/{pool_address}/{block_number}` | Trade snapshot for one pool |
+| All trades | `/mpp/snapshot/allTrades`, `/mpp/snapshot/allTrades/{block_number}` | Aggregated all-trades snapshot |
+| Streaming all trades | `/mpp/stream/allTrades`, `/mpp/stream/allTrades?from_epoch={block_number}` | SSE stream of finalized all-trades data |
+| Token prices all | `/mpp/tokenPrices/all/{token_address}`, `/mpp/tokenPrices/all/{token_address}/{block_number}` | Token pricing across supported pools |
+| Trade volume | `/mpp/tradeVolume/...`, `/mpp/tradeVolumeAllPools/...` | Volume views over windows and scopes |
+| Pool trades window | `/mpp/poolTrades/...` | Windowed trade retrieval for a pool |
+| Time series | `/mpp/timeSeries/...` | Derived time-series views |
+| Daily active | `/mpp/dailyActiveTokens`, `/mpp/dailyActivePools` | Daily activity summaries |
+
+## Credit weights
+
+Metered routes are **not** billed at one flat rate. Each catalog entry has a **`credit_weight`** (multiplier on a base GET) or a **stream session** rate for SSE. For the credit plan summary (base unit, Pulse, agents), see [Metering & API Keys → How much each call costs](/agents-and-bds/metering-and-api-keys#how-much-each-call-costs).
+
+The table below is loaded live from [`api/endpoints.json`](https://github.com/powerloom/snapshotter-computes/blob/bds_eth_uniswapv3_core/api/endpoints.json) so it stays aligned when the catalog version or weights change:
+
+<LiveMeteredRoutesTable />
+
+### Time series lookback multiplier
+
+`/mpp/timeSeries/...` is the one route whose cost is **not** captured by the static `credit_weight` alone. On top of its base weight of **5**, a **lookback multiplier** applies based on `time_interval` (how far back the window reaches). For real-time use, per-block `/mpp/token/price/.../{block_number}` is usually cheaper and more precise.
+
+The tiers are defined in the catalog (`billing_modifier` on the time series route) and load live below:
+
+<LiveTimeseriesMultiplier />
+
+So `/mpp/timeSeries/.../3600/144` (1-hour lookback) costs **5 × 4 = 20×** a weight-1 GET; a 24-hour window costs **640×** that base. The multiplier is keyed off `time_interval` (the lookback seconds), not `step_seconds`.
+
+## Core consumption patterns
+
+### Per-epoch snapshot read
+
+Use a snapshot route when you want a finalized response for a specific epoch or block.
+
+Examples:
+
+- `/mpp/snapshot/allTrades/{block_number}`
+- `/mpp/snapshot/base/{pool_address}/{block_number}`
+- `/mpp/snapshot/trades/{pool_address}/{block_number}`
+
+This is the primary consumption pattern for deterministic agent and application workflows.
+
+### Latest finalized read
+
+Use a route without the explicit epoch when you want the latest finalized result currently available from the full-node resolver.
+
+Examples:
+
+- `/mpp/snapshot/allTrades`
+- `/mpp/ethPrice`
+
+These routes are convenient, but they still follow finalized-state availability rather than raw source-chain head state.
+
+### Streaming consumption
+
+Use `/mpp/stream/allTrades` when you want a long-lived feed of finalized all-trades events. This is served over Server-Sent Events and can optionally resume from a given epoch with `from_epoch`.
+
+## Authentication and metering
+
+In hosted BDS deployments, `/mpp/...` routes are protected and metered by [`powerloom/bds-agenthub-billing-metering`](https://github.com/powerloom/bds-agenthub-billing-metering).
+
+The current product direction is:
+
+- **Bearer API key** authentication,
+- credit deduction before the route is served,
+- optional SSE access through the same metered surface.
+
+For public consumers, the main practical rule is simple: if you are integrating with BDS as a product, target the `/mpp/...` routes and expect authenticated access.
+
+## Scope note
+
+This catalog documents the current Uniswap V3 BDS market surface. As additional BDS markets launch, this section should either grow market-specific catalogs or split them into separate per-market references.
+
+## Related pages
+
+- [`What BDS Is`](./what-bds-is.md)
+- [`Snapshotter Full Node as Resolver`](./snapshotter-full-node-as-resolver.md)
+- [`Verification Pattern`](./verification-pattern.md)
