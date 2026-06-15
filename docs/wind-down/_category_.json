@@ -1,0 +1,8 @@
+{
+  "label": "Wind-Down",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Powerloom is winding down. This section contains the official timeline, status of each service and system, and instructions for node operators, builders, and the community."
+  }
+}
