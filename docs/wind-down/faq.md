@@ -6,7 +6,7 @@ sidebar_position: 11
 
 ## Why is Powerloom shutting down?
 
-After reviewing the project's path forward, we concluded that Powerloom no longer has a sustainable basis to continue operating, maintaining, and growing the network responsibly. This decision was not made lightly. For further context, see the [wind-down announcement blog post](https://powerloom.io/blog).
+After reviewing the project's path forward, we concluded that Powerloom no longer has a sustainable basis to continue operating, maintaining, and growing the network responsibly. This decision was not made lightly. For further context, see the [wind-down announcement blog post](https://blog.powerloom.io/wind-down).
 
 ## Is the shutdown immediate?
 

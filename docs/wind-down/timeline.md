@@ -7,7 +7,7 @@ sidebar_position: 1
 :::info
 This page tracks the official wind-down milestones. Each item links to its detailed page with instructions and current status.
 
-📖 [Blog post](https://powerloom.io/blog/powerloom-is-shutting-down)
+📖 [Blog post](https://blog.powerloom.io/wind-down)
 :::
 
 ## Overview
@@ -114,7 +114,7 @@ There will be no surprise airdrop, emergency migration, private claim link, or u
 
 Only trust links published from official Powerloom channels:
 
-- Blog: [https://powerloom.io/blog](https://powerloom.io/blog)
+- Blog: [https://blog.powerloom.io/wind-down](https://blog.powerloom.io/wind-down)
 - X: [https://x.com/powerloom](https://x.com/powerloom)
 - Docs: [https://docs.powerloom.io](https://docs.powerloom.io)
 - Discord: [https://discord.gg/powerloom](https://discord.gg/powerloom)
