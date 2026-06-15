@@ -44,3 +44,9 @@ background-color: #252526;
   color:#1a8870
 
 }
+
+/* Keep the wind-down announcement bar link readable against the red background */
+div[class^='announcementBar_'] a {
+  color: #ffffff;
+  text-decoration: underline;
+}
