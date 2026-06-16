@@ -28,7 +28,7 @@ See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges)
 
 :::
 
-### 1. 🔲 Epoch Release Stopped, Rewards Cease
+### 1. ✅ Epoch Release Stopped, Rewards Cease
 
 Epoch release will be stopped. No new epochs will be released after this point, and reward accrual stops immediately.
 
@@ -39,7 +39,7 @@ This occurs after Day 104 ends and a few epochs into Day 105.
 
 ---
 
-### 2. 🔲 APIs, BDS & Hosted Services Shutdown
+### 2. ✅ APIs, BDS & Hosted Services Shutdown
 
 All hosted services go offline immediately after epoch release is stopped.
 
@@ -56,7 +56,7 @@ Node management is done via the [mint.powerloom.network](https://mint.powerloom.
 
 ---
 
-### 4. 🔲 DSV Validator Rewards (Days 91 to 104)
+### 4. 🟠 DSV Validator Rewards (Days 91 to 104)
 
 Pending validator rewards distributed to node owners within 48 hours of announcement.
 
