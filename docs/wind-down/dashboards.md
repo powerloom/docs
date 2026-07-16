@@ -26,8 +26,4 @@ Before July 16, 2026, the dashboard was used to:
 
 These actions are no longer available. Rewards, staked POWER, and node slot funds not recovered before the deadline cannot be recovered.
 
-## What you can still do
-
-If you already hold POWER on the Powerloom chain, bridge it out via [bridge-v2.powerloom.network](https://bridge-v2.powerloom.network) before the chain shuts down on **July 21, 2026 at 6:00 AM UTC**.
-
-See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges) for details.
+The Powerloom chain was shut down on **July 21, 2026 at 6:00 AM UTC**. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges) for details.

@@ -12,23 +12,11 @@ This page tracks the official wind-down milestones. Each item links to its detai
 
 ## Overview
 
-Powerloom is winding down in an orderly, transparent process. Most milestones are now complete.
+The Powerloom wind-down is **complete**. All milestones have been executed as scheduled.
 
-**Current status:** [mint.powerloom.network](https://mint.powerloom.network) went offline on **July 16, 2026 at 6:00 AM UTC**. Claims, unstaking, and node burns are no longer possible. If you still hold POWER on the Powerloom chain, **bridge it before July 21, 2026 at 6:00 AM UTC**.
+**Final status:** The Powerloom chain was permanently shut down on **July 21, 2026 at 6:00 AM UTC**. The bridge, dashboard, hosted services, and all on-chain state on the Powerloom chain are no longer accessible. The [POWER token on Ethereum](https://etherscan.io/token/0x429F0d8233e517f9acf6F0C8293BF35804063a83) continues to exist independently.
 
 ## Milestones
-
-:::warning Bridge Your Assets
-
-The Powerloom bridge uses the Arbitrum portal. Once the Powerloom chain is shut down on **July 21, 2026 at 6:00 AM UTC**, the bridge will have nothing to connect to and will stop functioning.
-
-**Bridge any assets off the Powerloom chain before July 21, 2026.** This is the only remaining action for users with assets still on the chain.
-
-[Bridge](https://bridge-v2.powerloom.network)
-
-See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges) for details.
-
-:::
 
 ### 1. 🛑 Epoch Release Stopped, Rewards Cease
 
@@ -102,9 +90,9 @@ mint.powerloom.network went offline. No further claims, unstaking, or node burns
 
 ---
 
-### 9. 🟠 Powerloom Chain Shutdown (Active)
+### 9. 🛑 Powerloom Chain Shutdown
 
-Powerloom chain will be permanently shut down. All contracts and state on the chain will become inaccessible.
+The Powerloom chain was permanently shut down. All contracts and state on the chain are inaccessible. The bridge no longer functions.
 
 **Date**: July 21, 2026 at 6:00 AM UTC
 **Details**: [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges)

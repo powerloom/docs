@@ -12,6 +12,8 @@ sidebar_position: 3
 
 🔒 Node burn closed (dashboard offline July 16, 2026)
 
+🛑 Powerloom chain shut down (July 21, 2026)
+
 :::
 
 ## To our DSV validators
@@ -45,9 +47,9 @@ Validator rewards were attributed off-chain based on on-chain submission activit
 | Shut down validator | Complete — validators should be offline |
 | Burn node & recover funds | Closed — deadline was July 16, 2026 |
 | Pending rewards (days 91–104) distributed | Complete |
-| Powerloom chain shutdown | July 21, 2026 at 6:00 AM UTC |
+| Powerloom chain shutdown | Complete — July 21, 2026 at 6:00 AM UTC |
 
-If you still hold POWER on the Powerloom chain, [bridge](https://bridge-v2.powerloom.network) it before the chain shuts down. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
+Assets not bridged off the Powerloom chain before July 21, 2026 are inaccessible. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
 
 ## Context
 

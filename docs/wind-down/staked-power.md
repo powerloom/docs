@@ -18,10 +18,6 @@ The dashboard was the only path for unstaking. Unstaking is no longer possible.
 
 - POWER not unstaked before July 16, 2026 **cannot be recovered**.
 - Staking rewards not claimed before the deadline **cannot be recovered**.
-- If you already unstaked and hold POWER on the Powerloom chain, bridge it out before the chain shuts down.
-
-:::warning
-The Powerloom chain shuts down on **July 21, 2026 at 6:00 AM UTC**. [Bridge](https://bridge-v2.powerloom.network) any POWER still on the chain before then.
-:::
+- POWER that remained on the Powerloom chain at the July 21, 2026 chain shutdown is inaccessible. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
 
 See also: [Node Management](/wind-down/node-onboarding) and [Reward Claims](/wind-down/reward-claims).

@@ -8,9 +8,9 @@ sidebar_position: 11
 
 After reviewing the project's path forward, we concluded that Powerloom no longer has a sustainable basis to continue operating, maintaining, and growing the network responsibly. This decision was not made lightly. For further context, see the [wind-down announcement blog post](https://blog.powerloom.io/wind-down).
 
-## Is the shutdown immediate?
+## Is the shutdown complete?
 
-No. Powerloom followed an orderly wind-down with published dates for each milestone. Most milestones are now complete. The remaining action is to bridge any assets off the Powerloom chain before **July 21, 2026 at 6:00 AM UTC**. See the [Wind-Down Timeline](/wind-down/timeline) for the full schedule.
+Yes. The wind-down followed an orderly schedule with published dates for each milestone. All milestones are now complete, including the Powerloom chain shutdown on **July 21, 2026 at 6:00 AM UTC**. See the [Wind-Down Timeline](/wind-down/timeline) for the full schedule.
 
 ## Should I keep running my node?
 
@@ -34,11 +34,13 @@ Unstaking and node burns were available via the dashboard until **July 16, 2026 
 
 No. The dashboard was the only path for claims, unstaking, and node burns. These actions cannot be recovered through the dashboard or direct contract interaction.
 
-If you already hold POWER on the Powerloom chain, you can still [bridge](https://bridge-v2.powerloom.network) it out before the chain shuts down on July 21, 2026.
+## I missed the July 21 deadline. Can I still bridge?
+
+No. The Powerloom chain and bridge were shut down on **July 21, 2026 at 6:00 AM UTC**. Assets not bridged off the chain before this date cannot be recovered. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
 
 ## What happens to POWER?
 
-The POWER token exists on Ethereum mainnet at [`0x429F0d8233e517f9acf6F0C8293BF35804063a83`](https://etherscan.io/token/0x429F0d8233e517f9acf6F0C8293BF35804063a83). It is an ERC-20 token and will continue to exist on Ethereum regardless of the wind-down. If you still hold POWER on the Powerloom chain, bridge it via [bridge-v2.powerloom.network](https://bridge-v2.powerloom.network) before the chain shuts down on July 21, 2026.
+The POWER token exists on Ethereum mainnet at [`0x429F0d8233e517f9acf6F0C8293BF35804063a83`](https://etherscan.io/token/0x429F0d8233e517f9acf6F0C8293BF35804063a83). It is an ERC-20 token and continues to exist on Ethereum regardless of the wind-down. POWER that remained on the Powerloom chain at shutdown is inaccessible.
 
 ## Will the APIs and BDS remain available?
 
@@ -50,7 +52,7 @@ No. [mint.powerloom.network](https://mint.powerloom.network) was available until
 
 ## Will contracts remain live?
 
-Deployed smart contracts on Ethereum will remain accessible on-chain indefinitely. Contracts on the Powerloom chain will become inaccessible when the chain shuts down on **July 21, 2026 at 6:00 AM UTC**. Powerloom-operated frontends, indexers, and APIs have been wound down. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
+Deployed smart contracts on Ethereum remain accessible on-chain indefinitely. Contracts on the Powerloom chain became inaccessible when the chain shut down on **July 21, 2026 at 6:00 AM UTC**. Powerloom-operated frontends, indexers, and APIs have been wound down. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
 
 ## Will the docs and GitHub repositories stay online?
 

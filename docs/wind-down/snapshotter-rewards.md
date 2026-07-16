@@ -31,4 +31,4 @@ No new epochs have been released since this point and reward accrual stopped imm
   powerloom-snapshotter-cli diagnose --clean --force
   ```
 - Reward claims and node burns via the dashboard are **closed** as of July 16, 2026. See [Reward Claims](/wind-down/reward-claims) and [Node Management](/wind-down/node-onboarding).
-- If you hold POWER on the Powerloom chain, [bridge](https://bridge-v2.powerloom.network) it before the chain shuts down on July 21, 2026.
+- The Powerloom chain was shut down on July 21, 2026. Assets not bridged before then are inaccessible. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
