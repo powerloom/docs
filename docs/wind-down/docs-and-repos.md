@@ -8,7 +8,7 @@ sidebar_position: 8
 
 ✅ All GitHub repositories public and archived
 
-✅ Docs site live
+📖 Docs site live
 
 :::
 

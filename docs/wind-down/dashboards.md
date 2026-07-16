@@ -4,30 +4,30 @@ sidebar_position: 6
 
 # mint.powerloom.network
 
-:::caution Status: Pending
+:::caution Status: Complete
 
-🔲 Dashboard shut down
+🛑 Dashboard shut down (July 16, 2026 at 6:00 AM UTC)
 
 :::
 
 ## Current Status
 
-[mint.powerloom.network](https://mint.powerloom.network) will remain available during the wind-down for operators and stakers to complete claims, unstake, and burn nodes.
+[mint.powerloom.network](https://mint.powerloom.network) went offline permanently on **July 16, 2026 at 6:00 AM UTC**.
 
-**Goes offline**: July 16, 2026 at 6:00 AM UTC
+No further claims, unstaking, or node burns are possible through the dashboard.
 
-## What you can do
+## What was available before shutdown
 
-From [mint.powerloom.network](https://mint.powerloom.network):
+Before July 16, 2026, the dashboard was used to:
 
 - Claim pending rewards (see [Reward Claims](/wind-down/reward-claims))
 - Unstake from staking positions (see [Staked POWER](/wind-down/staked-power))
 - Burn your node slot (see [Node Management](/wind-down/node-onboarding))
 
-After claiming or unstaking, bridge your POWER out of the Powerloom chain via [bridge-v2.powerloom.network](https://bridge-v2.powerloom.network).
+These actions are no longer available. Rewards, staked POWER, and node slot funds not recovered before the deadline cannot be recovered.
 
-## What happens after July 16, 2026
+## What you can still do
 
-After July 16, 2026 at 6:00 AM UTC, mint.powerloom.network will be shut down permanently. Complete all claims, unstaking, burns and bridge your tokens out before this date.
+If you already hold POWER on the Powerloom chain, bridge it out via [bridge-v2.powerloom.network](https://bridge-v2.powerloom.network) before the chain shuts down on **July 21, 2026 at 6:00 AM UTC**.
 
-The Powerloom chain itself will be shut down on July 21, 2026. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges) for details.
+See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges) for details.

@@ -10,7 +10,7 @@ sidebar_position: 2
 
 ❗️ New staking disabled
 
-✅ Node burn (no cooldown) available
+🔒 Node burn closed (dashboard offline July 16, 2026)
 
 :::
 
@@ -18,28 +18,27 @@ sidebar_position: 2
 
 No new nodes can be minted. No new staking positions can be opened. These operations are permanently disabled as part of the wind-down.
 
+[mint.powerloom.network](https://mint.powerloom.network) went offline on **July 16, 2026 at 6:00 AM UTC**. Node burns, reward claims, and unstaking are no longer possible through the dashboard.
+
 ## Wind-down checklist for node operators and stakers
 
-Work through these in order. Step 1 runs on your own node host; steps 2 to 5 are on-chain actions you perform from the dashboard and bridge.
-
-1. **Stop your snapshotter node**. After epoch release stops on **June 16, 2026 at 12:00 noon UTC**, there is no reason to keep running. From your snapshotter host:
+1. **Stop your snapshotter node** (if still running). Epoch release stopped on **June 16, 2026 at 12:00 noon UTC**; there is no reason to keep running. From your snapshotter host:
 
    ```bash
    powerloom-snapshotter-cli diagnose --clean --force
    ```
 
-2. **Claim your pending snapshotter rewards** at [mint.powerloom.network](https://mint.powerloom.network). See [Reward Claims](/wind-down/reward-claims).
+2. **Claim pending snapshotter rewards** — **Closed.** The dashboard went offline July 16, 2026. See [Reward Claims](/wind-down/reward-claims).
 
-3. **Burn your snapshotter node and claim your tokens back** at [mint.powerloom.network](https://mint.powerloom.network). No cooldown, the burn and claim are immediate.
+3. **Burn your snapshotter node and claim your tokens back** — **Closed.** See [Reward Claims](/wind-down/reward-claims).
 
-4. **Unstake and withdraw your staked POWER** at [mint.powerloom.network/staking](https://mint.powerloom.network/staking). No cooldown, the withdrawal is immediate. Claim any staking rewards from the same page. See [Staked POWER](/wind-down/staked-power).
+4. **Unstake and withdraw your staked POWER** — **Closed.** See [Staked POWER](/wind-down/staked-power).
 
-5. **Bridge your POWER out of the Powerloom chain** via [bridge-v2.powerloom.network](https://bridge-v2.powerloom.network).
+5. **Bridge your POWER out of the Powerloom chain** — **Still available** if you already hold POWER on-chain. Use [bridge-v2.powerloom.network](https://bridge-v2.powerloom.network) before **July 21, 2026 at 6:00 AM UTC**.
 
-:::tip Deadlines
+:::warning Missed the July 16 deadline?
 
-- Complete steps 2 to 4 before [mint.powerloom.network](https://mint.powerloom.network) goes offline on **July 16, 2026 at 6:00 AM UTC**.
-- Complete the bridge (step 5) before the Powerloom chain shuts down on **July 21, 2026 at 6:00 AM UTC**.
+The dashboard was the only path for claims, unstaking, and node burns. These actions cannot be recovered. If you still hold POWER on the Powerloom chain, bridge it before the chain shuts down on July 21, 2026.
 
 :::
 
@@ -47,4 +46,4 @@ Work through these in order. Step 1 runs on your own node host; steps 2 to 5 are
 
 - New node minting is **disabled**. No new node slots can be created.
 - New staking is **disabled**. No additional POWER can be staked.
-- The cooldown period for node burns has been removed. You can burn your node and claim your tokens back immediately (step 3 above).
+- Node burns are **closed**. The dashboard went offline on July 16, 2026.

@@ -4,17 +4,17 @@ sidebar_position: 10
 
 # Contracts, Bridges & On-chain Components
 
-:::caution Status: Pending
+:::caution Status
 
-🔲 Contract status documented
+🔒 Claims, unstaking, and node burns closed (July 16, 2026)
 
-🔲 Powerloom chain shut down
+🟠 Bridge active — chain shuts down July 21, 2026
 
 :::
 
 ## Current Status
 
-On-chain contracts, the bridge, and other on-chain components will be handled as described below.
+Claims, unstaking, and node burns via the dashboard are closed as of **July 16, 2026 at 6:00 AM UTC**. The only remaining action for users with assets on the Powerloom chain is to **bridge them out before July 21, 2026**.
 
 ## Contracts on Ethereum
 
@@ -24,13 +24,11 @@ Deployed [POWER ERC20 token contract](https://etherscan.io/token/0x429F0d8233e51
 
 Contracts deployed on the Powerloom chain will **cease to exist** when the chain is shut down on **July 21, 2026 at 6:00 AM UTC**. After that date, the chain will no longer be operational and all state on it will be inaccessible.
 
-Complete any on-chain actions that depend on Powerloom chain contracts (claims, unstaking) before this date.
-
 ## Bridge
 
 The Powerloom bridge uses the Arbitrum portal. Once the Powerloom chain is shut down on July 21, 2026, the bridge will have nothing to connect to and will stop functioning.
 
-**Recommended action**: Bridge any assets off the Powerloom chain before July 21, 2026.
+**Action required**: Bridge any assets off the Powerloom chain before July 21, 2026.
 
 [Bridge](https://bridge-v2.powerloom.network)
 
@@ -44,6 +42,5 @@ The Powerloom chain will be permanently shut down on **July 21, 2026 at 6:00 AM 
 
 ## What you should do
 
-- Complete any on-chain actions (claims, unstaking, bridging) before **July 21, 2026 at 6:00 AM UTC**.
-- Claim interfaces and dashboards will go offline on **July 16, 2026 at 6:00 AM UTC**. Complete claims before then. See [Dashboards & Claim Interfaces](/wind-down/dashboards).
-- See also: [Reward Claims](/wind-down/reward-claims) and [Staked POWER](/wind-down/staked-power) for specific instructions.
+- **Bridge** any POWER or other assets still on the Powerloom chain before **July 21, 2026 at 6:00 AM UTC**.
+- Claims, unstaking, and node burns are **no longer available**. See [Reward Claims](/wind-down/reward-claims), [Staked POWER](/wind-down/staked-power), and [mint.powerloom.network](/wind-down/dashboards).

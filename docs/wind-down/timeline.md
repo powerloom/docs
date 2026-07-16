@@ -12,7 +12,9 @@ This page tracks the official wind-down milestones. Each item links to its detai
 
 ## Overview
 
-Powerloom is winding down in an orderly, transparent process. The milestones below will be updated as each step is completed.
+Powerloom is winding down in an orderly, transparent process. Most milestones are now complete.
+
+**Current status:** [mint.powerloom.network](https://mint.powerloom.network) went offline on **July 16, 2026 at 6:00 AM UTC**. Claims, unstaking, and node burns are no longer possible. If you still hold POWER on the Powerloom chain, **bridge it before July 21, 2026 at 6:00 AM UTC**.
 
 ## Milestones
 
@@ -20,7 +22,7 @@ Powerloom is winding down in an orderly, transparent process. The milestones bel
 
 The Powerloom bridge uses the Arbitrum portal. Once the Powerloom chain is shut down on **July 21, 2026 at 6:00 AM UTC**, the bridge will have nothing to connect to and will stop functioning.
 
-**Bridge any assets off the Powerloom chain before July 21, 2026.**
+**Bridge any assets off the Powerloom chain before July 21, 2026.** This is the only remaining action for users with assets still on the chain.
 
 [Bridge](https://bridge-v2.powerloom.network)
 
@@ -28,57 +30,58 @@ See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges)
 
 :::
 
-### 1. ✅ Epoch Release Stopped, Rewards Cease
+### 1. 🛑 Epoch Release Stopped, Rewards Cease
 
-Epoch release will be stopped. No new epochs will be released after this point, and reward accrual stops immediately.
+Epoch release was stopped. No new epochs have been released since this point, and reward accrual stopped immediately.
 
-This occurs after Day 104 ends and a few epochs into Day 105.
+This occurred after Day 104 ended and a few epochs into Day 105.
 
 **Date**: Tuesday, June 16, 2026 at 12:00 noon UTC
 **Details**: [Snapshotter Rewards](/wind-down/snapshotter-rewards)
 
 ---
 
-### 2. ✅ APIs, BDS & Hosted Services Shutdown
+### 2. 🛑 APIs, BDS & Hosted Services Shutdown
 
-All hosted services go offline immediately after epoch release is stopped.
+All hosted services went offline immediately after epoch release was stopped.
 
 **Date**: Tuesday, June 16, 2026 ~12:00 noon UTC (right after milestone 1)
 **Details**: [APIs, BDS & Hosted Services](/wind-down/apis-and-services)
 
 ---
 
-### 3. 🟠 Node Management (In Progress)
+### 3. 🔒 Node Management Closed
 
-Node management is done via the [mint.powerloom.network](https://mint.powerloom.network) dashboard.
+Node management was done via the [mint.powerloom.network](https://mint.powerloom.network) dashboard, which went offline on July 16, 2026. Node burns and related dashboard actions are no longer possible.
 
+**Date**: July 16, 2026 at 6:00 AM UTC
 **Details**: [Node Management](/wind-down/node-onboarding)
 
 ---
 
-### 4. 🟠 DSV Validator Rewards (Days 91 to 104)
+### 4. ✅ DSV Validator Rewards (Days 91 to 104)
 
-Pending validator rewards distributed to node owners within 48 hours of announcement.
+Pending validator rewards for days 91 through 104 were distributed to node owners.
 
-**Status**: In progress
+**Date**: Completed within 48 hours of announcement
 **Details**: [DSV Validator Nodes](/wind-down/dsv-validators)
 
 ---
 
-### 5. 🟠 Reward Claims (In Progress)
+### 5. 🔒 Reward Claims Closed
 
-Claims available on [mint.powerloom.network](https://mint.powerloom.network) until shutdown.
+Reward claims were available on [mint.powerloom.network](https://mint.powerloom.network) until the dashboard shut down. Unclaimed rewards can no longer be recovered.
 
-**Deadline**: July 16, 2026 at 6:00 AM UTC
+**Date**: July 16, 2026 at 6:00 AM UTC
 **Details**: [Reward Claims](/wind-down/reward-claims)
 
 ---
 
-### 6. 🟠 Staked POWER (In Progress)
+### 6. 🔒 Staked POWER Closed
 
-Unstake at [mint.powerloom.network/staking](https://mint.powerloom.network/staking). No cooldown.
+Unstaking was available at [mint.powerloom.network/staking](https://mint.powerloom.network/staking) until the dashboard shut down. Unstaking not completed before the deadline can no longer be recovered.
 
-**Deadline**: July 16, 2026 at 6:00 AM UTC
+**Date**: July 16, 2026 at 6:00 AM UTC
 **Details**: [Staked POWER](/wind-down/staked-power)
 
 ---
@@ -90,18 +93,18 @@ Unstake at [mint.powerloom.network/staking](https://mint.powerloom.network/staki
 
 ---
 
-### 8. 🔲 mint.powerloom.network Shutdown
+### 8. 🛑 mint.powerloom.network Shutdown
 
-mint.powerloom.network goes offline. No further claims, unstaking, or node burns possible via the dashboard.
+mint.powerloom.network went offline. No further claims, unstaking, or node burns are possible via the dashboard.
 
 **Date**: July 16, 2026 at 6:00 AM UTC
 **Details**: [mint.powerloom.network](/wind-down/dashboards)
 
 ---
 
-### 9. 🔲 Powerloom Chain Shutdown
+### 9. 🟠 Powerloom Chain Shutdown (Active)
 
-Powerloom chain permanently shut down. All contracts and state on the chain become inaccessible.
+Powerloom chain will be permanently shut down. All contracts and state on the chain will become inaccessible.
 
 **Date**: July 21, 2026 at 6:00 AM UTC
 **Details**: [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges)

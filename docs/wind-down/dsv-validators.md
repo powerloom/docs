@@ -4,11 +4,13 @@ sidebar_position: 3
 
 # DSV Validator Nodes
 
-:::caution Status: Pending
+:::caution Status: Complete
 
-🔲 Epoch release stopped (June 16, 2026 at 12:00 noon UTC)
+🛑 Epoch release stopped (June 16, 2026 at 12:00 noon UTC)
 
-🔲 Pending validator rewards (days 91–104) distributed
+✅ Pending validator rewards (days 91–104) distributed
+
+🔒 Node burn closed (dashboard offline July 16, 2026)
 
 :::
 
@@ -20,35 +22,32 @@ You have been running validator nodes for 104 days, keeping the DSV network aliv
 
 ### 1. Turn off your validator
 
-After epoch release is stopped on **June 16, 2026 at 12:00 noon UTC**, you can shut down your DSV validator node. No further submissions will be expected and there is no penalty for going offline.
+Epoch release stopped on **June 16, 2026 at 12:00 noon UTC**. If your validator is still running, shut it down. No further submissions are expected and there is no penalty for going offline.
 
 ```bash
 ./dsv.sh stop
 ```
 
-### 2. Burn your node to recover your funds
+### 2. Recover your funds
 
-Burn your validator node on the ValidatorState contract to recover the POWER you paid at mint (`nodePrice`).
-
-- [**Contract**: `0x85573B2CF313315364FB4332f8eabc55321F201A`](https://explorer-v2.powerloom.network/address/0x85573B2CF313315364FB4332f8eabc55321F201A) (Powerloom L2, chain ID 7869)
-- Call `burnNode(nodeId)` then `claimNodeTokens(nodeId)` to recover your funds.
-- There is no cooldown. Burn and claim immediately.
-- **Deadline**: The Powerloom chain shuts down on **July 21, 2026 at 6:00 AM UTC**. Burn before then or your funds will be unrecoverable.
+Validator node burns and fund recovery were handled through the same dashboard path as snapshotter nodes. [mint.powerloom.network](https://mint.powerloom.network) went offline on **July 16, 2026 at 6:00 AM UTC**. Funds not recovered before the deadline cannot be recovered.
 
 ### 3. Pending validator rewards (days 91–104)
 
-Validator rewards for days 91 through 104 will be distributed to node owners within the next 48 hours of the announcement. These are separate from snapshotter slot rewards (which are claimed via [mint.powerloom.network](https://mint.powerloom.network)).
+Validator rewards for days 91 through 104 were distributed to node owners within 48 hours of the announcement. These were separate from snapshotter slot rewards (which were claimed via the dashboard before it shut down).
 
-Validator rewards are attributed off-chain based on on-chain submission activity (VPA batch submissions, priority assignments) and distributed directly to the owner address registered for each node ID.
+Validator rewards were attributed off-chain based on on-chain submission activity (VPA batch submissions, priority assignments) and distributed directly to the owner address registered for each node ID.
 
 ## Timeline
 
-| Action | When |
-|--------|------|
-| Shut down validator | Any time now |
-| Burn node & recover funds | Now through July 21, 2026 |
-| Pending rewards (days 91–104) distributed | Within 48 hours of announcement |
+| Action | Status |
+|--------|--------|
+| Shut down validator | Complete — validators should be offline |
+| Burn node & recover funds | Closed — deadline was July 16, 2026 |
+| Pending rewards (days 91–104) distributed | Complete |
 | Powerloom chain shutdown | July 21, 2026 at 6:00 AM UTC |
+
+If you still hold POWER on the Powerloom chain, [bridge](https://bridge-v2.powerloom.network) it before the chain shuts down. See [Contracts, Bridges & On-chain Components](/wind-down/contracts-and-bridges).
 
 ## Context
 
