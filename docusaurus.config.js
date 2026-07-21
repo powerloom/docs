@@ -78,6 +78,15 @@ const config = {
         respectPrefersColorScheme: false,
       },
 
+      announcementBar: {
+        id: 'wind-down-complete', // change this id to force the bar to re-show after a user dismisses it
+        content:
+          '⚠️ Powerloom wind-down is complete. Read the <a href="/wind-down/timeline">wind-down timeline</a> for details.',
+        backgroundColor: '#b91c1c',
+        textColor: '#ffffff',
+        isCloseable: true,
+      },
+
       typesense: {
         // Replace this with the name of your index/collection.
         // It should match the "index_name" entry in the scraper's "config.json" file.
