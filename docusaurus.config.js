@@ -79,9 +79,9 @@ const config = {
       },
 
       announcementBar: {
-        id: 'wind-down', // change this id to force the bar to re-show after a user dismisses it
+        id: 'wind-down-complete', // change this id to force the bar to re-show after a user dismisses it
         content:
-          '⚠️ Powerloom is winding down. Read the <a href="/wind-down/timeline">wind-down timeline</a> for details.',
+          '⚠️ Powerloom wind-down is complete. Read the <a href="/wind-down/timeline">wind-down timeline</a> for details.',
         backgroundColor: '#b91c1c',
         textColor: '#ffffff',
         isCloseable: true,
